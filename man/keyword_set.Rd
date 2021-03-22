@@ -2,16 +2,23 @@
 % Please edit documentation in R/keyword_set.R
 \name{keyword_set}
 \alias{keyword_set}
-\title{Filter a keyword set from the \code{keyword} entity}
+\title{Get a keyword set from the \code{keyword} dataset}
 \usage{
 keyword_set(domain_id, language = NULL, update = FALSE)
 }
 \arguments{
-\item{domain_id}{An \code{integer} or \code{numeric} value indicating the domain id to
+\item{domain_id}{An \code{integer} or \code{numeric} value indicating the domain ID to
 return.}
 
 \item{language}{(optional) A string indicating the language constraint of
 the keywords (case insensitive).}
+
+\item{update}{A \code{logical} value indicating if the \code{keyword} dataset must
+be updated (default: \code{FALSE}).}
+}
+\value{
+A \code{character} object with a tidied single keyword set from the
+keyword dataset.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -20,14 +27,12 @@ the keywords (case insensitive).}
 }
 \examples{
 \dontrun{
-## __ To write all sheets __
-write_sheet()
-
-## __ To write only a specific sheet __
-write_sheet(sheet_id()[1])}
+keyword_set(1, "english")}
 }
 \seealso{
 Other utility functions: 
+\code{\link{pubmed}()},
+\code{\link{query}()},
 \code{\link{raw_data}()},
 \code{\link{tidy_keyword}()}
 }

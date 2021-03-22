@@ -2,7 +2,7 @@
 % Please edit documentation in R/raw_data.R
 \name{raw_data}
 \alias{raw_data}
-\title{Get paths to \code{sqlr.pregnancy} raw datasets}
+\title{Get paths to \code{sqlr} raw datasets}
 \usage{
 raw_data(file = NULL)
 }
@@ -17,7 +17,7 @@ file names available. Else, it returns the \code{file} path.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{raw_data()} returns the raw data paths from the \code{sqlr.pregnancy} package.
+\code{raw_data()} returns the raw data paths from the \code{sqlr} package.
 }
 \examples{
 \dontrun{
@@ -30,6 +30,8 @@ raw_data(raw_data()[1])}
 \seealso{
 Other utility functions: 
 \code{\link{keyword_set}()},
+\code{\link{pubmed}()},
+\code{\link{query}()},
 \code{\link{tidy_keyword}()}
 }
 \concept{utility functions}

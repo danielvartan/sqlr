@@ -30,6 +30,8 @@
 #' @return A `character` object with keywords in `...` tidied.
 #'
 #' @family utility functions
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples

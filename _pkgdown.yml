@@ -1,0 +1,38 @@
+url: https://gipsousp.github.io/sqlr/
+
+template:
+  params:
+    bootswatch: cosmo
+    ganalytics: G-QJBJ92ZW9L
+    mathjax: true
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [github]
+  components:
+    home: ~
+    news: ~
+    articles: ~
+
+reference:
+- title: Utilities
+  contents:
+  - keyword_set
+  - pubmed
+  - query
+  - raw_data
+  - tidy_keyword
+
+authors:
+  Daniel Vartanian:
+    href: https://github.com/danielvartan
+  Interdisciplinary Sleep Research Group (GIPSO):
+    href: http://each.usp.br/gipso
+  University of Sao Paulo (USP):
+    href: http://usp.br
+
+development:
+  mode: auto
+  destination: doc
+  version_label: warning

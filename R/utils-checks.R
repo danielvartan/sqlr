@@ -80,7 +80,7 @@ check_posixt <- function(x, any.missing = TRUE, null.ok = FALSE,
         paste0(single_quote_(name), " cannot have missing values")
     } else if (is.null(x) && isFALSE(null.ok)) {
         paste0(single_quote_(name), " cannot have 'NULL' values")
-    } else  if ("POSIXt" %in% class(x)) {
+    } else  if (!("POSIXt" %in% class(x))) {
         paste0("Must be of type 'POSIXct' or 'POSIXlt', not ",
                class_collapse(x))
     } else {

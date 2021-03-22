@@ -1,17 +1,17 @@
 is_whole_number <- function(x, tol = .Machine$double.eps^0.5) {
-    if (!is_numeric_(x) || !identical(x, abs(x))) {
+    if (!is.numeric(x) || !identical(x, abs(x))) {
         FALSE
     } else {
         abs(x - round(x)) < tol # Example function from `?integer`
     }
 }
 
-double_quote_ <- function(x) {
-    paste0("\"", x, "\"")
-}
-
 single_quote_ <- function(x) {
     paste0("'", x, "'")
+}
+
+double_quote_ <- function(x) {
+    paste0("\"", x, "\"")
 }
 
 backtick_ <- function(x) {

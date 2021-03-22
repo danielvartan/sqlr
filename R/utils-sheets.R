@@ -56,6 +56,8 @@ sheet_id <- function(name = NULL) {
 #'   invisible `tibble` object of the sheet table indicated in `name`.
 #'
 #' @family utility functions
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #' @noRd
 #'
 #' @examples
@@ -90,7 +92,8 @@ read_sheet <- function(name = NULL) {
 
     if ("keyword" %in% ls()) {
         keyword <- keyword %>%
-            dplyr::arrange(domain_id, language, dplyr::desc(approved), keyword)
+            dplyr::arrange(.data$domain_id, .data$language,
+                           dplyr::desc(.data$approved), .data$keyword)
     }
 
     if (!is.null(name)) {

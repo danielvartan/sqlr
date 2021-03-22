@@ -10,21 +10,25 @@
 #'   return.
 #' @param language (optional) A string indicating the language constraint of
 #'   the keywords (case insensitive).
+#' @param update A `logical` value indicating if the `keyword` dataset must
+#'   be updated (default: `FALSE`).
 #'
 #' @return A `character` object with a tidied single keyword set from the
 #'   keyword dataset.
 #'
 #' @family utility functions
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' ## __ To write all sheets __
-#' write_sheet()
-#'
-#' ## __ To write only a specific sheet __
-#' write_sheet(sheet_id()[1])}
+#' keyword_set(1, "english")}
 keyword_set <- function(domain_id, language = NULL, update = FALSE) {
+    # R CMD Check variable bindings fix
+    approved <- NULL
+    keyword <- keyword
+
     domains <- as.numeric(unique(keyword$domain_id))
     languages <- tolower(unique(keyword$language))
     domain_id <- shush(as.numeric(domain_id))

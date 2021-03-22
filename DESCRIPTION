@@ -34,10 +34,13 @@ RoxygenNote: 7.1.1
 Depends:
     R (>= 3.6)
 Imports: 
+    checkmate,
     dplyr,
     lifecycle,
     magrittr,
-    revtools
+    revtools,
+    rlang,
+    stringr
 Suggests: 
     covr,
     devtools,

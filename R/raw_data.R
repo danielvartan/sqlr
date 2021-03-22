@@ -1,10 +1,10 @@
-#' Get paths to `sqlr.pregnancy` raw datasets
+#' Get paths to `sqlr` raw datasets
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `raw_data()` returns the raw data paths from the `sqlr.pregnancy` package.
+#' `raw_data()` returns the raw data paths from the `sqlr` package.
 #'
 #' @param file A string indicating the file name of the raw dataset. If `NULL`,
 #'   all raw dataset file names will be printed (default: `NULL`).
@@ -26,9 +26,9 @@ raw_data <- function(file = NULL) {
     checkmate::assert_string(file, null.ok = TRUE)
 
     if (is.null(file)) {
-        dir(system.file("extdata/citation", package = "sqlr.pregnancy"))
+        dir(system.file("extdata/citation", package = "sqlr"))
     } else {
-        system.file("extdata/citation", file, package = "sqlr.pregnancy",
+        system.file("extdata/citation", file, package = "sqlr",
                     mustWork = TRUE)
     }
 }

@@ -1,3 +1,27 @@
+#' Generate a query for a database provider
+#'
+#' @description
+#'
+#' `r lifecycle::badge("experimental")`
+#'
+#' `query()` returns a query for a specific database provider.
+#'
+#' @param provider A string indicating the database provider name (case
+#'   insensitive)
+#' @param domain_set (optional) A string indicating the domain logic.
+#' @param constraint_set A string indicating the constraint logic.
+#'
+#' @return A string with a query for the provider indicating in `provider`.
+#'   provider.
+#'
+#' @family utility functions
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' query("PubMed", "1 AND 2", "1 AND (4 OR 5 OR 6)")}
 query <- function(provider, domain_set, constraint_set) {
     choices <- c("pubmed", "embase", "ebscohost", "apa psycnet",
                  "web of science", "scopus", "lilacs", "scielo")
@@ -11,7 +35,7 @@ query <- function(provider, domain_set, constraint_set) {
     c_id <- unlist(stringr::str_extract_all(constraint_set, "[0-9]+"))
 
     language <- constraint %>%
-        dplyr::filter(constraint_id %in% as.integer(c_id),
+        dplyr::filter(.data$constraint_id %in% as.integer(c_id),
                       class == "Intrinsic")
 
     if (!(nrow(language) == 1)) {
@@ -30,7 +54,7 @@ query <- function(provider, domain_set, constraint_set) {
     }
 
     constraint <- constraint %>%
-        dplyr::filter(constraint_id %in% as.integer(c_id),
+        dplyr::filter(.data$constraint_id %in% as.integer(c_id),
                       class == "Filter")
 
     if (nrow(constraint) == 0) {
@@ -46,6 +70,30 @@ query <- function(provider, domain_set, constraint_set) {
     }
 }
 
+#' Generate a query for PubMed
+#'
+#' @description
+#'
+#' `r lifecycle::badge("experimental")`
+#'
+#' `pubmed()` returns a query for PubMed.
+#'
+#' @param ... One or more `character` objects with keywords.
+#' @param constraint (optional) A `character` object indicating the type/types
+#'   of constraint of the query.
+#' @param domain (optional) A `list` object with a set of instructions for
+#'   keyword conversion.
+#'
+#' @return A string with a query for PubMed.
+#'
+#' @family utility functions
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' pubmed("Lorem", "Ipsum, dolor", "sit amet", constraint = "abstract")}
 pubmed <- function(..., constraint = NULL, domain = NULL) {
     out <- unlist(list(...), use.names = FALSE)
 
