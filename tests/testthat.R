@@ -3,6 +3,7 @@ library(sqlr)
 
 test_check("sqlr")
 
+#
 # # For development use only (comment the code after use (Ctrl + Shift + C))
 #
 # .rs.restartR()
