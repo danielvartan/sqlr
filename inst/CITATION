@@ -1,0 +1,19 @@
+citHeader("To cite sqlr.pregnancy in publications use:")
+
+citEntry(
+  entry       = "Unpublished",
+  title       = paste0("Expression of the sleep-wake cycle throughout ",
+                      "pregnancy: a systematic literature review"),
+  author      = personList(as.person("Alícia Rafaelly Vilefort Sales"),
+                           as.person("Daniel Vartanian"),
+                           as.person("Isadora Rodrigues"),
+                           as.person("Mario Pedrazzoli")),
+  year        = "2021",
+  url         = "https://gipsousp.github.io/sqlr.pregnancy/",
+  textVersion = paste0("SALES, A. R. V., Vartanian D., Rodrigues, I., ",
+                       "Pedrazzoli, M. (2021). Expression of the sleep-wake ",
+                       "cycle throughout pregnancy: a systematic literature ",
+                       "review. Retrieved from ",
+                       "https://gipsousp.github.io/sqlr.pregnancy/ ."),
+  note        = "Lifecycle: experimental"
+)

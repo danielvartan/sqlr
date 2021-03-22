@@ -1,0 +1,168 @@
+is_whole_number <- function(x, tol = .Machine$double.eps^0.5) {
+    if (!is_numeric_(x) || !identical(x, abs(x))) {
+        FALSE
+    } else {
+        abs(x - round(x)) < tol # Example function from `?integer`
+    }
+}
+
+double_quote_ <- function(x) {
+    paste0("\"", x, "\"")
+}
+
+single_quote_ <- function(x) {
+    paste0("'", x, "'")
+}
+
+backtick_ <- function(x) {
+    paste0("`", x, "`")
+}
+
+class_collapse <- function(x) {
+    single_quote_(paste0(class(x), collapse = "/"))
+}
+
+paste_collapse <- function(x, sep = "", last = sep) {
+    checkmate::assert_string(sep)
+    checkmate::assert_string(last)
+
+    if (length(x) == 1) {
+        x
+    } else {
+        paste0(paste(x[-length(x)], collapse = sep), last, x[length(x)])
+    }
+}
+
+inline_collapse <- function(x, single_quote = TRUE, serial_comma = TRUE) {
+    checkmate::assert_flag(single_quote)
+    checkmate::assert_flag(serial_comma)
+
+    if (isTRUE(single_quote)) x <- single_quote_(x)
+
+    if (length(x) <= 2 || isFALSE(serial_comma)) {
+        paste_collapse(x, sep = ", ", last = " and ")
+    } else {
+        paste_collapse(x, sep = ", ", last = ", and ")
+    }
+}
+
+shush <- function(x, quiet = TRUE) {
+    if (isTRUE(quiet)) {
+        suppressMessages(suppressWarnings(x))
+    } else {
+        x
+    }
+}
+
+close_round <- function(x, digits = 3) {
+    checkmate::assert_numeric(x)
+    checkmate::assert_number(digits)
+
+    pattern_9 <- paste0("\\.", paste(rep(9, digits), collapse = ""))
+    pattern_0 <- paste0("\\.", paste(rep(0, digits), collapse = ""))
+
+    dplyr::case_when(
+        grepl(pattern_9, x) | grepl(pattern_0, x) ~ round(x),
+        TRUE ~ x)
+}
+
+swap <- function(x, y) {
+    a <- x
+    b <- y
+
+    x <- b
+    y <- a
+
+    list(x = x, y = y)
+}
+
+swap_if <- function(x, y, condition = "x > y") {
+    choices <- c("x == y", "x < y", "x <= y", "x > y", "x >= y")
+    checkmate::assert_choice(condition, choices)
+
+    condition <- sub("x", "a", condition)
+    condition <- sub("y", "b", condition)
+
+    a <- x
+    b <- y
+
+    x <- dplyr::if_else(eval(parse(text = condition)), b, a)
+    y <- dplyr::if_else(eval(parse(text = condition)), a, b)
+
+    list(x = x, y = y)
+}
+
+count_na <- function(x) {
+    length(which(is.na(x)))
+}
+
+escape_regex <- function(x) {
+    gsub("([.|()\\^{}+$*?]|\\[|\\])", "\\\\\\1", x)
+}
+
+get_names <- function(...) {
+    out <- lapply(substitute(list(...))[-1], deparse)
+    out <- vapply(out, unlist, character(1))
+    out <- noquote(out)
+    out <- gsub("\\\"","", out)
+
+    out
+}
+
+get_class <- function(x) {
+    foo <- function(x) {
+        class(x)[1]
+    }
+
+    if (is.list(x) || is.data.frame(x)) {
+        vapply(x, foo, character(1))
+    } else {
+        class(x)[1]
+    }
+}
+
+fix_character <- function(x) {
+    checkmate::assert_character(x)
+
+    x <- trimws(x)
+
+    for (i in c("", "NA")) {
+        x <- dplyr::na_if(x, i)
+    }
+
+    x
+}
+
+str_extract_ <- function(string, pattern, ignore.case = FALSE, perl = TRUE,
+                         fixed = FALSE, useBytes = FALSE, invert = FALSE) {
+    checkmate::assert_string(pattern)
+    checkmate::assert_flag(ignore.case)
+    checkmate::assert_flag(perl)
+    checkmate::assert_flag(fixed)
+    checkmate::assert_flag(useBytes)
+    checkmate::assert_flag(invert)
+
+    match <- regexpr(pattern, string, ignore.case = ignore.case, perl = perl,
+                     fixed = fixed, useBytes = useBytes)
+    out <- rep(NA, length(string))
+    out[match != -1 & !is.na(match)] <- regmatches(string, match,
+                                                   invert = invert)
+    out
+}
+
+str_subset_ <- function(string, pattern, negate = FALSE, ignore.case = FALSE,
+                        perl = TRUE, fixed = FALSE, useBytes = FALSE) {
+    checkmate::assert_string(pattern)
+    checkmate::assert_flag(negate)
+
+    match <- grepl(pattern, string, ignore.case = ignore.case, perl = perl,
+                   fixed = fixed, useBytes = useBytes)
+
+    if (isTRUE(negate)) {
+        out <- subset(string, !match)
+    } else {
+        out <- subset(string, match)
+    }
+
+    if (length(out) == 0) as.character(NA) else out
+}

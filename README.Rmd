@@ -1,0 +1,42 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+library(sqlr.pregnancy)
+```
+
+# sqlr.pregnancy
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+`sqlr.pregnancy` is an R package with the compendium files of the project: "Expression of the sleep-wake cycle throughout pregnancy: a systematic literature review".
+
+Learn more about Systematic Quantitative Literature Reviews (SQLR) at http://bit.ly/2OMxvcD .
+
+## Installation
+
+You can install `sqlr.pregnancy` from from GitHub with:
+
+``` r
+# install.packages("sqlr.pregnancy")
+devtools::install_github("gipsousp/sqlr.pregnancy", dependencies = TRUE)
+```
+
+## Citation
+
+If you use `sqlr.pregnancy` in your research, please consider citing it. You can find the `sqlr.pregnancy` citation below.
+
+```{r}
+citation("sqlr.pregnancy")
+```
