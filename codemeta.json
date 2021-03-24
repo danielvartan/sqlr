@@ -1,5 +1,8 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "sqlr",
   "description": "A complete and consistent toolkit for Systematic Quantitative\n    Literature Reviews.",
@@ -86,15 +89,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "devtools",
-      "name": "devtools",
+      "identifier": "crayon",
+      "name": "crayon",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=devtools"
+      "sameAs": "https://CRAN.R-project.org/package=crayon"
     },
     {
       "@type": "SoftwareApplication",
@@ -151,6 +154,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "rstudioapi",
+      "name": "rstudioapi",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rstudioapi"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "spelling",
       "name": "spelling",
       "provider": {
@@ -185,6 +200,11 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=usethis"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
     }
   ],
   "softwareRequirements": [
@@ -193,6 +213,18 @@
       "identifier": "R",
       "name": "R",
       "version": ">= 3.6"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "checkmate",
+      "name": "checkmate",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=checkmate"
     },
     {
       "@type": "SoftwareApplication",
@@ -241,13 +273,42 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=revtools"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "stringr",
+      "name": "stringr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=stringr"
     }
   ],
-  "readme": "https://github.com/gipsousp/sqlr/blob/master/README.Rmd",
-  "fileSize": "49771.548KB",
+  "readme": "https://github.com/gipsousp/sqlr/blob/master/README.md",
+  "fileSize": "50170.167KB",
   "contIntegration": ["https://travis-ci.com/gipsousp/sqlr", "https://codecov.io/gh/gipsousp/sqlr?branch=master"],
   "developmentStatus": ["https://www.repostatus.org/#wip", "https://lifecycle.r-lib.org/articles/stages.html#experimental"],
-  "keywords": ["r-package", "sleep", "chronobiology", "systematic-review"],
+  "keywords": [
+    "r-package",
+    "sleep",
+    "chronobiology",
+    "systematic-review"
+  ],
   "citation": [
     {
       "@type": "CreativeWork",
@@ -269,9 +330,10 @@
           "familyName": "Pedrazzoli"
         }
       ],
-      "name": "sqlr: An R Package for Systematic Quantitative Literature Reviews",
+      "name": "sqlr: An R package for systematic quantitative literature reviews",
       "url": "https://gipsousp.github.io/sqlr/",
       "description": "Lifecycle: experimental"
     }
-  ]
+  ],
+  "releaseNotes": "https://github.com/gipsousp/sqlr/blob/master/NEWS.md"
 }

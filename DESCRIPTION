@@ -43,15 +43,17 @@ Imports:
     stringr
 Suggests: 
     covr,
-    devtools,
+    crayon,
     ggplot2,
     googlesheets4,
     grDevices,
     knitr,
     rmarkdown,
+    rstudioapi,
     spelling,
     testthat (>= 3.0.0),
-    usethis
+    usethis,
+    utils
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Language: en-US

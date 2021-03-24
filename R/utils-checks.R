@@ -34,13 +34,17 @@ check_length_one <- function(x, any.missing = TRUE,
 
 assert_length_one <- checkmate::makeAssertionFunction(check_length_one)
 
+test_has_length <- function(x) {
+    length(x) > 0
+}
+
 check_has_length <- function(x, any.missing = TRUE,
                              name = deparse(substitute(x))) {
     checkmate::assert_flag(any.missing)
 
     if (any(is.na(x)) && isFALSE(any.missing)) {
         paste0(single_quote_(name), " cannot have missing values")
-    } else if (length(x) < 1) {
+    } else if (!test_has_length(x)) {
         paste0(single_quote_(name), " must have length greater than zero")
     } else {
         TRUE

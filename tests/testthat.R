@@ -3,7 +3,6 @@ library(sqlr)
 
 test_check("sqlr")
 
-#
 # # For development use only (comment the code after use (Ctrl + Shift + C))
 #
 # .rs.restartR()
@@ -25,7 +24,6 @@ test_check("sqlr")
 # spelling::update_wordlist()
 # normalizePath(readClipboard(), "/", mustWork = FALSE)
 # usethis::use_logo("./.archive/ai/hex-logo.png")
-# dir("./inst/extdata/citation")
 
 # # Normalize file names
 # path <- "./inst/extdata/citation/"

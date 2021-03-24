@@ -11,11 +11,12 @@ tidy_keyword(
   clean_modifiers = TRUE,
   sort = FALSE,
   na_rm = TRUE,
+  duplicate_rm = TRUE,
   quiet = FALSE
 )
 }
 \arguments{
-\item{...}{One or more \code{character} objects with keywords.}
+\item{...}{One or more \code{character} objects containing keywords.}
 
 \item{min_chars}{(optional) A number indicating the minimal number of
 characters a keyword must have. Keywords that don't comply to this setting
@@ -30,10 +31,13 @@ with modifiers must be transformed to \code{NA}. Modifiers follow the
 \verb{[*?():'\\"]} pattern (default: \code{TRUE}).}
 
 \item{sort}{(optional) A \code{logical} value indicating if the output must be
-sorted (default: \code{FALSE}).}
+ordered alphabetically (default: \code{FALSE}).}
 
 \item{na_rm}{(optional) A \code{logical} value indicating if \code{NA} values must be
 removed from the output (default: \code{TRUE}).}
+
+\item{duplicate_rm}{(optional) A \code{logical} value indicating if duplicate
+values must be removed from the output (default: \code{TRUE}).}
 
 \item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
 must be suppressed (default: \code{FALSE}).}
@@ -45,9 +49,6 @@ A \code{character} object with keywords in \code{...} tidied.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \code{tidy_keyword()} tidy keyword values for database search.
-}
-\details{
-\code{tidy_keyword()} will automatically lowercase all objects in \code{...}.
 }
 \examples{
 tidy_keyword("Lorem", "Ipsum dolor", c("sit", "amet"))
@@ -68,10 +69,7 @@ tidy_keyword("Lorem", "Ipsum*", clean_modifiers = TRUE, na_rm = FALSE)
 #> [1] "lorem" NA # Expected
 }
 \seealso{
-Other utility functions: 
-\code{\link{keyword_set}()},
-\code{\link{pubmed}()},
-\code{\link{query}()},
-\code{\link{raw_data}()}
+Other keyword functions: 
+\code{\link{query}()}
 }
-\concept{utility functions}
+\concept{keyword functions}

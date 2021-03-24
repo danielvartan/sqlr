@@ -27,11 +27,4 @@ raw_data()
 ## __ To get the file path from a specific raw dataset __
 raw_data(raw_data()[1])}
 }
-\seealso{
-Other utility functions: 
-\code{\link{keyword_set}()},
-\code{\link{pubmed}()},
-\code{\link{query}()},
-\code{\link{tidy_keyword}()}
-}
 \concept{utility functions}

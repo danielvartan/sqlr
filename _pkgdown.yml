@@ -16,13 +16,21 @@ navbar:
     articles: ~
 
 reference:
+- title: Keyword Manipulation
+  contents:
+  - query
+  - tidy_keyword
+
 - title: Utilities
   contents:
-  - keyword_set
-  - pubmed
-  - query
   - raw_data
-  - tidy_keyword
+
+- title: (Only for GIPSO)
+  contents:
+  - keyword_set
+  - sheet_id
+  - read_sheet
+  - write_sheet
 
 authors:
   Daniel Vartanian:

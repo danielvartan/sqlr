@@ -4,15 +4,59 @@
 \alias{query}
 \title{Generate a query for a database provider}
 \usage{
-query(provider, domain_set, constraint_set)
+query(
+  ...,
+  provider,
+  constraint = NULL,
+  clipboard = TRUE,
+  print = TRUE,
+  min_chars = 1,
+  delimiter = ",",
+  clean_modifiers = TRUE,
+  sort = FALSE,
+  na_rm = TRUE,
+  duplicate_rm = TRUE,
+  quiet = FALSE
+)
 }
 \arguments{
+\item{...}{One or more \code{character} objects with keywords.}
+
 \item{provider}{A string indicating the database provider name (case
 insensitive)}
 
-\item{domain_set}{(optional) A string indicating the domain logic.}
+\item{constraint}{(optional) A \code{character} object indicating the type/types
+of constraint for the query (case insensitive).}
 
-\item{constraint_set}{A string indicating the constraint logic.}
+\item{clipboard}{(optional) A \code{logical} value indicating if the function must
+copy the output to the clipboard.}
+
+\item{print}{(optional) A \code{logical} value indicating if the function must
+print the output on the console window.}
+
+\item{min_chars}{(optional) A number indicating the minimal number of
+characters a keyword must have. Keywords that don't comply to this setting
+will be transformed to \code{NA}.}
+
+\item{delimiter}{(optional) A string of length 1 with the delimiter used on
+\code{...} values. Use \code{delimiter = NULL} to disable this behavior (default:
+\code{NULL}).}
+
+\item{clean_modifiers}{(optional) A \code{logical} value indicating if keywords
+with modifiers must be transformed to \code{NA}. Modifiers follow the
+\verb{[*?():'\\"]} pattern (default: \code{TRUE}).}
+
+\item{sort}{(optional) A \code{logical} value indicating if the output must be
+ordered alphabetically (default: \code{FALSE}).}
+
+\item{na_rm}{(optional) A \code{logical} value indicating if \code{NA} values must be
+removed from the output (default: \code{TRUE}).}
+
+\item{duplicate_rm}{(optional) A \code{logical} value indicating if duplicate
+values must be removed from the output (default: \code{TRUE}).}
+
+\item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
+must be suppressed (default: \code{FALSE}).}
 }
 \value{
 A string with a query for the provider indicating in \code{provider}.
@@ -23,15 +67,73 @@ provider.
 
 \code{query()} returns a query for a specific database provider.
 }
+\details{
+\subsection{\code{provider} argument}{
+
+\code{query()} works with several providers. At the moment, valid values for the
+\code{provider} argument are:
+\itemize{
+\item \code{"apa"}: for \href{https://psycnet.apa.org/}{APA} (American Psychology
+Association).
+\item \code{"ebsco"}: for \href{https://search.ebscohost.com/}{EBSCO} (Elton Bryson
+Stephens Company).
+\item \code{"embase"}: for \href{https://www.embase.com/}{EMBASE} (Excerpta Medica
+dataBASE).
+\item \code{"lilacs"}: for \href{https://lilacs.bvsalud.org/}{LILACS} (Literatura
+Latino-americana e do Caribe em Ciencias da Saude).
+\item \code{"pubmed"}: for \href{https://pubmed.ncbi.nlm.nih.gov/}{PubMed}.
+\item \code{"scielo"}: for \href{https://scielo.org/}{SciELO} (Scientific Electronic
+Library Online).
+\item \code{"scopus"}: for \href{https://www.scopus.com/}{Scopus}.
+\item \code{"wos"}: for \href{https://www.webofknowledge.com/}{Web of Science}.
+}
+}
+
+\subsection{\code{constraint} argument}{
+
+The \code{constraint} argument must be a \code{character} object with the exact name of
+the constraint (\emph{e.g.}, field, date) that is used in the database provider
+(case insensitive). Also, the following alias were included to help the user:
+title, abstract, keywords.
+
+Please see the database provider documentation to select values for this
+argument.
+\itemize{
+\item \code{"apa"}: for \href{http://help.psycnet.org/}{APA} (American Psychology
+Association).
+\item \code{"ebsco"}: for \href{http://support.ebsco.com/help/}{EBSCO} (Elton Bryson
+Stephens Company).
+\item \code{"embase"}: for \href{https://bit.ly/399d14T}{EMBASE} (Excerpta Medica
+dataBASE)
+\item \code{"lilacs"}: for \href{https://bvsalud.org/en/8246-2/}{LILACS} (Literatura
+Latino-americana e do Caribe em Ciencias da Saude).
+\item \code{"pubmed"}: for \href{https://pubmed.ncbi.nlm.nih.gov/help/}{PubMed}.
+\item \code{"scielo"}: for \href{https://bit.ly/3lJvVnQ}{SciELO} (Scientific Electronic
+Library Online).
+\item \code{"scopus"}: for \href{https://bit.ly/3cj2kyG}{Scopus}.
+\item \code{"wos"}: for \href{https://bit.ly/3sj8nsz}{Web of Science}.
+}
+}
+}
+\section{\code{OR} operators}{
+\code{query()} will exclude \code{" OR "} operators from \code{character} objects in \code{...}.
+This is made to facilitate the keyword set construction.
+
+When using \code{"OR"} (without spaces between words) the operator will be
+interpreted as an keyword.
+}
+
+\section{Creating queries from multiple domains}{
+You can Use "AND" or "NOT" between keywords in the \code{...} argument to get a
+query with multiple domains.
+}
+
 \examples{
-\dontrun{
-query("PubMed", "1 AND 2", "1 AND (4 OR 5 OR 6)")}
+query("Lorem", "Ipsum, dolor", "sit amet", provider = "PubMed",
+      constraint = "Abstract")
 }
 \seealso{
-Other utility functions: 
-\code{\link{keyword_set}()},
-\code{\link{pubmed}()},
-\code{\link{raw_data}()},
+Other keyword functions: 
 \code{\link{tidy_keyword}()}
 }
-\concept{utility functions}
+\concept{keyword functions}
