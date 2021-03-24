@@ -131,23 +131,85 @@ query() returns a query for a specific database provider." />
 <p><code>query()</code> returns a query for a specific database provider.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>query</span><span class='op'>(</span><span class='va'>provider</span>, <span class='va'>domain_set</span>, <span class='va'>constraint_set</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>query</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  <span class='va'>provider</span>,
+  constraint <span class='op'>=</span> <span class='cn'>NULL</span>,
+  clipboard <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  print <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  min_chars <span class='op'>=</span> <span class='fl'>1</span>,
+  delimiter <span class='op'>=</span> <span class='st'>","</span>,
+  clean_modifiers <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  sort <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  na_rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  duplicate_rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>One or more <code>character</code> objects with keywords.</p></td>
+    </tr>
     <tr>
       <th>provider</th>
       <td><p>A string indicating the database provider name (case
 insensitive)</p></td>
     </tr>
     <tr>
-      <th>domain_set</th>
-      <td><p>(optional) A string indicating the domain logic.</p></td>
+      <th>constraint</th>
+      <td><p>(optional) A <code>character</code> object indicating the type/types
+of constraint for the query (case insensitive).</p></td>
     </tr>
     <tr>
-      <th>constraint_set</th>
-      <td><p>A string indicating the constraint logic.</p></td>
+      <th>clipboard</th>
+      <td><p>(optional) A <code>logical</code> value indicating if the function must
+copy the output to the clipboard.</p></td>
+    </tr>
+    <tr>
+      <th>print</th>
+      <td><p>(optional) A <code>logical</code> value indicating if the function must
+print the output on the console window.</p></td>
+    </tr>
+    <tr>
+      <th>min_chars</th>
+      <td><p>(optional) A number indicating the minimal number of
+characters a keyword must have. Keywords that don't comply to this setting
+will be transformed to <code>NA</code>.</p></td>
+    </tr>
+    <tr>
+      <th>delimiter</th>
+      <td><p>(optional) A string of length 1 with the delimiter used on
+<code>...</code> values. Use <code>delimiter = NULL</code> to disable this behavior (default:
+<code>NULL</code>).</p></td>
+    </tr>
+    <tr>
+      <th>clean_modifiers</th>
+      <td><p>(optional) A <code>logical</code> value indicating if keywords
+with modifiers must be transformed to <code>NA</code>. Modifiers follow the
+<code>[*?():'\"]</code> pattern (default: <code>TRUE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>sort</th>
+      <td><p>(optional) A <code>logical</code> value indicating if the output must be
+ordered alphabetically (default: <code>FALSE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>na_rm</th>
+      <td><p>(optional) A <code>logical</code> value indicating if <code>NA</code> values must be
+removed from the output (default: <code>TRUE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>duplicate_rm</th>
+      <td><p>(optional) A <code>logical</code> value indicating if duplicate
+values must be removed from the output (default: <code>TRUE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
+must be suppressed (default: <code>FALSE</code>).</p></td>
     </tr>
     </table>
 
@@ -155,18 +217,74 @@ insensitive)</p></td>
 
     <p>A string with a query for the provider indicating in <code>provider</code>.
 provider.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a><code>provider</code> argument</h3>
+
+
+<p><code>query()</code> works with several providers. At the moment, valid values for the
+<code>provider</code> argument are:</p><ul>
+<li><p><code>"apa"</code>: for <a href='https://psycnet.apa.org/'>APA</a> (American Psychology
+Association).</p></li>
+<li><p><code>"ebsco"</code>: for <a href='https://search.ebscohost.com/'>EBSCO</a> (Elton Bryson
+Stephens Company).</p></li>
+<li><p><code>"embase"</code>: for <a href='https://www.embase.com/'>EMBASE</a> (Excerpta Medica
+dataBASE).</p></li>
+<li><p><code>"lilacs"</code>: for <a href='https://lilacs.bvsalud.org/'>LILACS</a> (Literatura
+Latino-americana e do Caribe em Ciencias da Saude).</p></li>
+<li><p><code>"pubmed"</code>: for <a href='https://pubmed.ncbi.nlm.nih.gov/'>PubMed</a>.</p></li>
+<li><p><code>"scielo"</code>: for <a href='https://scielo.org/'>SciELO</a> (Scientific Electronic
+Library Online).</p></li>
+<li><p><code>"scopus"</code>: for <a href='https://www.scopus.com/'>Scopus</a>.</p></li>
+<li><p><code>"wos"</code>: for <a href='https://www.webofknowledge.com/'>Web of Science</a>.</p></li>
+</ul>
+
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a><code>constraint</code> argument</h3>
+
+
+<p>The <code>constraint</code> argument must be a <code>character</code> object with the exact name of
+the constraint (<em>e.g.</em>, field, date) that is used in the database provider
+(case insensitive). Also, the following alias were included to help the user:
+title, abstract, keywords.</p>
+<p>Please see the database provider documentation to select values for this
+argument.</p><ul>
+<li><p><code>"apa"</code>: for <a href='http://help.psycnet.org/'>APA</a> (American Psychology
+Association).</p></li>
+<li><p><code>"ebsco"</code>: for <a href='http://support.ebsco.com/help/'>EBSCO</a> (Elton Bryson
+Stephens Company).</p></li>
+<li><p><code>"embase"</code>: for <a href='https://bit.ly/399d14T'>EMBASE</a> (Excerpta Medica
+dataBASE)</p></li>
+<li><p><code>"lilacs"</code>: for <a href='https://bvsalud.org/en/8246-2/'>LILACS</a> (Literatura
+Latino-americana e do Caribe em Ciencias da Saude).</p></li>
+<li><p><code>"pubmed"</code>: for <a href='https://pubmed.ncbi.nlm.nih.gov/help/'>PubMed</a>.</p></li>
+<li><p><code>"scielo"</code>: for <a href='https://bit.ly/3lJvVnQ'>SciELO</a> (Scientific Electronic
+Library Online).</p></li>
+<li><p><code>"scopus"</code>: for <a href='https://bit.ly/3cj2kyG'>Scopus</a>.</p></li>
+<li><p><code>"wos"</code>: for <a href='https://bit.ly/3sj8nsz'>Web of Science</a>.</p></li>
+</ul>
+
+
+    <h2 class="hasAnchor" id="or-operators"><a class="anchor" href="#or-operators"></a><code>OR</code> operators</h2>
+
+    <p><code>query()</code> will exclude <code>" OR "</code> operators from <code>character</code> objects in <code>...</code>.
+This is made to facilitate the keyword set construction.</p>
+<p>When using <code>"OR"</code> (without spaces between words) the operator will be
+interpreted as an keyword.</p>
+    <h2 class="hasAnchor" id="creating-queries-from-multiple-domains"><a class="anchor" href="#creating-queries-from-multiple-domains"></a>Creating queries from multiple domains</h2>
+
+    <p>You can Use "AND" or "NOT" between keywords in the <code>...</code> argument to get a
+query with multiple domains.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other utility functions: 
-<code><a href='keyword_set.html'>keyword_set</a>()</code>,
-<code><a href='pubmed.html'>pubmed</a>()</code>,
-<code><a href='raw_data.html'>raw_data</a>()</code>,
+    <div class='dont-index'><p>Other keyword functions: 
 <code><a href='tidy_keyword.html'>tidy_keyword</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>query</span><span class='op'>(</span><span class='st'>"PubMed"</span>, <span class='st'>"1 AND 2"</span>, <span class='st'>"1 AND (4 OR 5 OR 6)"</span><span class='op'>)</span><span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>query</span><span class='op'>(</span><span class='st'>"Lorem"</span>, <span class='st'>"Ipsum, dolor"</span>, <span class='st'>"sit amet"</span>, provider <span class='op'>=</span> <span class='st'>"PubMed"</span>,
+      constraint <span class='op'>=</span> <span class='st'>"Abstract"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #BB0000;font-weight: bold;'>(lorem[Title/Abstract]) OR (ipsum[Title/Abstract]) OR (dolor[Title/Abstract]) OR ("sit amet"[Title/Abstract])</span><span></div><div class='output co'>#&gt; <span class='error'>Error: 'writeClipboard' is not an exported object from 'namespace:utils'</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

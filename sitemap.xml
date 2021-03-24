@@ -16,16 +16,22 @@
     <loc>https://gipsousp.github.io/sqlr//reference/keyword_set.html</loc>
   </url>
   <url>
-    <loc>https://gipsousp.github.io/sqlr//reference/pubmed.html</loc>
-  </url>
-  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/query.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/raw_data.html</loc>
   </url>
   <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/read_sheet.html</loc>
+  </url>
+  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/search.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/sheet_id.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/sheets.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/source.html</loc>
@@ -34,6 +40,12 @@
     <loc>https://gipsousp.github.io/sqlr//reference/sqlr-package.html</loc>
   </url>
   <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/tags.html</loc>
+  </url>
+  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/tidy_keyword.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/write_sheet.html</loc>
   </url>
 </urlset>

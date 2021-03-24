@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Group keywords from the keyword dataset — keyword_set • sqlr</title>
+<title>Get the sheet_id of database entities on Google Sheets — sheet_id • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Group keywords from the keyword dataset — keyword_set" />
+<meta property="og:title" content="Get the sheet_id of database entities on Google Sheets — sheet_id" />
 <meta property="og:description" content="
-keyword_set returns a keyword set from the keyword dataset." />
+sheet_id() retrieve the sheet_id from entities tables on Google Sheets." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
 
 
@@ -121,30 +121,24 @@ keyword_set returns a keyword set from the keyword dataset." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Group keywords from the <code>keyword</code> dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/keyword_set.R'><code>R/keyword_set.R</code></a></small>
-    <div class="hidden name"><code>keyword_set.Rd</code></div>
+    <h1>Get the <code>sheet_id</code> of database entities on Google Sheets</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/utils-sheets.R'><code>R/utils-sheets.R</code></a></small>
+    <div class="hidden name"><code>sheet_id.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><code>keyword_set</code> returns a keyword set from the <code>keyword</code> dataset.</p>
+<p><code>sheet_id()</code> retrieve the <code>sheet_id</code> from entities tables on Google Sheets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>keyword_set</span><span class='op'>(</span><span class='va'>domain_id</span>, language <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>sheet_id</span><span class='op'>(</span>name <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>domain_id</th>
-      <td><p>An <code>integer</code> or <code>numeric</code> value indicating the domain ID to
-return.</p></td>
-    </tr>
-    <tr>
-      <th>language</th>
-      <td><p>(optional) A string indicating the language constraint of
-the keywords (case insensitive).</p></td>
+      <th>name</th>
+      <td><p>(optional) A string indicating the sheet name (default: <code>NULL</code>).</p></td>
     </tr>
     <tr>
       <th>package</th>
@@ -157,17 +151,23 @@ project active directory (requires the <code>rstudioapi</code> package) (default
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>character</code> object with a keyword set.</p>
+    <p>If <code>name = NULL</code>, returns a <code>character</code> object with all sheet names
+available. Else, it returns the <code>sheet_id</code> object of the sheet indicated in
+<code>name</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other GIPSO functions: 
+<code><a href='keyword_set.html'>keyword_set</a>()</code>,
 <code><a href='read_sheet.html'>read_sheet</a>()</code>,
-<code><a href='sheet_id.html'>sheet_id</a>()</code>,
 <code><a href='write_sheet.html'>write_sheet</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>keyword_set</span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"english"</span><span class='op'>)</span><span class='op'>}</span>
+<span class='co'>## __ To list all the all sheet names available __</span>
+<span class='fu'>sheet_id</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='co'>## __ To get the 'sheet_id' object of a specific sheet __</span>
+<span class='fu'>sheet_id</span><span class='op'>(</span><span class='fu'>sheet_id</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -138,6 +138,7 @@ tidy_keyword() tidy keyword values for database search." />
   clean_modifiers <span class='op'>=</span> <span class='cn'>TRUE</span>,
   sort <span class='op'>=</span> <span class='cn'>FALSE</span>,
   na_rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  duplicate_rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
   quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -146,7 +147,7 @@ tidy_keyword() tidy keyword values for database search." />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>One or more <code>character</code> objects with keywords.</p></td>
+      <td><p>One or more <code>character</code> objects containing keywords.</p></td>
     </tr>
     <tr>
       <th>min_chars</th>
@@ -169,12 +170,17 @@ with modifiers must be transformed to <code>NA</code>. Modifiers follow the
     <tr>
       <th>sort</th>
       <td><p>(optional) A <code>logical</code> value indicating if the output must be
-sorted (default: <code>FALSE</code>).</p></td>
+ordered alphabetically (default: <code>FALSE</code>).</p></td>
     </tr>
     <tr>
       <th>na_rm</th>
       <td><p>(optional) A <code>logical</code> value indicating if <code>NA</code> values must be
 removed from the output (default: <code>TRUE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>duplicate_rm</th>
+      <td><p>(optional) A <code>logical</code> value indicating if duplicate
+values must be removed from the output (default: <code>TRUE</code>).</p></td>
     </tr>
     <tr>
       <th>quiet</th>
@@ -186,16 +192,10 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>character</code> object with keywords in <code>...</code> tidied.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><code>tidy_keyword()</code> will automatically lowercase all objects in <code>...</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other utility functions: 
-<code><a href='keyword_set.html'>keyword_set</a>()</code>,
-<code><a href='pubmed.html'>pubmed</a>()</code>,
-<code><a href='query.html'>query</a>()</code>,
-<code><a href='raw_data.html'>raw_data</a>()</code></p></div>
+    <div class='dont-index'><p>Other keyword functions: 
+<code><a href='query.html'>query</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>tidy_keyword</span><span class='op'>(</span><span class='st'>"Lorem"</span>, <span class='st'>"Ipsum dolor"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sit"</span>, <span class='st'>"amet"</span><span class='op'>)</span><span class='op'>)</span>

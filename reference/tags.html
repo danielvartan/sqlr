@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Group keywords from the keyword dataset — keyword_set • sqlr</title>
+<title>List of search tags from several database providers — tags • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Group keywords from the keyword dataset — keyword_set" />
+<meta property="og:title" content="List of search tags from several database providers — tags" />
 <meta property="og:description" content="
-keyword_set returns a keyword set from the keyword dataset." />
+UNDER DEVELOPMENT" />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
 
 
@@ -121,54 +121,23 @@ keyword_set returns a keyword set from the keyword dataset." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Group keywords from the <code>keyword</code> dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/keyword_set.R'><code>R/keyword_set.R</code></a></small>
-    <div class="hidden name"><code>keyword_set.Rd</code></div>
+    <h1>List of search tags from several database providers</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>tags.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><code>keyword_set</code> returns a keyword set from the <code>keyword</code> dataset.</p>
+<p><strong>UNDER DEVELOPMENT</strong></p>
     </div>
 
-    <pre class="usage"><span class='fu'>keyword_set</span><span class='op'>(</span><span class='va'>domain_id</span>, language <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>tags</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>domain_id</th>
-      <td><p>An <code>integer</code> or <code>numeric</code> value indicating the domain ID to
-return.</p></td>
-    </tr>
-    <tr>
-      <th>language</th>
-      <td><p>(optional) A string indicating the language constraint of
-the keywords (case insensitive).</p></td>
-    </tr>
-    <tr>
-      <th>package</th>
-      <td><p>(optional) A string indicating the package where the sheets
-list can be found. If <code>NULL</code>, the function will try to use the name of the
-project active directory (requires the <code>rstudioapi</code> package) (default:
-<code>NULL</code>).</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A <code>character</code> object with a keyword set.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>An object of class <code>list</code> of length 5.</p>
 
-    <div class='dont-index'><p>Other GIPSO functions: 
-<code><a href='read_sheet.html'>read_sheet</a>()</code>,
-<code><a href='sheet_id.html'>sheet_id</a>()</code>,
-<code><a href='write_sheet.html'>write_sheet</a>()</code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>keyword_set</span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"english"</span><span class='op'>)</span><span class='op'>}</span>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
