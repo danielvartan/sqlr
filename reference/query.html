@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a query for a database provider — query • sqlr</title>
+<title>Create a query command for a database provider — query • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,10 @@
 
 
 
-<meta property="og:title" content="Generate a query for a database provider — query" />
+<meta property="og:title" content="Create a query command for a database provider — query" />
 <meta property="og:description" content="
-query() returns a query for a specific database provider." />
+query() creates and returns a query command for a specific database
+provider." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
 
 
@@ -121,14 +122,15 @@ query() returns a query for a specific database provider." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a query for a database provider</h1>
+    <h1>Create a query command for a database provider</h1>
     <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/query.R'><code>R/query.R</code></a></small>
     <div class="hidden name"><code>query.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><code>query()</code> returns a query for a specific database provider.</p>
+<p><code>query()</code> creates and returns a query command for a specific database
+provider.</p>
     </div>
 
     <pre class="usage"><span class='fu'>query</span><span class='op'>(</span>
@@ -139,11 +141,11 @@ query() returns a query for a specific database provider." />
   print <span class='op'>=</span> <span class='cn'>TRUE</span>,
   min_chars <span class='op'>=</span> <span class='fl'>1</span>,
   delimiter <span class='op'>=</span> <span class='st'>","</span>,
+  enclosure <span class='op'>=</span> <span class='st'>"double quote"</span>,
   clean_modifiers <span class='op'>=</span> <span class='cn'>TRUE</span>,
   sort <span class='op'>=</span> <span class='cn'>FALSE</span>,
   na_rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  duplicate_rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
+  duplicate_rm <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -181,15 +183,18 @@ will be transformed to <code>NA</code>.</p></td>
     </tr>
     <tr>
       <th>delimiter</th>
-      <td><p>(optional) A string of length 1 with the delimiter used on
-<code>...</code> values. Use <code>delimiter = NULL</code> to disable this behavior (default:
-<code>NULL</code>).</p></td>
+      <td><p>(optional) A string with the delimiter used on <code>...</code> values.
+Use <code>delimiter = NULL</code> to disable this behavior (default: <code>NULL</code>).</p></td>
+    </tr>
+    <tr>
+      <th>enclosure</th>
+      <td><p>(optional) A string indicating the type of enclosure for
+keywords with special characters (like spaces) (default: "double quote").</p></td>
     </tr>
     <tr>
       <th>clean_modifiers</th>
       <td><p>(optional) A <code>logical</code> value indicating if keywords
-with modifiers must be transformed to <code>NA</code>. Modifiers follow the
-<code>[*?():'\"]</code> pattern (default: <code>TRUE</code>).</p></td>
+with modifiers must be transformed to <code>NA</code> (default: <code>TRUE</code>).</p></td>
     </tr>
     <tr>
       <th>sort</th>
@@ -206,25 +211,19 @@ removed from the output (default: <code>TRUE</code>).</p></td>
       <td><p>(optional) A <code>logical</code> value indicating if duplicate
 values must be removed from the output (default: <code>TRUE</code>).</p></td>
     </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
-must be suppressed (default: <code>FALSE</code>).</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A string with a query for the provider indicating in <code>provider</code>.
-provider.</p>
+    <p>A string with a query for the provider indicating in <code>provider</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a><code>provider</code> argument</h3>
 
 
-<p><code>query()</code> works with several providers. At the moment, valid values for the
-<code>provider</code> argument are:</p><ul>
+<p><code>query()</code> works with several database providers. At the moment, valid values
+for the <code>provider</code> argument are:</p><ul>
 <li><p><code>"apa"</code>: for <a href='https://psycnet.apa.org/'>APA</a> (American Psychology
 Association).</p></li>
 <li><p><code>"ebsco"</code>: for <a href='https://search.ebscohost.com/'>EBSCO</a> (Elton Bryson
@@ -244,12 +243,17 @@ Library Online).</p></li>
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a><code>constraint</code> argument</h3>
 
 
-<p>The <code>constraint</code> argument must be a <code>character</code> object with the exact name of
-the constraint (<em>e.g.</em>, field, date) that is used in the database provider
-(case insensitive). Also, the following alias were included to help the user:
-title, abstract, keywords.</p>
-<p>Please see the database provider documentation to select values for this
-argument.</p><ul>
+<p>The <code>constraint</code> argument must be a <code>character</code> object with the exact name
+of the constraint (<em>e.g.</em>, <code>"Title"</code>, <code>"Abstract"</code>) that is used in the
+database provider (case insensitive). Also, the following alias were included
+to help the user: title, abstract, keyword.</p>
+<p>You can see all constraint names available for the query function
+<a href='https://github.com/gipsousp/sqlr/blob/master/data-raw/tags.R'>here</a>.</p>
+<p>Please note that some constraints may not be available for the database
+you're a searching. Always read the database provider documentation before
+building your search.</p>
+<p>Here are the documentation links of the database providers supported by the
+<code>query()</code> function.</p><ul>
 <li><p><code>"apa"</code>: for <a href='http://help.psycnet.org/'>APA</a> (American Psychology
 Association).</p></li>
 <li><p><code>"ebsco"</code>: for <a href='http://support.ebsco.com/help/'>EBSCO</a> (Elton Bryson
@@ -261,30 +265,62 @@ Latino-americana e do Caribe em Ciencias da Saude).</p></li>
 <li><p><code>"pubmed"</code>: for <a href='https://pubmed.ncbi.nlm.nih.gov/help/'>PubMed</a>.</p></li>
 <li><p><code>"scielo"</code>: for <a href='https://bit.ly/3lJvVnQ'>SciELO</a> (Scientific Electronic
 Library Online).</p></li>
-<li><p><code>"scopus"</code>: for <a href='https://bit.ly/3cj2kyG'>Scopus</a>.</p></li>
+<li><p><code>"scopus"</code>: for <a href='https://bit.ly/2QAylcS'>Scopus</a>.</p></li>
 <li><p><code>"wos"</code>: for <a href='https://bit.ly/3sj8nsz'>Web of Science</a>.</p></li>
 </ul>
 
 
-    <h2 class="hasAnchor" id="or-operators"><a class="anchor" href="#or-operators"></a><code>OR</code> operators</h2>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a><code>OR</code> operators</h3>
 
-    <p><code>query()</code> will exclude <code>" OR "</code> operators from <code>character</code> objects in <code>...</code>.
+
+<p><code>query()</code> will exclude <code>" OR "</code> operators from <code>character</code> elements in <code>...</code>.
 This is made to facilitate the keyword set construction.</p>
 <p>When using <code>"OR"</code> (without spaces between words) the operator will be
-interpreted as an keyword.</p>
-    <h2 class="hasAnchor" id="creating-queries-from-multiple-domains"><a class="anchor" href="#creating-queries-from-multiple-domains"></a>Creating queries from multiple domains</h2>
+interpreted as a keyword.</p>
 
-    <p>You can Use "AND" or "NOT" between keywords in the <code>...</code> argument to get a
-query with multiple domains.</p>
+    <h2 class="hasAnchor" id="creating-queries-from-multiple-domain-sets"><a class="anchor" href="#creating-queries-from-multiple-domain-sets"></a>Creating queries from multiple domain sets</h2>
+
+    <p>Domains sets are a group of keyword related to a subject. You can Use the
+boolean operators <code>"AND</code>", <code>"NOT"</code>, and <code>"AND NOT"</code> between keywords in the
+<code>...</code> argument to get a query with multiple domains. However, it's important
+to note that a query can only have a fixed set of constraints.</p>
+<p>This function was not made to produce a high level of custom programming.
+Other operators (<em>e.g.</em>, <code>SAME</code>, <code>NEAR</code>, <code>W/n</code>, <code>PRE/n</code>) are not supported.
+To go around this, you can call <code>query()</code> several times and glue the results.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Keyword tidying</h3>
+
+
+<p><code>query()</code> uses <code><a href='tidy_keyword.html'>tidy_keyword()</a></code> to tidy your keywords for output. See
+<code><a href='tidy_keyword.html'>tidy_keyword()</a></code> documentation to learn more about it.</p>
+<p>Depending on how you set up the <code>query()</code> arguments, it can generate empty
+sets (<em>e.g.</em> like when you use <code>min_chars = 100</code>). The function will produce
+an error in those cases.</p>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other keyword functions: 
 <code><a href='tidy_keyword.html'>tidy_keyword</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>query</span><span class='op'>(</span><span class='st'>"Lorem"</span>, <span class='st'>"Ipsum, dolor"</span>, <span class='st'>"sit amet"</span>, provider <span class='op'>=</span> <span class='st'>"PubMed"</span>,
-      constraint <span class='op'>=</span> <span class='st'>"Abstract"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #BB0000;font-weight: bold;'>(lorem[Title/Abstract]) OR (ipsum[Title/Abstract]) OR (dolor[Title/Abstract]) OR ("sit amet"[Title/Abstract])</span><span></div><div class='output co'>#&gt; <span class='error'>Error: 'writeClipboard' is not an exported object from 'namespace:utils'</span></div></span></pre>
+    <pre class="examples"><div class='input'><span class='co'>## __ Creating simple queries __</span>
+
+<span class='fu'>query</span><span class='op'>(</span><span class='st'>"Lorem"</span>, <span class='st'>"Ipsum, dolor"</span>, <span class='st'>"sit"</span>, provider <span class='op'>=</span> <span class='st'>"PubMed"</span>,
+      constraint <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"title"</span>, <span class='st'>"abstract"</span><span class='op'>)</span>, clipboard <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #BB0000;font-weight: bold;'>lorem[Title/Abstract] OR ipsum[Title/Abstract] OR dolor[Title/Abstract] OR sit[Title/Abstract]</span><span></div><div class='input'><span class='co'>#&gt; (lorem[Title/Abstract]) OR (ipsum[Title/Abstract]) OR</span>
+<span class='co'>#&gt; (dolor[Title/Abstract]) OR (sit[Title/Abstract]) # Expected</span>
+
+<span class='co'>## __ Creating queries from multiple domains __</span>
+
+<span class='fu'>query</span><span class='op'>(</span><span class='st'>"Lorem"</span>, <span class='st'>"AND"</span>, <span class='st'>"Ipsum"</span>, <span class='st'>"NOT"</span>, <span class='st'>"dolor"</span>, provider <span class='op'>=</span> <span class='st'>"embase"</span>,
+      constraint <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"title"</span>, <span class='st'>"abstract"</span><span class='op'>)</span>, clipboard <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #BB0000;font-weight: bold;'>(lorem:ti,ab) AND (ipsum:ti,ab) NOT (dolor:ti,ab)</span><span></div><div class='input'><span class='co'>#&gt; (lorem:ti,ab) AND (ipsum:ti,ab) NOT (dolor:ti,ab) # Expected</span>
+
+<span class='co'>## __ A real-life query example __</span>
+
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>query</span><span class='op'>(</span><span class='fu'><a href='keyword_set.html'>keyword_set</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"english"</span><span class='op'>)</span>, <span class='st'>"AND"</span>, <span class='fu'><a href='keyword_set.html'>keyword_set</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"english"</span><span class='op'>)</span>,
+      provider <span class='op'>=</span> <span class='st'>"wos"</span>, constraint <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"title"</span>, <span class='st'>"abstract"</span>, <span class='st'>"keyword"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
