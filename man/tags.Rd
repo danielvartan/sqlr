@@ -5,7 +5,7 @@
 \alias{tags}
 \title{List of search tags from several database providers}
 \format{
-An object of class \code{list} of length 5.
+An object of class \code{list} of length 8.
 }
 \usage{
 tags

@@ -32,7 +32,7 @@ library(sqlr)
 
 `sqlr` is an R package that provides a complete and consistent toolkit to process Systematic Quantitative Literature Reviews (SQLR), a method of systematic reviews presented by Catherine Pickering and Jason Byrne in [2014](https://doi.org/10.1080/07294360.2013.841651). The aim of `sqlr` is to facilitate the work of PhD candidates and other early-career researchers with evidence synthesis while also helping with research reproducibility.
 
-Learn more about systematic quantitative literature reviews at http://bit.ly/2OMxvcD .
+Learn more about systematic quantitative literature reviews at <http://bit.ly/2OMxvcD>.
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ In case you don't feel comfortable with R, we strongly recommend checking Hadley
 
 `sqlr` is still at the [experimental](https://lifecycle.r-lib.org/articles/stages.html#experimental) stage of development, that means that people can use the package and provide feedback, but it comes with no promises for long term stability.
 
-You can install `sqlr` from from GitHub with:
+You can install `sqlr` from GitHub with:
 
 ``` {r, eval = FALSE}
 # install.packages("sqlr")

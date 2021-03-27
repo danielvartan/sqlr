@@ -2,7 +2,7 @@
 % Please edit documentation in R/query.R
 \name{query}
 \alias{query}
-\title{Generate a query for a database provider}
+\title{Create a query command for a database provider}
 \usage{
 query(
   ...,
@@ -12,11 +12,11 @@ query(
   print = TRUE,
   min_chars = 1,
   delimiter = ",",
+  enclosure = "double quote",
   clean_modifiers = TRUE,
   sort = FALSE,
   na_rm = TRUE,
-  duplicate_rm = TRUE,
-  quiet = FALSE
+  duplicate_rm = TRUE
 )
 }
 \arguments{
@@ -38,13 +38,14 @@ print the output on the console window.}
 characters a keyword must have. Keywords that don't comply to this setting
 will be transformed to \code{NA}.}
 
-\item{delimiter}{(optional) A string of length 1 with the delimiter used on
-\code{...} values. Use \code{delimiter = NULL} to disable this behavior (default:
-\code{NULL}).}
+\item{delimiter}{(optional) A string with the delimiter used on \code{...} values.
+Use \code{delimiter = NULL} to disable this behavior (default: \code{NULL}).}
+
+\item{enclosure}{(optional) A string indicating the type of enclosure for
+keywords with special characters (like spaces) (default: "double quote").}
 
 \item{clean_modifiers}{(optional) A \code{logical} value indicating if keywords
-with modifiers must be transformed to \code{NA}. Modifiers follow the
-\verb{[*?():'\\"]} pattern (default: \code{TRUE}).}
+with modifiers must be transformed to \code{NA} (default: \code{TRUE}).}
 
 \item{sort}{(optional) A \code{logical} value indicating if the output must be
 ordered alphabetically (default: \code{FALSE}).}
@@ -54,24 +55,21 @@ removed from the output (default: \code{TRUE}).}
 
 \item{duplicate_rm}{(optional) A \code{logical} value indicating if duplicate
 values must be removed from the output (default: \code{TRUE}).}
-
-\item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
-must be suppressed (default: \code{FALSE}).}
 }
 \value{
 A string with a query for the provider indicating in \code{provider}.
-provider.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{query()} returns a query for a specific database provider.
+\code{query()} creates and returns a query command for a specific database
+provider.
 }
 \details{
 \subsection{\code{provider} argument}{
 
-\code{query()} works with several providers. At the moment, valid values for the
-\code{provider} argument are:
+\code{query()} works with several database providers. At the moment, valid values
+for the \code{provider} argument are:
 \itemize{
 \item \code{"apa"}: for \href{https://psycnet.apa.org/}{APA} (American Psychology
 Association).
@@ -91,13 +89,20 @@ Library Online).
 
 \subsection{\code{constraint} argument}{
 
-The \code{constraint} argument must be a \code{character} object with the exact name of
-the constraint (\emph{e.g.}, field, date) that is used in the database provider
-(case insensitive). Also, the following alias were included to help the user:
-title, abstract, keywords.
+The \code{constraint} argument must be a \code{character} object with the exact name
+of the constraint (\emph{e.g.}, \code{"Title"}, \code{"Abstract"}) that is used in the
+database provider (case insensitive). Also, the following alias were included
+to help the user: title, abstract, keyword.
 
-Please see the database provider documentation to select values for this
-argument.
+You can see all constraint names available for the query function
+\href{https://github.com/gipsousp/sqlr/blob/master/data-raw/tags.R}{here}.
+
+Please note that some constraints may not be available for the database
+you're a searching. Always read the database provider documentation before
+building your search.
+
+Here are the documentation links of the database providers supported by the
+\code{query()} function.
 \itemize{
 \item \code{"apa"}: for \href{http://help.psycnet.org/}{APA} (American Psychology
 Association).
@@ -110,27 +115,60 @@ Latino-americana e do Caribe em Ciencias da Saude).
 \item \code{"pubmed"}: for \href{https://pubmed.ncbi.nlm.nih.gov/help/}{PubMed}.
 \item \code{"scielo"}: for \href{https://bit.ly/3lJvVnQ}{SciELO} (Scientific Electronic
 Library Online).
-\item \code{"scopus"}: for \href{https://bit.ly/3cj2kyG}{Scopus}.
+\item \code{"scopus"}: for \href{https://bit.ly/2QAylcS}{Scopus}.
 \item \code{"wos"}: for \href{https://bit.ly/3sj8nsz}{Web of Science}.
 }
 }
-}
-\section{\code{OR} operators}{
-\code{query()} will exclude \code{" OR "} operators from \code{character} objects in \code{...}.
+
+\subsection{\code{OR} operators}{
+
+\code{query()} will exclude \code{" OR "} operators from \code{character} elements in \code{...}.
 This is made to facilitate the keyword set construction.
 
 When using \code{"OR"} (without spaces between words) the operator will be
-interpreted as an keyword.
+interpreted as a keyword.
 }
+}
+\section{Creating queries from multiple domain sets}{
+Domains sets are a group of keyword related to a subject. You can Use the
+boolean operators \verb{"AND}", \code{"NOT"}, and \code{"AND NOT"} between keywords in the
+\code{...} argument to get a query with multiple domains. However, it's important
+to note that a query can only have a fixed set of constraints.
 
-\section{Creating queries from multiple domains}{
-You can Use "AND" or "NOT" between keywords in the \code{...} argument to get a
-query with multiple domains.
+This function was not made to produce a high level of custom programming.
+Other operators (\emph{e.g.}, \code{SAME}, \code{NEAR}, \code{W/n}, \code{PRE/n}) are not supported.
+To go around this, you can call \code{query()} several times and glue the results.
+\subsection{Keyword tidying}{
+
+\code{query()} uses \code{tidy_keyword()} to tidy your keywords for output. See
+\code{tidy_keyword()} documentation to learn more about it.
+
+Depending on how you set up the \code{query()} arguments, it can generate empty
+sets (\emph{e.g.} like when you use \code{min_chars = 100}). The function will produce
+an error in those cases.
+}
 }
 
 \examples{
-query("Lorem", "Ipsum, dolor", "sit amet", provider = "PubMed",
-      constraint = "Abstract")
+## __ Creating simple queries __
+
+query("Lorem", "Ipsum, dolor", "sit", provider = "PubMed",
+      constraint = c("title", "abstract"), clipboard = FALSE)
+#> (lorem[Title/Abstract]) OR (ipsum[Title/Abstract]) OR
+#> (dolor[Title/Abstract]) OR (sit[Title/Abstract]) # Expected
+
+## __ Creating queries from multiple domains __
+
+query("Lorem", "AND", "Ipsum", "NOT", "dolor", provider = "embase",
+      constraint = c("title", "abstract"), clipboard = FALSE)
+#> (lorem:ti,ab) AND (ipsum:ti,ab) NOT (dolor:ti,ab) # Expected
+
+## __ A real-life query example __
+
+\dontrun{
+query(keyword_set(1, "english"), "AND", keyword_set(2, "english"),
+      provider = "wos", constraint = c("title", "abstract", "keyword"))
+}
 }
 \seealso{
 Other keyword functions: 

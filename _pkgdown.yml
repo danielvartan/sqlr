@@ -16,7 +16,7 @@ navbar:
     articles: ~
 
 reference:
-- title: Keyword Manipulation
+- title: Keyword manipulation
   contents:
   - query
   - tidy_keyword

@@ -38,9 +38,8 @@ Imports:
     dplyr,
     lifecycle,
     magrittr,
-    revtools,
-    rlang,
-    stringr
+    stringr,
+    synthesisr
 Suggests: 
     covr,
     crayon,
@@ -48,6 +47,7 @@ Suggests:
     googlesheets4,
     grDevices,
     knitr,
+    rlang,
     rmarkdown,
     rstudioapi,
     spelling,

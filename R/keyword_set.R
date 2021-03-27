@@ -16,7 +16,6 @@
 #' @family GIPSO functions
 #' @inheritParams sheet_id
 #' @importFrom magrittr %>%
-#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
@@ -25,10 +24,11 @@
 keyword_set <- function(domain_id, language = NULL, package = NULL) {
     keyword <- approved <- NULL # R CMD Check variable bindings fix
 
-    if (!is_namespace_loaded("utils")) {
-        stop("This function requires the 'utils' package ",
+    if (!is_namespace_loaded("utils") || !is_namespace_loaded("magrittr")) {
+        stop("This function requires the 'utils' and 'magrittr' packages ",
              'to run. You can install it by running: \n \n',
-             'install.packages("utils")', call. = FALSE)
+             'install.packages("utils")  \n',
+             'install.packages("magrittr")' , call. = FALSE)
     }
 
     if (is.null(package)) {
@@ -64,8 +64,7 @@ keyword_set <- function(domain_id, language = NULL, package = NULL) {
                     paste0(keyword, ",", variation),
                 !is.na(keyword) & is.na(variation) ~
                     keyword
-            )
-        ) %>%
+            )) %>%
         dplyr::select(domain_id, language, keyword)
 
     dom <- domain_id

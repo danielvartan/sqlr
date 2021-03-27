@@ -18,6 +18,27 @@ backtick_ <- function(x) {
     paste0("`", x, "`")
 }
 
+enclosure <- function(x, type = "double quote") {
+    choices <- c("single quote", "double quote", "round bracket",
+                 "curly bracket", "square bracket")
+
+    checkmate::assert_choice(type, choices)
+
+    x <- as.character(x)
+
+    if (type == "single quote") {
+        paste0("'", x, "'")
+    } else if (type == "double quote") {
+        paste0("\"", x, "\"")
+    } else if (type == "round bracket") {
+        paste0("(", x, ")")
+    } else if (type == "curly bracket") {
+        paste0("{", x, "}")
+    } else if (type == "square bracket") {
+        paste0("[", x, "]")
+    }
+}
+
 class_collapse <- function(x) {
     single_quote_(paste0(class(x), collapse = "/"))
 }
@@ -96,6 +117,15 @@ count_na <- function(x) {
     length(which(is.na(x)))
 }
 
+change_name <- function(x, new_name) {
+    checkmate::assert_character(new_name, min.len = 1)
+    assert_identical(names(x), new_name, type = "length")
+
+    names(x) <- new_name
+
+    x
+}
+
 escape_regex <- function(x) {
     gsub("([.|()\\^{}+$*?]|\\[|\\])", "\\\\\\1", x)
 }
@@ -131,6 +161,50 @@ fix_character <- function(x) {
     }
 
     x
+}
+
+cutter <- function(x, index) {
+    checkmate::assert_atomic(x, min.len = 1)
+    checkmate::assert_integerish(index, lower = 1, any.missing = FALSE,
+                                 unique = TRUE)
+
+    if (index[1] == 1 || index[length(index)] == length(x)) {
+        stop("You cannot use an index in the start or at the end of ",
+             "a object.", call. = FALSE)
+    }
+
+    if (any(Reduce("-", index) == -1)) {
+        stop("Indexes must have at least a distance of 1 between each other.",
+             call. = FALSE)
+    }
+
+    out <- list()
+
+    for (i in index) {
+        i_index <- grep(i, index)
+        j <- length(out) + 1
+
+        if (i == index[1]) {
+            out[[j]] <- x[seq(1 , i - 1)]
+            names(out)[j] <- j
+
+            if (length(index) == 1) {
+                out[[j + 1]] <- x[seq(i + 1 , length(x))]
+                names(out) <- c(1, 2)
+            } else {
+                out[[j + 1]] <- x[seq(i + 1 , index[i_index + 1] - 1)]
+                names(out) <- c(1, 2)
+            }
+        } else if (i == index[length(index)]) {
+            out[[j]] <- x[seq(i + 1, length(x))]
+            names(out)[j] <- j
+        } else {
+            out[[j]] <- x[seq(i + 1, index[i_index + 1] - 1)]
+            names(out)[j] <- j
+        }
+    }
+
+    out
 }
 
 str_extract_ <- function(string, pattern, ignore.case = FALSE, perl = TRUE,

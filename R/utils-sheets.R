@@ -33,11 +33,12 @@ sheet_id <- function(name = NULL, package = NULL) {
     checkmate::assert_string(package, null.ok = TRUE)
 
     if (!is_namespace_loaded("utils") ||
-        !is_namespace_loaded("googlesheets4")) {
-        stop("This function requires the 'utils' and 'googlesheets4' packages ",
-             'to run. You can install them by running: \n \n',
+        !is_namespace_loaded("googlesheets4") ||
+        !is_namespace_loaded("magrittr")) {
+        stop("This function requires the 'utils' and 'googlesheets4' ",
+             "packages to run. You can install them by running: \n\n",
              'install.packages("utils") \n',
-             'install.packages("googlesheets4")' , call. = FALSE)
+             'install.packages("googlesheets4")', call. = FALSE)
     }
 
     if (is.null(package)) {
@@ -82,15 +83,21 @@ sheet_id <- function(name = NULL, package = NULL) {
 #' ## __ To get only only a specific sheet __
 #' read_sheet(sheet_id()[1])}
 read_sheet <- function(name = NULL, package = NULL) {
+    # R CMD Check variable bindings fix
+    domain_id <- language <- approved <- keyword <- NULL
+
     checkmate::assert_string(name, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
 
     if (!is_namespace_loaded("utils") ||
-        !is_namespace_loaded("googlesheets4")) {
-        stop("This function requires the 'utils' and 'googlesheets4' packages ",
-             'to run. You can install them by running: \n \n',
+        !is_namespace_loaded("googlesheets4") ||
+        !is_namespace_loaded("magrittr")) {
+        stop("This function requires the 'utils', 'googlesheets4', and ",
+             "'magrittr' packages to run. You can install them by ",
+             "running: \n\n",
              'install.packages("utils") \n',
-             'install.packages("googlesheets4")' , call. = FALSE)
+             'install.packages("googlesheets4") \n',
+             'install.packages("magrittr")', call. = FALSE)
     }
 
     if (is.null(package)) {
@@ -118,8 +125,7 @@ read_sheet <- function(name = NULL, package = NULL) {
 
     if ("keyword" %in% ls()) {
         keyword <- keyword %>%
-            dplyr::arrange(.data$domain_id, .data$language,
-                           dplyr::desc(.data$approved), .data$keyword)
+            dplyr::arrange(domain_id, language, dplyr::desc(approved), keyword)
     }
 
     if (!is.null(name)) {

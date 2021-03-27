@@ -8,6 +8,7 @@ tidy_keyword(
   ...,
   min_chars = 1,
   delimiter = ",",
+  enclosure = "double quote",
   clean_modifiers = TRUE,
   sort = FALSE,
   na_rm = TRUE,
@@ -22,13 +23,14 @@ tidy_keyword(
 characters a keyword must have. Keywords that don't comply to this setting
 will be transformed to \code{NA}.}
 
-\item{delimiter}{(optional) A string of length 1 with the delimiter used on
-\code{...} values. Use \code{delimiter = NULL} to disable this behavior (default:
-\code{NULL}).}
+\item{delimiter}{(optional) A string with the delimiter used on \code{...} values.
+Use \code{delimiter = NULL} to disable this behavior (default: \code{NULL}).}
+
+\item{enclosure}{(optional) A string indicating the type of enclosure for
+keywords with special characters (like spaces) (default: "double quote").}
 
 \item{clean_modifiers}{(optional) A \code{logical} value indicating if keywords
-with modifiers must be transformed to \code{NA}. Modifiers follow the
-\verb{[*?():'\\"]} pattern (default: \code{TRUE}).}
+with modifiers must be transformed to \code{NA} (default: \code{TRUE}).}
 
 \item{sort}{(optional) A \code{logical} value indicating if the output must be
 ordered alphabetically (default: \code{FALSE}).}
@@ -49,6 +51,34 @@ A \code{character} object with keywords in \code{...} tidied.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \code{tidy_keyword()} tidy keyword values for database search.
+}
+\details{
+\subsection{\code{enclosure} argument}{
+
+The \code{enclosure} argument let you choose the type of enclosure for keywords
+with special characters, \emph{i.e}, all keywords that don't conform to the
+pattern \code{"^[a-zA-Z0-9]+$"}. The default value is \code{"double quote"}.
+
+Valid choices for this argument are:
+\itemize{
+\item \code{"single quote"}: to enclose the keyword with single quotes (\emph{e.g.},
+\code{'lorem'})
+\item \code{"double quote"}: to enclose the keyword with double quotes (\emph{e.g.},
+\code{"ipsum"})
+\item \code{"round bracket"}: to enclose the keyword with round brackets or
+parenthesis (\emph{e.g.} \code{(dolor)})
+\item \code{"curly bracket"}: to enclose the keyword with curly brackets (\emph{e.g.}
+\code{{dolor}})
+\item \code{"square bracket"}: to enclose the keyword with square brackets (\emph{e.g.}
+\verb{[dolor]})
+}
+}
+
+\subsection{\verb{clean modifiers} argument}{
+
+Modifiers follow the \verb{[*$?():'\\"]} pattern. If \verb{clean modifiers} is set to \code{TRUE}, all keywords with the latter pattern will be
+transformed to \code{NA}.
+}
 }
 \examples{
 tidy_keyword("Lorem", "Ipsum dolor", c("sit", "amet"))
