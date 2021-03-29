@@ -113,7 +113,7 @@
 #'
 #' ## __ Creating queries from multiple domains __
 #'
-#' query("Lorem", "AND", "Ipsum", "NOT", "dolor", provider = "embase",
+#' query("Lorem", "AND", "Ipsum", "NOT", "dolor", provider = "EMBASE",
 #'       constraint = c("title", "abstract"), clipboard = FALSE)
 #' #> (lorem:ti,ab) AND (ipsum:ti,ab) NOT (dolor:ti,ab) # Expected
 #'

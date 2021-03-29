@@ -36,11 +36,11 @@
 #' @param ... One or more `character` objects containing keywords.
 #' @param min_chars (optional) A number indicating the minimal number of
 #'   characters a keyword must have. Keywords that don't comply to this setting
-#'   will be transformed to `NA`.
+#'   will be transformed to `NA` (default: `1`).
 #' @param delimiter (optional) A string with the delimiter used on `...` values.
 #'   Use `delimiter = NULL` to disable this behavior (default: `NULL`).
 #' @param enclosure (optional) A string indicating the type of enclosure for
-#'   keywords with special characters (like spaces) (default: "double quote").
+#'   keywords with special characters (like spaces) (default: `"double quote"`).
 #' @param clean_modifiers (optional) A `logical` value indicating if keywords
 #'   with modifiers must be transformed to `NA` (default: `TRUE`).
 #' @param sort (optional) A `logical` value indicating if the output must be
@@ -91,12 +91,11 @@ tidy_keyword <- function(..., min_chars = 1, delimiter = ",",
     checkmate::assert_flag(duplicate_rm)
     checkmate::assert_flag(quiet)
     lapply(out, checkmate::assert_character)
-    lapply(strsplit(unlist(out), delimiter), checkmate::assert_character)
 
-    out <- unlist(out, use.names = FALSE)
+    out <- out %>% unlist(use.names = FALSE)
 
     if (!is.null(delimiter)) {
-        out <- unlist(strsplit(out, delimiter))
+        out <- out %>% strsplit(delimiter) %>% unlist()
     }
 
     invalid <- grepl("'", unlist(out, use.names = FALSE), perl = TRUE)
@@ -108,9 +107,10 @@ tidy_keyword <- function(..., min_chars = 1, delimiter = ",",
                 call. = FALSE)
     }
 
-    out <- stringr::str_squish(out)
-    out <- tolower(out)
-    out <- gsub(" OR ", delimiter, out)
+    out <- out %>%
+        stringr::str_squish() %>%
+        tolower() %>%
+        stringr::str_replace_all(" OR ", delimiter)
 
     modifiers <- "[*$?():'\"]"
 

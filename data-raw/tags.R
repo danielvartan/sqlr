@@ -396,9 +396,9 @@ tags <- function(write = FALSE) {
 
     export <- stringr::str_subset(ls(), "write", negate = TRUE)
 
-    for (i in export) {
-        assign(i, change_name(get(i), tolower(names(get(i)))))
-    }
+    # for (i in export) {
+    #     assign(i, change_name(get(i), tolower(names(get(i)))))
+    # }
 
     if (isTRUE(write)) {
         if(!(dir.exists("./data/"))) dir.create("./data/")
@@ -417,4 +417,35 @@ tags <- function(write = FALSE) {
     invisible(mget(export))
 }
 
-# tags <- tags()
+transform_list <- function(list) {
+    checkmate::assert_list(list, min.len = 1)
+    lapply(list, checkmate::assert_string)
+
+    dplyr::tibble(description = names(list),
+                  tag = clear_names(unlist(list)))
+}
+
+export <- function(list, sheet) {
+    checkmate::assert_list(list, min.len = 1)
+
+    out <- transform_list(list)
+
+    googlesheets4::range_write(
+        "1ljlhZ5r5DozohySGFiGUPI1MDQehjnSR3tlXTqmdt48",
+        out,
+        sheet = sheet,
+        range = "A1",
+        col_names = TRUE,
+        reformat = FALSE
+    )
+}
+
+tags <- tags()
+export(tags$apa, "APA")
+export(tags$ebsco, "EBSCO")
+export(tags$embase, "EMBASE")
+export(tags$lilacs, "LILACS")
+export(tags$pubmed, "PubMed")
+export(tags$scielo, "SciELO")
+export(tags$scopus, "Scopus")
+export(tags$wos, "Web of Science")
