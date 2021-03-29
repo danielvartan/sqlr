@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get paths to sqlr raw datasets — raw_data • sqlr</title>
+<title>Get paths to sqlr raw data — raw_data • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Get paths to sqlr raw datasets — raw_data" />
+<meta property="og:title" content="Get paths to sqlr raw data — raw_data" />
 <meta property="og:description" content="
 raw_data() returns the raw data paths from the sqlr package." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
@@ -121,7 +121,7 @@ raw_data() returns the raw data paths from the sqlr package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get paths to <code>sqlr</code> raw datasets</h1>
+    <h1>Get paths to <code>sqlr</code> raw data</h1>
     <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/raw_data.R'><code>R/raw_data.R</code></a></small>
     <div class="hidden name"><code>raw_data.Rd</code></div>
     </div>
@@ -131,15 +131,25 @@ raw_data() returns the raw data paths from the sqlr package." />
 <p><code>raw_data()</code> returns the raw data paths from the <code>sqlr</code> package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_data</span><span class='op'>(</span>file <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>raw_data</span><span class='op'>(</span>type <span class='op'>=</span> <span class='cn'>NULL</span>, file <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>type</th>
+      <td><p>(optional) a string indicating the type of file of the raw dataset.
+If <code>NULL</code>, all raw dataset file names will be printed (default: <code>NULL</code>).</p></td>
+    </tr>
+    <tr>
       <th>file</th>
-      <td><p>A string indicating the file name of the raw dataset. If <code>NULL</code>,
-all raw dataset file names will be printed (default: <code>NULL</code>).</p></td>
+      <td><p>(optional) a string indicating the file name of the raw dataset.
+If <code>NULL</code>, all raw dataset file names will be printed (default: <code>NULL</code>).</p></td>
+    </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
+must be suppressed (default: <code>FALSE</code>).</p></td>
     </tr>
     </table>
 
