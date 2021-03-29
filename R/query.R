@@ -289,12 +289,31 @@ chopper <- function(..., delimiter = NULL) {
     checkmate::assert_string(delimiter, null.ok = TRUE)
 
     if (is.null(delimiter)) delimiter <- ";"
-    x <- x[which(!is.na(x))]
-    x <- gsub(" OR ", delimiter, x)
 
-    for (i in c(" AND ", " NOT ", " AND NOT ")) {
-        replacement <- paste0(delimiter, trimws(i), delimiter)
-        x <- gsub(i, replacement, x)
+    x <- x %>%
+        stringr::str_squish() %>%
+        rm_na() %>%
+        rm_pattern(pattern = "^OR$", ignore_case = TRUE) %>%
+        stringr::str_replace_all(
+            stringr::regex(" OR | OR$|^OR ", ignore_case = TRUE),
+            delimiter)
+
+    pattern <- list(
+        "AND" = list(name = "AND",
+                     pattern = stringr::regex(" AND |^AND | AND$",
+                                              ignore_case = TRUE)),
+        "NOT" = list(name = "NOT",
+                     pattern = stringr::regex(" NOT |^NOT | NOT$",
+                                              ignore_case = TRUE)),
+        "AND NOT" = list(name = "NOT",
+                         pattern = stringr::regex(
+                             " AND NOT |^AND NOT | AND NOT$",
+                             ignore_case = TRUE))
+    )
+
+    for (i in pattern) {
+        replacement <- paste0(delimiter, i$name, delimiter)
+        x <- stringr::str_replace_all(x, i$pattern, replacement)
     }
 
     x <- unlist(strsplit(x, delimiter))

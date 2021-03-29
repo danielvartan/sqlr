@@ -133,35 +133,73 @@ assert_identical <- function(..., type = "value", any.missing = TRUE,
     }
 }
 
-check_set <- function(x, any.missing = FALSE, null.ok = FALSE,
-                          name = deparse(substitute(x))) {
-    checkmate::assert_flag(any.missing)
+test_namespace <- function(x) {
+    checkmate::assert_string(x)
+    isNamespaceLoaded(x)
+}
+
+check_namespace <- function(x, null.ok = FALSE, name = deparse(substitute(x))) {
+    checkmate::assert_string(x, null.ok = TRUE)
     checkmate::assert_flag(null.ok)
-
-    rep <- 10
-    pattern <- "^[0-9]+$"
-
-    for (i in seq(2, rep)) {
-        j <- paste(rep("[0-9]+", i), rep("(AND|OR|NOT)", i), collapse = " ")
-        j <- gsub(" \\(AND\\|OR\\|NOT\\)$", "", j, perl = TRUE)
-
-        pattern <- paste0(pattern, "|^", j, "$")
-    }
-
-    return(pattern)
 
     if (is.null(x) && isTRUE(null.ok)) {
         TRUE
-    } else if (any(is.na(x)) && isFALSE(any.missing)) {
-        paste0(single_quote_(name), " cannot have missing values")
     } else if (is.null(x) && isFALSE(null.ok)) {
         paste0(single_quote_(name), " cannot have 'NULL' values")
-    } else if (!all(grepl(pattern, stringr::str_squish(x)))) {
-        paste0(single_quote_(name), "must consist of boolean expressions ",
-               "like '1 AND 2'")
+    } else if (isFALSE(test_namespace(x))) {
+        paste0("There's no namespace called ",  single_quote_(x))
     } else {
         TRUE
     }
 }
 
-assert_set <- checkmate::makeAssertionFunction(check_set)
+assert_namespace <- checkmate::makeAssertionFunction(check_namespace)
+
+test_data <- function(data, package) {
+    checkmate::assert_string(data)
+    checkmate::assert_string(package)
+
+    if (!is_namespace_loaded("utils")) {
+        stop("This function requires the 'utils' package to run. ",
+             "You can install it by running: \n\n",
+             'install.packages("utils")', call. = FALSE)
+    }
+
+    assert_namespace(package)
+    shush(utils::data(list = data, package = package, envir = environment()))
+
+    data %in% ls()
+}
+
+assert_data <- function(data, package, alert = NULL) {
+    checkmate::assert_string(data)
+    checkmate::assert_string(package)
+
+    choices <- c("gipso_1", "gipso_2")
+    if (!is.null(alert)) alert <- tolower(alert)
+    checkmate::assert_choice(alert, choices, null.ok = TRUE)
+
+    alert_null <- paste0(
+        "There's no ",  single_quote_(data), " data in ",
+        single_quote_(package), " namespace."
+        )
+
+    alert_gipso_1 <- paste0(
+        "There's no ", single_quote_(data), " data in ",
+        single_quote_(package), " package namespace. ",
+        "See './data-raw/sheets.R' to created it."
+    )
+
+    alert_gipso_2 <- paste0(
+        "There's no ", single_quote_(data), " data in ",
+        single_quote_(package), " package namespace. ",
+        "Have you forgotten to run 'write_sheet()'?."
+        )
+
+    if (isFALSE(test_data(data, package))) {
+        if (is.null(alert)) alert <- "null"
+        stop(get(paste0("alert_", alert)), call. = FALSE)
+    } else {
+        invisible(TRUE)
+    }
+}

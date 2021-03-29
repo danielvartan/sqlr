@@ -21,15 +21,26 @@ reference:
   - query
   - tidy_keyword
 
+- title: Data
+  contents:
+  - constraint
+  - domain
+  - keyword
+  - search
+  - sheets
+  - source
+  - tags
+
 - title: Utilities
   contents:
   - raw_data
 
-- title: (Only for GIPSO)
+- title: (only for GIPSO)
   contents:
   - keyword_set
   - sheet_id
   - read_sheet
+  - write_query
   - write_sheet
 
 authors:

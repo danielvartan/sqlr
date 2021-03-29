@@ -117,6 +117,17 @@ count_na <- function(x) {
     length(which(is.na(x)))
 }
 
+clear_row_names <- function(x) {
+    checkmate::assert_data_frame(x, min.rows = 1)
+    rownames(x) <- NULL
+    x
+}
+
+clear_names <- function(x) {
+    names(x) <- NULL
+    x
+}
+
 change_name <- function(x, new_name) {
     checkmate::assert_character(new_name, min.len = 1)
     assert_identical(names(x), new_name, type = "length")
@@ -151,6 +162,16 @@ get_class <- function(x) {
     }
 }
 
+get_package_name <- function() {
+    if (!is_namespace_loaded("rstudioapi")) {
+        stop("This function requires the 'rstudioapi' package to run. ",
+             "You can install it by running: \n\n",
+             'install.packages("rstudioapi")' , call. = FALSE)
+    }
+
+    str_extract_(rstudioapi::getActiveProject(), "[a-zA-Z0-9.]*$")
+}
+
 fix_character <- function(x) {
     checkmate::assert_character(x)
 
@@ -161,6 +182,14 @@ fix_character <- function(x) {
     }
 
     x
+}
+
+rm_na <- function(x) {
+    x[which(!is.na(x))]
+}
+
+rm_pattern <- function(x, pattern, ignore_case = TRUE) {
+    x[!grepl(pattern, x, ignore.case = ignore_case)]
 }
 
 cutter <- function(x, index) {

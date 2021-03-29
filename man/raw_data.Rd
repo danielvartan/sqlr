@@ -2,13 +2,19 @@
 % Please edit documentation in R/raw_data.R
 \name{raw_data}
 \alias{raw_data}
-\title{Get paths to \code{sqlr} raw datasets}
+\title{Get paths to \code{sqlr} raw data}
 \usage{
-raw_data(file = NULL)
+raw_data(type = NULL, file = NULL, quiet = FALSE)
 }
 \arguments{
-\item{file}{A string indicating the file name of the raw dataset. If \code{NULL},
-all raw dataset file names will be printed (default: \code{NULL}).}
+\item{type}{(optional) a string indicating the type of file of the raw dataset.
+If \code{NULL}, all raw dataset file names will be printed (default: \code{NULL}).}
+
+\item{file}{(optional) a string indicating the file name of the raw dataset.
+If \code{NULL}, all raw dataset file names will be printed (default: \code{NULL}).}
+
+\item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
+must be suppressed (default: \code{FALSE}).}
 }
 \value{
 If \code{path = NULL}, returns a \code{character} object with all raw dataset

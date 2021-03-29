@@ -34,6 +34,25 @@ dialog_line <- function(..., combined_styles = NULL,
     answer
 }
 
+alert <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {
+    assert_has_length(list(...))
+    checkmate::assert_character(combined_styles)
+    checkmate::assert_flag(abort)
+
+    if (isTRUE(abort)) return(invisible(NULL))
+
+    message <- vapply(list(...), paste0, character(1), collapse = "")
+    message <- paste0(message, collapse = "")
+
+    if (is_namespace_loaded("crayon")) {
+        message <- crayonize(message)
+    }
+
+    message(message)
+
+    invisible(NULL)
+}
+
 printer <- function(..., print = TRUE, clipboard = TRUE, abort = FALSE) {
     assert_has_length(list(...))
     checkmate::assert_flag(print)
@@ -77,7 +96,8 @@ crayonize <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {
 
     if (isTRUE(abort)) return(invisible(NULL))
 
-    out <- vapply(list(...), paste0, character(1))
+    out <- unlist(list(...))
+    # out <- vapply(list(...), paste0, character(1))
 
     if (is_namespace_loaded("crayon")) {
         crayonize <- shush(crayon::combine_styles(combined_styles))

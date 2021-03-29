@@ -9,10 +9,9 @@ sheet_id(name = NULL, package = NULL)
 \arguments{
 \item{name}{(optional) A string indicating the sheet name (default: \code{NULL}).}
 
-\item{package}{(optional) A string indicating the package where the sheets
-list can be found. If \code{NULL}, the function will try to use the name of the
-project active directory (requires the \code{rstudioapi} package) (default:
-\code{NULL}).}
+\item{package}{(optional) a string indicating the package with the database
+data. If \code{NULL}, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
 }
 \value{
 If \code{name = NULL}, returns a \code{character} object with all sheet names
@@ -36,6 +35,7 @@ sheet_id(sheet_id()[1])}
 Other GIPSO functions: 
 \code{\link{keyword_set}()},
 \code{\link{read_sheet}()},
+\code{\link{write_query}()},
 \code{\link{write_sheet}()}
 }
 \concept{GIPSO functions}

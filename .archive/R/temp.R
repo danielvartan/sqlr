@@ -1,39 +1,50 @@
-# library(googlesheets4)
-# library(revtools)
-# library(stringr)
-
 devtools::load_all()
 
-pubmed_files <- stringr::str_subset(raw_data(), "PubMed")
-ebscohost_files <- stringr::str_subset(raw_data(), "EBSCOhost")
-embase_files <- stringr::str_subset(raw_data(), "Embase")
-lilacs_es_files <- stringr::str_subset(raw_data(), "LILACS - ES") # failed
-lilacs_pt_files <- stringr::str_subset(raw_data(), "LILACS - PT") # failed
-psycnet_files <- stringr::str_subset(raw_data(), "PsycNET") # failed
-scielo_es_files <- stringr::str_subset(raw_data(), "SciELO - ES")
-scielo_pt_files <- stringr::str_subset(raw_data(), "SciELO - PT")
-scopus_files <- stringr::str_subset(raw_data(), "Scopus")
-wos_files <- stringr::str_subset(raw_data(), "Web Of Science")
+citation_files <- raw_data("citation", quiet = TRUE)
 
-db <- "pubmed"
+pubmed_files <- stringr::str_subset(citation_files, "pubmed")
+ebscohost_files <- stringr::str_subset(citation_files, "ebscohost")
+embase_files <- stringr::str_subset(citation_files, "embase")
+lilacs_es_files <- stringr::str_subset(citation_files, "lilacs_es")
+lilacs_pt_files <- stringr::str_subset(citation_files, "lilacs_pt")
+psycnet_files <- stringr::str_subset(citation_files, "psycnet") # failed
+scielo_es_files <- stringr::str_subset(citation_files, "scielo_es")
+scielo_pt_files <- stringr::str_subset(citation_files, "scielo_pt")
+scopus_files <- stringr::str_subset(citation_files, "scopus")
+wos_files <- stringr::str_subset(citation_files, "web-of-science")
+
+# debugonce(synthesisr:::prep_ris)
+# end_rows <- which(z_dframe$ris == "ER")
+
+file <- "C:\\Users\\Daniel\\Desktop\\PsycNET_Export.ris"
+test <- synthesisr::read_ref(file)
+# test <- synthesisr::read_ref(raw_data("citation", wos_files[1]), "wos")
+
+db <- "wos"
 path <- "./inst/extdata/citation/"
+choices <- c("wos", "scopus", "ovid", "asp", "synthesir")
+tag_namming <- if (db %in% choices) db else "best_guess"
 files <- paste0(path, get(paste0(db, "_files")))
-assign(db, revtools::read_bibliography(files))
+assign(db, synthesisr::read_refs(files, tag_namming))
+assign(db, clear_row_names(get(db)))
 
-doi_match <- revtools::find_duplicates(get(db), match_variable = "doi",
-                                        match_function = "exact")
-data_unique <- revtools::extract_unique_references(get(db), doi_match)
+doi_match <- synthesisr::find_duplicates(get(db)$doi, method = "exact")
+doi_match[!(doi_match == seq_along(doi_match))]
+data_unique <- synthesisr::extract_unique_references(get(db), doi_match)
 
-id <- "1Re3lLhjbpBmYBVCMdt37-ZwAOKmWnPdMEJD8J7Sc86k"
-sheet <- "Export"
-test <- googlesheets4::read_sheet(id, sheet = sheet)
+# if (db == "psycnet") {
+#     data <- character()
+#
+#     for (i in paste0(path, get(paste0(db, "_files")))) {
+#         read <- readr::read_lines(i, skip = 4)
+#         data <- append(data, read)
+#     }
+#
+#     if (data[length(data)] == "") data <- data[-length(data)]
+#
+#     files <- tempfile()
+#     writeLines(c(data), files)
+# } else {
+#     files <- paste0(path, get(paste0(db, "_files")))
+# }
 
-ss <- "15cleOLZ9QB-vZPQ1I4bhbkXGNmpDLY5s33vLI-8Y-DA"
-sheet <- "test"
-data <- dplyr::tibble(a = 1:10, b = 11:20)
-# googlesheets4::range_write(ss, data, sheet, "A1")
-
-id <- googlesheets4::gs4_get(ss)
-googlesheets4::range_write(id, data, sheet, "A1")
-googlesheets4::sheet_write(chickwts, id)
-googlesheets4::sheet_append(id, data.frame(a = 30, b = 20), sheet = "test")

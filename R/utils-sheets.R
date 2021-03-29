@@ -7,16 +7,13 @@
 #' `sheet_id()` retrieve the `sheet_id` from entities tables on Google Sheets.
 #'
 #' @param name (optional) A string indicating the sheet name (default: `NULL`).
-#' @param package (optional) A string indicating the package where the sheets
-#'   list can be found. If `NULL`, the function will try to use the name of the
-#'   project active directory (requires the `rstudioapi` package) (default:
-#'   `NULL`).
 #'
 #' @return If `name = NULL`, returns a `character` object with all sheet names
 #'   available. Else, it returns the `sheet_id` object of the sheet indicated in
 #'   `name`.
 #'
 #' @family GIPSO functions
+#' @template param_a
 #' @export
 #'
 #' @examples
@@ -41,13 +38,11 @@ sheet_id <- function(name = NULL, package = NULL) {
              'install.packages("googlesheets4")', call. = FALSE)
     }
 
-    if (is.null(package)) {
-        package <- stringr::str_extract(
-            rstudioapi::getActiveProject(), "[a-zA-Z0-9.]*$")
-    }
+    if (is.null(package)) package <- get_package_name()
+    assert_namespace(package)
+    assert_data("sheets", package, alert = "gipso_1")
 
     utils::data("sheets", package = package, envir = environment())
-
     checkmate::assert_subset(name, names(sheets), empty.ok = TRUE)
 
     if (is.null(name)) {
@@ -83,9 +78,6 @@ sheet_id <- function(name = NULL, package = NULL) {
 #' ## __ To get only only a specific sheet __
 #' read_sheet(sheet_id()[1])}
 read_sheet <- function(name = NULL, package = NULL) {
-    # R CMD Check variable bindings fix
-    domain_id <- language <- approved <- keyword <- NULL
-
     checkmate::assert_string(name, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
 
@@ -100,13 +92,11 @@ read_sheet <- function(name = NULL, package = NULL) {
              'install.packages("magrittr")', call. = FALSE)
     }
 
-    if (is.null(package)) {
-        package <- stringr::str_extract(
-            rstudioapi::getActiveProject(), "[a-zA-Z0-9.]*$")
-    }
+    if (is.null(package)) package <- get_package_name()
+    assert_namespace(package)
+    assert_data("sheets", package, alert = "gipso_1")
 
     utils::data("sheets", package = package, envir = environment())
-
     checkmate::assert_subset(name, names(sheets), empty.ok = TRUE)
 
     if (!is.null(name)) sheets <- sheets[name]
@@ -116,14 +106,13 @@ read_sheet <- function(name = NULL, package = NULL) {
             sheet_id(name = i$name, package = package),
             sheet = i$sheet)
         data <- data[which(!is.na(data[[1]])), ]
-        # data[paste0(i$name, "_id")] <- seq(nrow(data))
-        # data <- data %>%
-        #     dplyr::mutate(dplyr::across(dplyr::ends_with("_id"), as.integer))
-
         assign(i$name, data)
     }
 
     if ("keyword" %in% ls()) {
+        # R CMD Check variable bindings fix
+        domain_id <- language <- approved <- NULL
+
         keyword <- keyword %>%
             dplyr::arrange(domain_id, language, dplyr::desc(approved), keyword)
     }
@@ -169,15 +158,9 @@ write_sheet <- function(name = NULL, package = NULL) {
              'install.packages("googlesheets4")' , call. = FALSE)
     }
 
-    if (is.null(package)) {
-        package <- stringr::str_extract(
-            rstudioapi::getActiveProject(), "[a-zA-Z0-9.]*$")
-    }
-
-    dialog <- dialog_line(
-        "WARNING: You need to configure the 'sheets' list before using",
-        "'write_sheet()'. Press 'esc' to exit or 'enter' to continue >",
-        space_above = FALSE, space_below = FALSE)
+    if (is.null(package)) package <- get_package_name()
+    assert_namespace(package)
+    assert_data("sheets", package, alert = "gipso_1")
 
     sheets <- sheet_id(package = package)
     checkmate::assert_subset(name, sheets, empty.ok = TRUE)
@@ -188,16 +171,21 @@ write_sheet <- function(name = NULL, package = NULL) {
         assign(name, read_sheet(name = name, package = package))
         sheets <- name
     } else {
-        list2env(read_sheet(package = package))
+        list2env(read_sheet(package = package), envir = environment())
     }
+
+    envir <- environment()
 
     for (i in sheets) {
         if(!(dir.exists("./data/"))) dir.create("./data/")
 
         file <- paste0("./data/", i, ".rda")
-        save(list = i, file = file, envir = environment(),
+        save(list = i, file = file, envir = envir,
              compress = "bzip2", version = 2)
     }
+
+    message("\n", "Don't forget to run 'devtools::load_all()' ",
+            "(Ctrl + Shift + L).")
 
     invisible(NULL)
 }

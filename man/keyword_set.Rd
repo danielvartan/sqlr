@@ -13,10 +13,9 @@ return.}
 \item{language}{(optional) A string indicating the language constraint of
 the keywords (case insensitive).}
 
-\item{package}{(optional) A string indicating the package where the sheets
-list can be found. If \code{NULL}, the function will try to use the name of the
-project active directory (requires the \code{rstudioapi} package) (default:
-\code{NULL}).}
+\item{package}{(optional) a string indicating the package with the database
+data. If \code{NULL}, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
 }
 \value{
 A \code{character} object with a keyword set.
@@ -24,7 +23,7 @@ A \code{character} object with a keyword set.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{keyword_set} returns a keyword set from the \code{keyword} dataset.
+\code{keyword_set()} returns a keyword set from the \code{keyword} dataset.
 }
 \examples{
 \dontrun{
@@ -34,6 +33,7 @@ keyword_set(1, "english")}
 Other GIPSO functions: 
 \code{\link{read_sheet}()},
 \code{\link{sheet_id}()},
+\code{\link{write_query}()},
 \code{\link{write_sheet}()}
 }
 \concept{GIPSO functions}

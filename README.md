@@ -33,7 +33,7 @@ early-career researchers with evidence synthesis while also helping with
 research reproducibility.
 
 Learn more about systematic quantitative literature reviews at
-<http://bit.ly/2OMxvcD> .
+<http://bit.ly/2OMxvcD>.
 
 ## Prerequisites
 
@@ -54,7 +54,7 @@ R](https://www.coursera.org/specializations/data-science-foundations-r)
 stage of development, that means that people can use the package and
 provide feedback, but it comes with no promises for long term stability.
 
-You can install `sqlr` from from GitHub with:
+You can install `sqlr` from GitHub with:
 
 ``` r
 # install.packages("sqlr")
