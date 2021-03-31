@@ -7,30 +7,31 @@
 raw_data(type = NULL, file = NULL, quiet = FALSE)
 }
 \arguments{
-\item{type}{(optional) a string indicating the type of file of the raw dataset.
-If \code{NULL}, all raw dataset file names will be printed (default: \code{NULL}).}
+\item{type}{(optional) a string indicating the file type of the raw dataset
+(default: \code{NULL}).}
 
-\item{file}{(optional) a string indicating the file name of the raw dataset.
-If \code{NULL}, all raw dataset file names will be printed (default: \code{NULL}).}
+\item{file}{(optional) a string indicating the file name of the raw dataset.}
 
 \item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
 must be suppressed (default: \code{FALSE}).}
 }
 \value{
-If \code{path = NULL}, returns a \code{character} object with all raw dataset
-file names available. Else, it returns the \code{file} path.
+\itemize{
+\item If \code{type = NULL}, a \code{character} object with all file type names
+available.
+\item If \code{type != NULL} and \code{file = NULL}, a \code{character} object with all file
+names available from type.
+\item If \code{type != NULL} and \code{file != NULL}, a string file name path.
+}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{raw_data()} returns the raw data paths from the \code{sqlr} package.
+\code{raw_data()} returns the raw data paths of the \code{sqlr} package.
 }
 \examples{
 \dontrun{
-## __ To list all raw dataset file names available __
 raw_data()
-
-## __ To get the file path from a specific raw dataset __
-raw_data(raw_data()[1])}
+}
 }
 \concept{utility functions}

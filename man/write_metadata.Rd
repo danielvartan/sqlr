@@ -7,10 +7,10 @@
 write_metadata(id, sheet = "Dataset")
 }
 \arguments{
-\item{id}{A string with the Google Sheets ID from the sheets table.}
+\item{id}{A string with the Google Sheets ID from the 'Sheets' table.}
 
 \item{sheet}{(optional) a string indicating the worksheet/tab where the
-sheets data can be found on the sheets spreadsheet (default: \code{"Dataset"}).}
+sheets data can be found on the 'Sheets spreadsheet (default: \code{"Dataset"}).}
 }
 \value{
 An invisible \code{list} object containing lists with the Google Sheets
@@ -31,5 +31,9 @@ You can see a example of a metadata sheets in: \url{https://bit.ly/2PFWhev}.
 \dontrun{
 write_metadata("1x6Aj8cXl9qFtpXq48Q6zdmT-w9EEqNG1iVQcKVRhgKM")
 }
+}
+\seealso{
+Other data functions: 
+\code{\link{start_sqlr}()}
 }
 \concept{data functions}

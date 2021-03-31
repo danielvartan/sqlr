@@ -1,4 +1,4 @@
-#' List of meta data of datasets hosted on Google Sheets
+#' List with Google Sheets metadata for tables hosted on the platform
 #'
 #' @description
 #'

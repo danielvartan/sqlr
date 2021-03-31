@@ -38,6 +38,7 @@ reference:
 - title: (only for GIPSO)
   contents:
   - keyword_set
+  - start_sqlr
   - read_sheet
   - write_query
   - write_sheet

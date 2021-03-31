@@ -3,7 +3,7 @@
 \docType{data}
 \name{sheets}
 \alias{sheets}
-\title{List of meta data of datasets hosted on Google Sheets}
+\title{List with Google Sheets metadata for tables hosted on the platform}
 \format{
 An object of class \code{list} of length 6.
 }

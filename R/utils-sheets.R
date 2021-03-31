@@ -12,9 +12,9 @@
 #'
 #' You can see a example of a metadata sheets in: <https://bit.ly/2PFWhev>.
 #'
-#' @param id A string with the Google Sheets ID from the sheets table.
+#' @param id A string with the Google Sheets ID from the 'Sheets' table.
 #' @param sheet (optional) a string indicating the worksheet/tab where the
-#'   sheets data can be found on the sheets spreadsheet (default: `"Dataset"`).
+#'   sheets data can be found on the 'Sheets spreadsheet (default: `"Dataset"`).
 #'
 #' @return An invisible `list` object containing lists with the Google Sheets
 #'   metadata of the review tables hosted on the platform.
