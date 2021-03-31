@@ -185,9 +185,9 @@ assert_data <- function(data, package, alert = NULL) {
         )
 
     alert_gipso_1 <- paste0(
-        "There's no ", single_quote_(data), " data in ",
+        "There's no ", single_quote_(data), " data in the ",
         single_quote_(package), " package namespace. ",
-        "See './data-raw/sheets.R' to created it."
+        "See ?write_metadata() for instructions."
     )
 
     alert_gipso_2 <- paste0(

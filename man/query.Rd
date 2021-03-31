@@ -36,13 +36,13 @@ print the output on the console window.}
 
 \item{min_chars}{(optional) A number indicating the minimal number of
 characters a keyword must have. Keywords that don't comply to this setting
-will be transformed to \code{NA}.}
+will be transformed to \code{NA} (default: \code{1}).}
 
 \item{delimiter}{(optional) A string with the delimiter used on \code{...} values.
 Use \code{delimiter = NULL} to disable this behavior (default: \code{NULL}).}
 
 \item{enclosure}{(optional) A string indicating the type of enclosure for
-keywords with special characters (like spaces) (default: "double quote").}
+keywords with special characters (like spaces) (default: \code{"double quote"}).}
 
 \item{clean_modifiers}{(optional) A \code{logical} value indicating if keywords
 with modifiers must be transformed to \code{NA} (default: \code{TRUE}).}
@@ -94,8 +94,8 @@ of the constraint (\emph{e.g.}, \code{"Title"}, \code{"Abstract"}) that is used 
 database provider (case insensitive). Also, the following alias were included
 to help the user: title, abstract, keyword.
 
-You can see all constraint names available for the query function
-\href{https://github.com/gipsousp/sqlr/blob/master/data-raw/tags.R}{here}.
+You can see all constraint names available for the \code{query()} in
+\code{sqlr::provider_tags}.
 
 Please note that some constraints may not be available for the database
 you're a searching. Always read the database provider documentation before
@@ -159,7 +159,7 @@ query("Lorem", "Ipsum, dolor", "sit", provider = "PubMed",
 
 ## __ Creating queries from multiple domains __
 
-query("Lorem", "AND", "Ipsum", "NOT", "dolor", provider = "embase",
+query("Lorem", "AND", "Ipsum", "NOT", "dolor", provider = "EMBASE",
       constraint = c("title", "abstract"), clipboard = FALSE)
 #> (lorem:ti,ab) AND (ipsum:ti,ab) NOT (dolor:ti,ab) # Expected
 

@@ -2,39 +2,51 @@
 % Please edit documentation in R/utils-sheets.R
 \name{read_sheet}
 \alias{read_sheet}
-\title{Read sheets of database entities on Google Sheets}
+\title{Read the review tables hosted on Google Sheets}
 \usage{
 read_sheet(name = NULL, package = NULL)
 }
 \arguments{
-\item{name}{(optional) A string indicating the sheet name (default: \code{NULL}).}
+\item{name}{(optional) A \code{character} object indicating the name or names of
+the sheets that the function must return (default: \code{NULL}).}
 
 \item{package}{(optional) a string indicating the package with the database
 data. If \code{NULL}, the function will try to use the name of the active
 project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
 }
 \value{
-If \code{name = NULL}, returns an invisible \code{list} object with \code{tibbles}
-objects of all sheet tables available as elements. Else, it returns an
-invisible \code{tibble} object of the sheet table indicated in \code{name}.
+\itemize{
+\item If \code{name = NULL}, an invisible \code{list} object with \code{tibbles} objects of all
+sheet/tables available as elements.
+\item If \code{name} have length > 1, an invisible \code{list} object with \code{tibbles}
+objects of sheet/tables indicated in \code{name} as elements.
+\item If \code{name} have length == 1, an invisible \code{tibble} object of the sheet/table
+indicated in \code{name}.
+}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{read_sheet()} read and returns entities tables on Google Sheets.
+\code{read_sheet()} reads and returns the review tables hosted on Google Sheets.
+
+You must have a \code{sheets} data object with the sheets metadata before running
+this function. See \code{?write_metadata()} to learn more.
 }
 \examples{
 \dontrun{
-## __ To get a 'list' with all the sheets __
+## __ To get a 'list' object with all the sheets __
 read_sheet()
 
-## __ To get only only a specific sheet __
-read_sheet(sheet_id()[1])}
+## __ To get a 'list' object with some sheets __
+read_sheet(c(names(sheets)[1], names(sheets)[2]))
+
+## __ To get a 'tibble' object of a specific sheet __
+read_sheet(sheet_id()[1])
+}
 }
 \seealso{
 Other GIPSO functions: 
 \code{\link{keyword_set}()},
-\code{\link{sheet_id}()},
 \code{\link{write_query}()},
 \code{\link{write_sheet}()}
 }

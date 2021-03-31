@@ -21,13 +21,13 @@ tidy_keyword(
 
 \item{min_chars}{(optional) A number indicating the minimal number of
 characters a keyword must have. Keywords that don't comply to this setting
-will be transformed to \code{NA}.}
+will be transformed to \code{NA} (default: \code{1}).}
 
 \item{delimiter}{(optional) A string with the delimiter used on \code{...} values.
 Use \code{delimiter = NULL} to disable this behavior (default: \code{NULL}).}
 
 \item{enclosure}{(optional) A string indicating the type of enclosure for
-keywords with special characters (like spaces) (default: "double quote").}
+keywords with special characters (like spaces) (default: \code{"double quote"}).}
 
 \item{clean_modifiers}{(optional) A \code{logical} value indicating if keywords
 with modifiers must be transformed to \code{NA} (default: \code{TRUE}).}

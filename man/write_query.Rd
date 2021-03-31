@@ -4,7 +4,7 @@
 \alias{write_query}
 \title{Write queries in the \code{search} dataset}
 \usage{
-write_query(range = "J2", package = NULL)
+write_query(range = NULL, package = NULL)
 }
 \arguments{
 \item{range}{(optional) a string indicating the cell range or start of the
@@ -29,7 +29,6 @@ write_query()}
 Other GIPSO functions: 
 \code{\link{keyword_set}()},
 \code{\link{read_sheet}()},
-\code{\link{sheet_id}()},
 \code{\link{write_sheet}()}
 }
 \concept{GIPSO functions}

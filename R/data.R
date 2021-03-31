@@ -1,12 +1,3 @@
-#' List of search tags from several database providers
-#'
-#' @description
-#'
-#' `r lifecycle::badge("experimental")`
-#'
-#' __UNDER DEVELOPMENT__
-"tags"
-
 #' List of meta data of datasets hosted on Google Sheets
 #'
 #' @description
@@ -16,6 +7,15 @@
 #' __UNDER DEVELOPMENT__
 "sheets"
 
+#' List of search tags from several database providers
+#'
+#' @description
+#'
+#' `r lifecycle::badge("experimental")`
+#'
+#' __UNDER DEVELOPMENT__
+"provider_tags"
+
 #' Domain dataset
 #'
 #' @description
@@ -24,15 +24,6 @@
 #'
 #' __UNDER DEVELOPMENT__
 "domain"
-
-#' Source dataset
-#'
-#' @description
-#'
-#' `r lifecycle::badge("experimental")`
-#'
-#' __UNDER DEVELOPMENT__
-"source"
 
 #' Constraint dataset
 #'
@@ -51,6 +42,15 @@
 #'
 #' __UNDER DEVELOPMENT__
 "keyword"
+
+#' Source dataset
+#'
+#' @description
+#'
+#' `r lifecycle::badge("experimental")`
+#'
+#' __UNDER DEVELOPMENT__
+"source"
 
 #' Search dataset
 #'

@@ -19,12 +19,12 @@
 #' @examples
 #' \dontrun{
 #' write_query()}
-write_query <- function(range = "J2", package = NULL) {
-    checkmate::assert_string(range)
+write_query <- function(range = NULL, package = NULL) {
+    checkmate::assert_string(range, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
 
     # R CMD Check variable bindings fix
-    sheets <- source_provider <- language <- domain_set <- NULL
+    sheets <- provider <- language <- domain_set <- NULL
     constraint_set <- query <- approved <- constraint <- constraint_id <- NULL
 
     if (!is_namespace_loaded("utils") ||
@@ -48,14 +48,18 @@ write_query <- function(range = "J2", package = NULL) {
 
     checkmate::assert_data_frame(search, min.rows = 1)
 
+    if (is.null(range)) {
+        range <- paste0(LETTERS[grep("^query$", names(search))], "2")
+    }
+
     search <- search %>%
-        dplyr::select(source_provider:query, approved) %>%
+        dplyr::select(provider:query, approved) %>%
         dplyr::mutate(
-            source_provider = dplyr::case_when(
-                tolower(source_provider) == "apa psycnet" ~ "APA",
-                tolower(source_provider) == "ebscohost" ~ "EBSCO",
-                tolower(source_provider) == "web of science" ~ "WoS",
-                TRUE ~ source_provider
+            provider = dplyr::case_when(
+                tolower(provider) == "apa psycnet" ~ "APA",
+                tolower(provider) == "ebscohost" ~ "EBSCO",
+                tolower(provider) == "web of science" ~ "WoS",
+                TRUE ~ provider
             )
         )
 
@@ -69,7 +73,7 @@ write_query <- function(range = "J2", package = NULL) {
                 query(domain_set(search$domain_set[i],
                                  search$language[i],
                                  package),
-                      provider = search$source_provider[i],
+                      provider = search$provider[i],
                       constraint = constraint_set(search$constraint_set[i],
                                                   package),
                       delimiter = ",", print = FALSE, clipboard = FALSE)

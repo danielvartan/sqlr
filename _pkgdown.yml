@@ -23,13 +23,13 @@ reference:
 
 - title: Data
   contents:
-  - constraint
-  - domain
-  - keyword
-  - search
   - sheets
+  - domain
+  - constraint
+  - keyword
   - source
-  - tags
+  - search
+  - provider_tags
 
 - title: Utilities
   contents:
@@ -38,7 +38,6 @@ reference:
 - title: (only for GIPSO)
   contents:
   - keyword_set
-  - sheet_id
   - read_sheet
   - write_query
   - write_sheet

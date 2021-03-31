@@ -35,8 +35,8 @@
 #' database provider (case insensitive). Also, the following alias were included
 #' to help the user: title, abstract, keyword.
 #'
-#' You can see all constraint names available for the query function
-#' [here](https://github.com/gipsousp/sqlr/blob/master/data-raw/tags.R).
+#' You can see all constraint names available for the `query()` in
+#' `sqlr::provider_tags`.
 #'
 #' Please note that some constraints may not be available for the database
 #' you're a searching. Always read the database provider documentation before
@@ -161,7 +161,7 @@ apa <- function(..., constraint = NULL) {
     checkmate::assert_character(constraint, min.len = 1, null.ok = TRUE)
 
     x <- unlist(list(...), use.names = FALSE)
-    tag <- get_tag(sqlr::tags$apa, constraint)
+    tag <- get_tag(sqlr::provider_tags$apa, constraint)
     paste_tag(x, tag = tag, type = "global", sep = ": ")
 }
 
@@ -170,7 +170,7 @@ ebsco <- function(..., constraint = NULL) {
     checkmate::assert_character(constraint, min.len = 1, null.ok = TRUE)
 
     x <- unlist(list(...), use.names = FALSE)
-    tag <- get_tag(sqlr::tags$ebsco, constraint)
+    tag <- get_tag(sqlr::provider_tags$ebsco, constraint)
     paste_tag(x, tag = tag, type = "global", sep = " ")
 }
 
@@ -179,7 +179,7 @@ embase <- function(..., constraint = NULL) {
     checkmate::assert_character(constraint, min.len = 1, null.ok = TRUE)
 
     x <- unlist(list(...), use.names = FALSE)
-    tag <- get_tag(sqlr::tags$embase, constraint)
+    tag <- get_tag(sqlr::provider_tags$embase, constraint)
 
     if (test_has_length(tag)) {
         tag <- paste0(":", paste0(tag, collapse = ","))
@@ -195,7 +195,7 @@ lilacs <- function(..., constraint = NULL) {
     checkmate::assert_character(constraint, min.len = 1, null.ok = TRUE)
 
     x <- unlist(list(...), use.names = FALSE)
-    tag <- get_tag(sqlr::tags$lilacs, constraint)
+    tag <- get_tag(sqlr::provider_tags$lilacs, constraint)
     paste_tag(x, tag = tag, type = "global", sep = ":")
 }
 
@@ -217,7 +217,7 @@ pubmed <- function(..., constraint = NULL) {
     }
 
     x <- unlist(list(...), use.names = FALSE)
-    tag <- get_tag(sqlr::tags$pubmed, constraint)
+    tag <- get_tag(sqlr::provider_tags$pubmed, constraint)
     paste_tag(x, tag = tag, type = "local", sep = "")
 }
 
@@ -226,7 +226,7 @@ scielo <- function(..., constraint = NULL) {
     checkmate::assert_character(constraint, min.len = 1, null.ok = TRUE)
 
     x <- unlist(list(...), use.names = FALSE)
-    tag <- get_tag(sqlr::tags$scielo, constraint)
+    tag <- get_tag(sqlr::provider_tags$scielo, constraint)
     paste_tag(x, tag = tag, type = "global", sep = ":")
 }
 
@@ -254,7 +254,7 @@ scopus <- function(..., constraint = NULL) {
     }
 
     x <- unlist(list(...), use.names = FALSE)
-    tag <- get_tag(sqlr::tags$scopus, constraint)
+    tag <- get_tag(sqlr::provider_tags$scopus, constraint)
     paste_tag(x, tag = tag, type = "global", sep = "")
 }
 
@@ -278,7 +278,7 @@ wos <- function(..., constraint = NULL) {
     }
 
     x <- unlist(list(...), use.names = FALSE)
-    tag <- get_tag(sqlr::tags$wos, constraint)
+    tag <- get_tag(sqlr::provider_tags$wos, constraint)
     paste_tag(x, tag = tag, type = "global", sep = "=")
 }
 
@@ -421,17 +421,20 @@ builder <- function(x, provider, constraint, min_chars, enclosure, delimiter,
     }
 }
 
-get_tag <- function(tags, constraint) {
-    checkmate::assert_list(tags, min.len = 1)
+get_tag <- function(data, constraint) {
+    checkmate::assert_data_frame(data, min.rows = 1)
     checkmate::assert_character(constraint, min.len = 1, null.ok = TRUE)
-    checkmate::assert_subset(constraint, names(tags), empty.ok = TRUE)
+    checkmate::assert_subset(constraint, tolower(data$name), empty.ok = TRUE)
 
     out <- character()
 
     if (!is.null(constraint)) {
         for (i in constraint) {
-            if (any(grepl(paste0("^", i, "$"), names(tags)))) {
-                out <- append(out, tags[[i]])
+            pattern <- paste0("^", i, "$")
+
+            if (any(grepl(pattern, tolower(data$name)))) {
+                index <- grep(pattern, tolower(data$name))
+                out <- append(out, data$tag[index])
             }
         }
     }

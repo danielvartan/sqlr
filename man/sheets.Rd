@@ -5,7 +5,7 @@
 \alias{sheets}
 \title{List of meta data of datasets hosted on Google Sheets}
 \format{
-An object of class \code{list} of length 5.
+An object of class \code{list} of length 6.
 }
 \usage{
 sheets

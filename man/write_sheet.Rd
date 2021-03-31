@@ -2,12 +2,13 @@
 % Please edit documentation in R/utils-sheets.R
 \name{write_sheet}
 \alias{write_sheet}
-\title{Write sheets of database entities on Google Sheets to the package}
+\title{Write the review tables hosted on Google Sheets to the package}
 \usage{
 write_sheet(name = NULL, package = NULL)
 }
 \arguments{
-\item{name}{(optional) A string indicating the sheet name (default: \code{NULL}).}
+\item{name}{(optional) A \code{character} object indicating the name or names of
+the sheets that the function must write (default: \code{NULL}).}
 
 \item{package}{(optional) a string indicating the package with the database
 data. If \code{NULL}, the function will try to use the name of the active
@@ -16,22 +17,26 @@ project directory (requires the \code{rstudioapi} package) (default: \code{NULL}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{write_sheet} reads entities tables on Google Sheets and write them in the
-data directory of an R package.
+\code{write_sheet()} reads and write the review tables hosted on Google Sheets in
+the data directory of an R package.
+
+You must have a \code{sheets} data object with the sheets metadata before running
+this function. See \code{?write_metadata()} to learn more.
+
+\code{write_sheet()} don't rewrite the \code{sheets} table.
 }
 \examples{
 \dontrun{
 ## __ To write all sheets __
 write_sheet()
 
-## __ To write only a specific sheet __
+## __ To write one or more specific sheets __
 write_sheet(sheet_id()[1])}
 }
 \seealso{
 Other GIPSO functions: 
 \code{\link{keyword_set}()},
 \code{\link{read_sheet}()},
-\code{\link{sheet_id}()},
 \code{\link{write_query}()}
 }
 \concept{GIPSO functions}

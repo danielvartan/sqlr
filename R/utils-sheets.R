@@ -1,37 +1,111 @@
-#' Get the `sheet_id` of database entities on Google Sheets
+#' Create a list with Google Sheets metadata for tables hosted on the platform
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `sheet_id()` retrieve the `sheet_id` from entities tables on Google Sheets.
+#' `write_metadata()` creates and returns a `list` object containing lists with
+#' the Google Sheets metadata of the review tables hosted on the platform.
 #'
-#' @param name (optional) A string indicating the sheet name (default: `NULL`).
+#' This must be set for all R packages from GIPSO for systematic quantitative
+#' literature reviews.
 #'
-#' @return If `name = NULL`, returns a `character` object with all sheet names
-#'   available. Else, it returns the `sheet_id` object of the sheet indicated in
-#'   `name`.
+#' You can see a example of a metadata sheets in: <https://bit.ly/2PFWhev>.
 #'
-#' @family GIPSO functions
-#' @template param_a
+#' @param id A string with the Google Sheets ID from the sheets table.
+#' @param sheet (optional) a string indicating the worksheet/tab where the
+#'   sheets data can be found on the sheets spreadsheet (default: `"Dataset"`).
+#'
+#' @return An invisible `list` object containing lists with the Google Sheets
+#'   metadata of the review tables hosted on the platform.
+#'
+#' @family data functions
+#' @importFrom magrittr %>%
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' ## __ To list all the all sheet names available __
-#' sheet_id()
-#'
-#' ## __ To get the 'sheet_id' object of a specific sheet __
-#' sheet_id(sheet_id()[1])}
-sheet_id <- function(name = NULL, package = NULL) {
-    sheets <- NULL # R CMD Check variable bindings fix
+#' write_metadata("1x6Aj8cXl9qFtpXq48Q6zdmT-w9EEqNG1iVQcKVRhgKM")
+#' }
+write_metadata <- function(id, sheet = "Dataset") {
+    checkmate::assert_string(id)
+    checkmate::assert_string(sheet)
 
-    checkmate::assert_string(name, null.ok = TRUE)
+    name <- where <- NULL # R CMD Check variable bindings fix
+
+    if (!is_namespace_loaded("googlesheets4") ||
+        !is_namespace_loaded("usethis")) {
+        stop("This function requires the 'googlesheets4' and 'usethis' ",
+             "packages to run. You can install them by running: \n\n",
+             'install.packages("googlesheets4") \n',
+             'install.packages("usethis")', call. = FALSE)
+    }
+
+    data <- googlesheets4::read_sheet(id, sheet, col_types = "c")
+
+    data <- data %>%
+        dplyr::filter(!(name == "operators")) %>%
+        dplyr::mutate(across(where(is.character), stringr::str_squish))
+
+    sheets <- list()
+
+    for (i in seq_len(nrow(data))) {
+        sheets[[data$name[i]]] <- list(name = data$name[i],
+                                       type = data$type[i],
+                                       id = data$id[i],
+                                       sheet = data$sheet[i])
+    }
+
+    usethis::use_data(sheets, overwrite = TRUE)
+
+    invisible(sheets)
+}
+
+#' Read the review tables hosted on Google Sheets
+#'
+#' @description
+#'
+#' `r lifecycle::badge("experimental")`
+#'
+#' `read_sheet()` reads and returns the review tables hosted on Google Sheets.
+#'
+#' You must have a `sheets` data object with the sheets metadata before running
+#' this function. See `?write_metadata()` to learn more.
+#'
+#' @param name (optional) A `character` object indicating the name or names of
+#'   the sheets that the function must return (default: `NULL`).
+#'
+#' @return
+#'
+#' * If `name = NULL`, an invisible `list` object with `tibbles` objects of all
+#' sheet/tables available as elements.
+#' * If `name` have length > 1, an invisible `list` object with `tibbles`
+#' objects of sheet/tables indicated in `name` as elements.
+#' * If `name` have length == 1, an invisible `tibble` object of the sheet/table
+#' indicated in `name`.
+#'
+#' @family GIPSO functions
+#' @template param_a
+#' @importFrom magrittr %>%
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' ## __ To get a 'list' object with all the sheets __
+#' read_sheet()
+#'
+#' ## __ To get a 'list' object with some sheets __
+#' read_sheet(c(names(sheets)[1], names(sheets)[2]))
+#'
+#' ## __ To get a 'tibble' object of a specific sheet __
+#' read_sheet(sheet_id()[1])
+#' }
+read_sheet <- function(name = NULL, package = NULL) {
+    checkmate::assert_character(name, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
 
     if (!is_namespace_loaded("utils") ||
-        !is_namespace_loaded("googlesheets4") ||
-        !is_namespace_loaded("magrittr")) {
+        !is_namespace_loaded("googlesheets4")) {
         stop("This function requires the 'utils' and 'googlesheets4' ",
              "packages to run. You can install them by running: \n\n",
              'install.packages("utils") \n',
@@ -42,101 +116,49 @@ sheet_id <- function(name = NULL, package = NULL) {
     assert_namespace(package)
     assert_data("sheets", package, alert = "gipso_1")
 
+    sheets <- NULL # R CMD Check variable bindings fix
+
     utils::data("sheets", package = package, envir = environment())
     checkmate::assert_subset(name, names(sheets), empty.ok = TRUE)
 
-    if (is.null(name)) {
-        names(sheets)
+    if (!is.null(name)) {
+        sheets <- sheets[name]
     } else {
-        checkmate::assert_choice(name, names(sheets))
-        googlesheets4::as_sheets_id(sheets[[name]][["id"]])
+        name <- stringr::str_subset(names(sheets), "^sheets$", negate = TRUE)
     }
-}
-
-#' Read sheets of database entities on Google Sheets
-#'
-#' @description
-#'
-#' `r lifecycle::badge("experimental")`
-#'
-#' `read_sheet()` read and returns entities tables on Google Sheets.
-#'
-#' @return If `name = NULL`, returns an invisible `list` object with `tibbles`
-#'   objects of all sheet tables available as elements. Else, it returns an
-#'   invisible `tibble` object of the sheet table indicated in `name`.
-#'
-#' @family GIPSO functions
-#' @inheritParams sheet_id
-#' @importFrom magrittr %>%
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' ## __ To get a 'list' with all the sheets __
-#' read_sheet()
-#'
-#' ## __ To get only only a specific sheet __
-#' read_sheet(sheet_id()[1])}
-read_sheet <- function(name = NULL, package = NULL) {
-    checkmate::assert_string(name, null.ok = TRUE)
-    checkmate::assert_string(package, null.ok = TRUE)
-
-    if (!is_namespace_loaded("utils") ||
-        !is_namespace_loaded("googlesheets4") ||
-        !is_namespace_loaded("magrittr")) {
-        stop("This function requires the 'utils', 'googlesheets4', and ",
-             "'magrittr' packages to run. You can install them by ",
-             "running: \n\n",
-             'install.packages("utils") \n',
-             'install.packages("googlesheets4") \n',
-             'install.packages("magrittr")', call. = FALSE)
-    }
-
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-    assert_data("sheets", package, alert = "gipso_1")
-
-    utils::data("sheets", package = package, envir = environment())
-    checkmate::assert_subset(name, names(sheets), empty.ok = TRUE)
-
-    if (!is.null(name)) sheets <- sheets[name]
 
     for (i in sheets) {
-        data <- googlesheets4::read_sheet(
-            sheet_id(name = i$name, package = package),
-            sheet = i$sheet)
-        data <- data[which(!is.na(data[[1]])), ]
+        data <- googlesheets4::read_sheet(i$id, i$sheet)
         assign(i$name, data)
     }
 
-    if ("keyword" %in% ls()) {
-        # R CMD Check variable bindings fix
-        domain_id <- language <- approved <- NULL
-
-        keyword <- keyword %>%
-            dplyr::arrange(domain_id, language, dplyr::desc(approved), keyword)
-    }
-
-    if (!is.null(name)) {
+    if (length(name) == 1) {
         invisible(get(name))
     } else {
-        export <- stringr::str_subset(ls(), "name", negate = TRUE)
-        variables <- mget(export)
-        invisible(variables[names(sheets)])
+        variables <- mget(ls())
+        invisible(variables[name])
     }
 }
 
-#' Write sheets of database entities on Google Sheets to the package
+#' Write the review tables hosted on Google Sheets to the package
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `write_sheet` reads entities tables on Google Sheets and write them in the
-#' data directory of an R package.
+#' `write_sheet()` reads and write the review tables hosted on Google Sheets in
+#' the data directory of an R package.
+#'
+#' You must have a `sheets` data object with the sheets metadata before running
+#' this function. See `?write_metadata()` to learn more.
+#'
+#' `write_sheet()` don't rewrite the `sheets` table.
+#'
+#' @param name (optional) A `character` object indicating the name or names of
+#'   the sheets that the function must write (default: `NULL`).
 #'
 #' @family GIPSO functions
-#' @inheritParams sheet_id
+#' @template param_a
 #' @export
 #'
 #' @examples
@@ -144,10 +166,10 @@ read_sheet <- function(name = NULL, package = NULL) {
 #' ## __ To write all sheets __
 #' write_sheet()
 #'
-#' ## __ To write only a specific sheet __
+#' ## __ To write one or more specific sheets __
 #' write_sheet(sheet_id()[1])}
 write_sheet <- function(name = NULL, package = NULL) {
-    checkmate::assert_string(name, null.ok = TRUE)
+    checkmate::assert_character(name, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
 
     if (!is_namespace_loaded("utils") ||
@@ -162,21 +184,32 @@ write_sheet <- function(name = NULL, package = NULL) {
     assert_namespace(package)
     assert_data("sheets", package, alert = "gipso_1")
 
-    sheets <- sheet_id(package = package)
-    checkmate::assert_subset(name, sheets, empty.ok = TRUE)
+    sheets <- NULL # R CMD Check variable bindings fix
 
-    if (!(dir.exists("./data/"))) dir.create("./data/")
+    utils::data("sheets", package = package, envir = environment())
 
     if (!is.null(name)) {
-        assign(name, read_sheet(name = name, package = package))
-        sheets <- name
+        if (any(name == "sheets")) {
+            stop("You can't rewrite the 'sheets' table. ",
+                 "Use 'write_metadata()' to reload the sheets metadata.",
+                 call. = FALSE)
+        }
+
+        checkmate::assert_subset(name, names(sheets), empty.ok = TRUE)
+
+        if (length(name) == 1) {
+            assign(name, read_sheet(name = name, package = package))
+        } else {
+            list2env(read_sheet(name, package), envir = environment())
+        }
     } else {
-        list2env(read_sheet(package = package), envir = environment())
+        name <- stringr::str_subset(names(sheets), "^sheets$", negate = TRUE)
+        list2env(read_sheet(name, package), envir = environment())
     }
 
     envir <- environment()
 
-    for (i in sheets) {
+    for (i in name) {
         if(!(dir.exists("./data/"))) dir.create("./data/")
 
         file <- paste0("./data/", i, ".rda")
