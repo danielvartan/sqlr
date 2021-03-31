@@ -33,12 +33,10 @@ write_metadata <- function(id, sheet = "Dataset") {
 
     name <- where <- NULL # R CMD Check variable bindings fix
 
-    if (!is_namespace_loaded("googlesheets4") ||
-        !is_namespace_loaded("usethis")) {
-        stop("This function requires the 'googlesheets4' and 'usethis' ",
-             "packages to run. You can install them by running: \n\n",
-             'install.packages("googlesheets4") \n',
-             'install.packages("usethis")', call. = FALSE)
+    if (!is_namespace_loaded("googlesheets4")) {
+        stop("This function requires the 'googlesheets4' ",
+             "package to run. You can install it by running: \n\n",
+             'install.packages("googlesheets4")', call. = FALSE)
     }
 
     data <- googlesheets4::read_sheet(id, sheet, col_types = "c")
@@ -57,10 +55,13 @@ write_metadata <- function(id, sheet = "Dataset") {
     }
 
     message("\n", "Run (in order):\n\n",
-            "'devtools::document()' (Ctrl + Shift + D)\n",
-            "'devtools::load_all()' (Ctrl + Shift + L)")
+            "devtools::document()\n",
+            "devtools::load_all()")
 
-    usethis::use_data(sheets, overwrite = TRUE)
+    if(!(dir.exists("./data/"))) dir.create("./data/")
+    file <- "./data/sheets.rda"
+    save("sheets", file = file, envir = environment(), compress = "bzip2",
+         version = 2)
 
     invisible(sheets)
 }
@@ -179,7 +180,7 @@ write_sheet <- function(name = NULL, package = NULL) {
     if (!is_namespace_loaded("utils") ||
         !is_namespace_loaded("googlesheets4")) {
         stop("This function requires the 'utils' and 'googlesheets4' packages ",
-             'to run. You can install them by running: \n \n',
+             'to run. You can install them by running: \n\n',
              'install.packages("utils") \n',
              'install.packages("googlesheets4")' , call. = FALSE)
     }
@@ -215,15 +216,14 @@ write_sheet <- function(name = NULL, package = NULL) {
 
     for (i in name) {
         if(!(dir.exists("./data/"))) dir.create("./data/")
-
         file <- paste0("./data/", i, ".rda")
-        save(list = i, file = file, envir = envir,
-             compress = "bzip2", version = 2)
+        save(list = i, file = file, envir = envir, compress = "bzip2",
+             version = 2)
     }
 
     message("\n", "Run (in order):\n\n",
-            "'devtools::document()' (Ctrl + Shift + D)\n",
-            "'devtools::load_all()' (Ctrl + Shift + L)")
+            "devtools::document()\n",
+            "devtools::load_all()")
 
     invisible(NULL)
 }

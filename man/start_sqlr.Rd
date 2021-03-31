@@ -20,7 +20,7 @@ project directory (requires the \code{rstudioapi} package) (default: \code{NULL}
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \code{start_sqlr()} handles the initial commands to start Systematic Quantitative
-Literature Reviws R packages.
+Literature Reviews R packages.
 }
 \seealso{
 Other data functions: 
