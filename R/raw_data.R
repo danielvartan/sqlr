@@ -42,10 +42,8 @@ raw_data <- function(type = NULL, file = NULL, quiet = FALSE) {
     package <- "sqlr"
 
     if (is.null(file) && is.null(type)) {
-        shush(alert("File types:\n"), quiet)
         dir(system.file("extdata", package = package))
     } else if (is.null(file) && !is.null(type)) {
-        shush(alert(index[[type]]$name, " files:", "\n"), quiet)
         dir(system.file(index[[type]]$path, package = package))
     } else if (!is.null(file) && !is.null(type)) {
         system.file(index[[type]]$path, file, package = package,

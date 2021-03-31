@@ -56,6 +56,10 @@ write_metadata <- function(id, sheet = "Dataset") {
                                        sheet = data$sheet[i])
     }
 
+    message("\n", "Run (in order):\n\n",
+            "'devtools::document()' (Ctrl + Shift + D)\n",
+            "'devtools::load_all()' (Ctrl + Shift + L)")
+
     usethis::use_data(sheets, overwrite = TRUE)
 
     invisible(sheets)
@@ -217,8 +221,9 @@ write_sheet <- function(name = NULL, package = NULL) {
              compress = "bzip2", version = 2)
     }
 
-    message("\n", "Don't forget to run 'devtools::load_all()' ",
-            "(Ctrl + Shift + L).")
+    message("\n", "Run (in order):\n\n",
+            "'devtools::document()' (Ctrl + Shift + D)\n",
+            "'devtools::load_all()' (Ctrl + Shift + L)")
 
     invisible(NULL)
 }

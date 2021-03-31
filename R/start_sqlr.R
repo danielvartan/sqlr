@@ -35,4 +35,8 @@ start_sqlr <- function(id, sheet = "Dataset", package = NULL) {
     usethis::use_travis()
     usethis::use_pkgdown_github_pages()
     usethis::use_coverage()
+
+    message("\n", "Run (in order):\n\n",
+            "'devtools::document()' (Ctrl + Shift + D)\n",
+            "'devtools::load_all()' (Ctrl + Shift + L)")
 }

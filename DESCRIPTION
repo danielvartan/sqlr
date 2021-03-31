@@ -43,7 +43,6 @@ Imports:
 Suggests: 
     covr,
     crayon,
-    devtools,
     ggplot2,
     googlesheets4,
     grDevices,
