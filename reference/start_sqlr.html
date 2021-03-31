@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List with Google Sheets metadata for tables hosted on the platform — sheets • sqlr</title>
+<title>Start settings for SQLR R package templates — start_sqlr • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,10 @@
 
 
 
-<meta property="og:title" content="List with Google Sheets metadata for tables hosted on the platform — sheets" />
+<meta property="og:title" content="Start settings for SQLR R package templates — start_sqlr" />
 <meta property="og:description" content="
-UNDER DEVELOPMENT" />
+start_sqlr() handles the initial commands to start Systematic Quantitative
+Literature Reviews R packages." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
 
 
@@ -121,22 +122,43 @@ UNDER DEVELOPMENT" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List with Google Sheets metadata for tables hosted on the platform</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>sheets.Rd</code></div>
+    <h1>Start settings for SQLR R package templates</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/start_sqlr.R'><code>R/start_sqlr.R</code></a></small>
+    <div class="hidden name"><code>start_sqlr.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><strong>UNDER DEVELOPMENT</strong></p>
+<p><code>start_sqlr()</code> handles the initial commands to start Systematic Quantitative
+Literature Reviews R packages.</p>
     </div>
 
-    <pre class="usage"><span class='va'>sheets</span></pre>
+    <pre class="usage"><span class='fu'>start_sqlr</span><span class='op'>(</span><span class='va'>id</span>, sheet <span class='op'>=</span> <span class='st'>"Dataset"</span>, package <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>id</th>
+      <td><p>A string with the Google Sheets ID from the 'Sheets' table.</p></td>
+    </tr>
+    <tr>
+      <th>sheet</th>
+      <td><p>(optional) a string indicating the worksheet/tab where the
+sheets data can be found on the 'Sheets spreadsheet (default: <code>"Dataset"</code>).</p></td>
+    </tr>
+    <tr>
+      <th>package</th>
+      <td><p>(optional) a string indicating the package with the database
+data. If <code>NULL</code>, the function will try to use the name of the active
+project directory (requires the <code>rstudioapi</code> package) (default: <code>NULL</code>).</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>An object of class <code>list</code> of length 6.</p>
+    <div class='dont-index'><p>Other data functions: 
+<code><a href='write_metadata.html'>write_metadata</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

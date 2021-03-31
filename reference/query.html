@@ -179,7 +179,7 @@ print the output on the console window.</p></td>
       <th>min_chars</th>
       <td><p>(optional) A number indicating the minimal number of
 characters a keyword must have. Keywords that don't comply to this setting
-will be transformed to <code>NA</code>.</p></td>
+will be transformed to <code>NA</code> (default: <code>1</code>).</p></td>
     </tr>
     <tr>
       <th>delimiter</th>
@@ -189,7 +189,7 @@ Use <code>delimiter = NULL</code> to disable this behavior (default: <code>NULL<
     <tr>
       <th>enclosure</th>
       <td><p>(optional) A string indicating the type of enclosure for
-keywords with special characters (like spaces) (default: "double quote").</p></td>
+keywords with special characters (like spaces) (default: <code>"double quote"</code>).</p></td>
     </tr>
     <tr>
       <th>clean_modifiers</th>
@@ -247,8 +247,8 @@ Library Online).</p></li>
 of the constraint (<em>e.g.</em>, <code>"Title"</code>, <code>"Abstract"</code>) that is used in the
 database provider (case insensitive). Also, the following alias were included
 to help the user: title, abstract, keyword.</p>
-<p>You can see all constraint names available for the query function
-<a href='https://github.com/gipsousp/sqlr/blob/master/data-raw/tags.R'>here</a>.</p>
+<p>You can see all constraint names available for the <code>query()</code> in
+<code><a href='provider_tags.html'>sqlr::provider_tags</a></code>.</p>
 <p>Please note that some constraints may not be available for the database
 you're a searching. Always read the database provider documentation before
 building your search.</p>
@@ -310,7 +310,7 @@ an error in those cases.</p>
 
 <span class='co'>## __ Creating queries from multiple domains __</span>
 
-<span class='fu'>query</span><span class='op'>(</span><span class='st'>"Lorem"</span>, <span class='st'>"AND"</span>, <span class='st'>"Ipsum"</span>, <span class='st'>"NOT"</span>, <span class='st'>"dolor"</span>, provider <span class='op'>=</span> <span class='st'>"embase"</span>,
+<span class='fu'>query</span><span class='op'>(</span><span class='st'>"Lorem"</span>, <span class='st'>"AND"</span>, <span class='st'>"Ipsum"</span>, <span class='st'>"NOT"</span>, <span class='st'>"dolor"</span>, provider <span class='op'>=</span> <span class='st'>"EMBASE"</span>,
       constraint <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"title"</span>, <span class='st'>"abstract"</span><span class='op'>)</span>, clipboard <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #BB0000;font-weight: bold;'>(lorem:ti,ab) AND (ipsum:ti,ab) NOT (dolor:ti,ab)</span><span></div><div class='input'><span class='co'>#&gt; (lorem:ti,ab) AND (ipsum:ti,ab) NOT (dolor:ti,ab) # Expected</span>
 

@@ -154,7 +154,7 @@ tidy_keyword() tidy keyword values for database search." />
       <th>min_chars</th>
       <td><p>(optional) A number indicating the minimal number of
 characters a keyword must have. Keywords that don't comply to this setting
-will be transformed to <code>NA</code>.</p></td>
+will be transformed to <code>NA</code> (default: <code>1</code>).</p></td>
     </tr>
     <tr>
       <th>delimiter</th>
@@ -164,7 +164,7 @@ Use <code>delimiter = NULL</code> to disable this behavior (default: <code>NULL<
     <tr>
       <th>enclosure</th>
       <td><p>(optional) A string indicating the type of enclosure for
-keywords with special characters (like spaces) (default: "double quote").</p></td>
+keywords with special characters (like spaces) (default: <code>"double quote"</code>).</p></td>
     </tr>
     <tr>
       <th>clean_modifiers</th>

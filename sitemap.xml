@@ -16,6 +16,9 @@
     <loc>https://gipsousp.github.io/sqlr//reference/keyword_set.html</loc>
   </url>
   <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/provider_tags.html</loc>
+  </url>
+  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/query.html</loc>
   </url>
   <url>
@@ -28,9 +31,6 @@
     <loc>https://gipsousp.github.io/sqlr//reference/search.html</loc>
   </url>
   <url>
-    <loc>https://gipsousp.github.io/sqlr//reference/sheet_id.html</loc>
-  </url>
-  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/sheets.html</loc>
   </url>
   <url>
@@ -40,10 +40,13 @@
     <loc>https://gipsousp.github.io/sqlr//reference/sqlr-package.html</loc>
   </url>
   <url>
-    <loc>https://gipsousp.github.io/sqlr//reference/tags.html</loc>
+    <loc>https://gipsousp.github.io/sqlr//reference/start_sqlr.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/tidy_keyword.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/write_metadata.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/write_query.html</loc>
