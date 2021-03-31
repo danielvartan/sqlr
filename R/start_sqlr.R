@@ -28,9 +28,6 @@ start_sqlr <- function(id, sheet = "Dataset", package = NULL) {
     shush(write_metadata(id, sheet))
     shush(write_sheet(package = package))
 
-    devtools::document()
-    devtools::load_all()
-
     usethis::use_github_action_check_standard()
     usethis::use_travis()
     usethis::use_pkgdown_github_pages()

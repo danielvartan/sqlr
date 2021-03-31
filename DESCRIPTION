@@ -47,6 +47,7 @@ Suggests:
     googlesheets4,
     grDevices,
     knitr,
+    revtools,
     rlang,
     rmarkdown,
     rstudioapi,
