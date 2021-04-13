@@ -163,7 +163,7 @@ get_class <- function(x) {
 }
 
 get_package_name <- function() {
-    if (!is_namespace_loaded("rstudioapi")) {
+    if (!require_namespace("rstudioapi", quietly = TRUE)) {
         stop("This function requires the 'rstudioapi' package to run. ",
              "You can install it by running: \n\n",
              'install.packages("rstudioapi")' , call. = FALSE)

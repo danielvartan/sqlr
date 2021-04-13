@@ -32,6 +32,7 @@ keyword_set(1, "english")}
 \seealso{
 Other GIPSO functions: 
 \code{\link{read_sheet}()},
+\code{\link{write_metadata}()},
 \code{\link{write_query}()},
 \code{\link{write_sheet}()}
 }

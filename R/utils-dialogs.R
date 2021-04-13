@@ -22,7 +22,7 @@ dialog_line <- function(..., combined_styles = NULL,
     line <- paste0(line, collapse = "")
     line <- paste0(paste(strwrap(line), collapse = "\n"), " ")
 
-    if (is_namespace_loaded("crayon")) {
+    if (require_namespace("crayon", quietly = TRUE)) {
         crayonize <- shush(crayon::combine_styles(combined_styles))
         line <- (crayonize(line))
     }
@@ -44,7 +44,7 @@ alert <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {
     message <- vapply(list(...), paste0, character(1), collapse = "")
     message <- paste0(message, collapse = "")
 
-    if (is_namespace_loaded("crayon")) {
+    if (require_namespace("crayon", quietly = TRUE)) {
         message <- crayonize(message)
     }
 
@@ -61,7 +61,7 @@ printer <- function(..., print = TRUE, clipboard = TRUE, abort = FALSE) {
 
     if (isTRUE(abort)) return(invisible(NULL))
 
-    if (isTRUE(clipboard) && !is_namespace_loaded("utils")) {
+    if (isTRUE(clipboard) && !require_namespace("utils", quietly = TRUE)) {
         stop("You need to have the 'utils' package installed ",
              "to copy to the clipboard. You can install it by running: \n \n",
              'install.packages("utils") \n', call. = FALSE)
@@ -99,7 +99,7 @@ crayonize <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {
     out <- unlist(list(...))
     # out <- vapply(list(...), paste0, character(1))
 
-    if (is_namespace_loaded("crayon")) {
+    if (require_namespace("crayon", quietly = TRUE)) {
         crayonize <- shush(crayon::combine_styles(combined_styles))
         out <- vapply(out, crayonize, character(1), USE.NAMES = FALSE)
     }

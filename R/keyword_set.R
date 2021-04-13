@@ -24,8 +24,8 @@
 keyword_set <- function(domain_id, language = NULL, package = NULL) {
     keyword <- approved <- NULL # R CMD Check variable bindings fix
 
-    if (!is_namespace_loaded("utils") ||
-        !is_namespace_loaded("magrittr")) {
+    if (!require_namespace("utils", quietly = TRUE) ||
+        !require_namespace("magrittr", quietly = TRUE)) {
         stop("This function requires the 'utils' and 'magrittr' packages ",
              'to run. You can install them by running: \n\n',
              'install.packages("utils") \n',

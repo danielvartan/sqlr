@@ -47,6 +47,7 @@ read_sheet(sheet_id()[1])
 \seealso{
 Other GIPSO functions: 
 \code{\link{keyword_set}()},
+\code{\link{write_metadata}()},
 \code{\link{write_query}()},
 \code{\link{write_sheet}()}
 }

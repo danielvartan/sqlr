@@ -37,6 +37,7 @@ write_sheet(sheet_id()[1])}
 Other GIPSO functions: 
 \code{\link{keyword_set}()},
 \code{\link{read_sheet}()},
+\code{\link{write_metadata}()},
 \code{\link{write_query}()}
 }
 \concept{GIPSO functions}

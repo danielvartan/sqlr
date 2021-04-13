@@ -135,7 +135,7 @@ assert_identical <- function(..., type = "value", any.missing = TRUE,
 
 test_namespace <- function(x) {
     checkmate::assert_string(x)
-    isNamespaceLoaded(x)
+    require_namespace(x, quietly = TRUE)
 }
 
 check_namespace <- function(x, null.ok = FALSE, name = deparse(substitute(x))) {
@@ -159,7 +159,7 @@ test_data <- function(data, package) {
     checkmate::assert_string(data)
     checkmate::assert_string(package)
 
-    if (!is_namespace_loaded("utils")) {
+    if (!require_namespace("utils", quietly = TRUE)) {
         stop("This function requires the 'utils' package to run. ",
              "You can install it by running: \n\n",
              'install.packages("utils")', call. = FALSE)

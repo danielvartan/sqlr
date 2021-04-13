@@ -27,9 +27,9 @@ write_query <- function(range = NULL, package = NULL) {
     sheets <- provider <- language <- domain_set <- NULL
     constraint_set <- query <- approved <- constraint <- constraint_id <- NULL
 
-    if (!is_namespace_loaded("utils") ||
-        !is_namespace_loaded("magrittr") ||
-        !is_namespace_loaded("googlesheets4")) {
+    if (!require_namespace("utils", quietly = TRUE) ||
+        !require_namespace("magrittr", quietly = TRUE) ||
+        !require_namespace("googlesheets4", quietly = TRUE)) {
         stop("This function requires the 'utils', 'magrittr', and ",
              "'googlesheets4' packages to run. ",
              "You can install them by running: \n\n",

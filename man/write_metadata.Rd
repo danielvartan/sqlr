@@ -33,7 +33,10 @@ write_metadata("1x6Aj8cXl9qFtpXq48Q6zdmT-w9EEqNG1iVQcKVRhgKM")
 }
 }
 \seealso{
-Other data functions: 
-\code{\link{start_sqlr}()}
+Other GIPSO functions: 
+\code{\link{keyword_set}()},
+\code{\link{read_sheet}()},
+\code{\link{write_query}()},
+\code{\link{write_sheet}()}
 }
-\concept{data functions}
+\concept{GIPSO functions}
