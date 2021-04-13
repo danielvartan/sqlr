@@ -5,15 +5,13 @@
 
 <!-- badges: start -->
 
-![CRAN status](https://www.r-pkg.org/badges/version/mctq) [![Project
+![CRAN status](https://www.r-pkg.org/badges/version/sqlr) [![Project
 Status: WIP – Initial development is in progress, but there has not yet
 been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/gipsousp/sqlr/workflows/R-CMD-check/badge.svg)](https://github.com/gipsousp/sqlr/actions)
-[![Travis build
-status](https://travis-ci.com/gipsousp/sqlr.svg?branch=master)](https://travis-ci.com/gipsousp/sqlr)
 [![Codecov test
 coverage](https://codecov.io/gh/gipsousp/sqlr/branch/master/graph/badge.svg)](https://codecov.io/gh/gipsousp/sqlr?branch=master)
 [![License:
