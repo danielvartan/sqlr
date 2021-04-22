@@ -110,7 +110,7 @@ Association).
 Stephens Company).
 \item \code{"embase"}: for \href{https://bit.ly/399d14T}{EMBASE} (Excerpta Medica
 dataBASE)
-\item \code{"lilacs"}: for \href{https://bvsalud.org/en/8246-2/}{LILACS} (Literatura
+\item \code{"lilacs"}: for \href{https://bit.ly/3aqb2to}{LILACS} (Literatura
 Latino-americana e do Caribe em Ciencias da Saude).
 \item \code{"pubmed"}: for \href{https://pubmed.ncbi.nlm.nih.gov/help/}{PubMed}.
 \item \code{"scielo"}: for \href{https://bit.ly/3lJvVnQ}{SciELO} (Scientific Electronic

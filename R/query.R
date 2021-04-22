@@ -51,7 +51,7 @@
 #' Stephens Company).
 #' * `"embase"`: for [EMBASE](https://bit.ly/399d14T) (Excerpta Medica
 #' dataBASE)
-#' * `"lilacs"`: for [LILACS](https://bvsalud.org/en/8246-2/) (Literatura
+#' * `"lilacs"`: for [LILACS](https://bit.ly/3aqb2to) (Literatura
 #' Latino-americana e do Caribe em Ciencias da Saude).
 #' * `"pubmed"`: for [PubMed](https://pubmed.ncbi.nlm.nih.gov/help/).
 #' * `"scielo"`: for [SciELO](https://bit.ly/3lJvVnQ) (Scientific Electronic
@@ -162,7 +162,7 @@ apa <- function(..., constraint = NULL) {
 
     x <- unlist(list(...), use.names = FALSE)
     tag <- get_tag(sqlr::provider_tags$apa, constraint)
-    paste_tag(x, tag = tag, type = "global", sep = ": ")
+    paste_tag(x, tag = tag, type = "local", location = "left", sep = ": ")
 }
 
 ebsco <- function(..., constraint = NULL) {
@@ -171,7 +171,7 @@ ebsco <- function(..., constraint = NULL) {
 
     x <- unlist(list(...), use.names = FALSE)
     tag <- get_tag(sqlr::provider_tags$ebsco, constraint)
-    paste_tag(x, tag = tag, type = "global", sep = " ")
+    paste_tag(x, tag = tag, type = "local", location = "left", sep = " ")
 }
 
 embase <- function(..., constraint = NULL) {
@@ -187,7 +187,7 @@ embase <- function(..., constraint = NULL) {
         tag <- ""
     }
 
-    paste_tag(x, tag = tag, type = "local", sep = "")
+    paste_tag(x, tag = tag, type = "local", location = "right", sep = "")
 }
 
 lilacs <- function(..., constraint = NULL) {
@@ -196,7 +196,7 @@ lilacs <- function(..., constraint = NULL) {
 
     x <- unlist(list(...), use.names = FALSE)
     tag <- get_tag(sqlr::provider_tags$lilacs, constraint)
-    paste_tag(x, tag = tag, type = "global", sep = ":")
+    paste_tag(x, tag = tag, type = "local", location = "left", sep = ":")
 }
 
 pubmed <- function(..., constraint = NULL) {
@@ -218,7 +218,7 @@ pubmed <- function(..., constraint = NULL) {
 
     x <- unlist(list(...), use.names = FALSE)
     tag <- get_tag(sqlr::provider_tags$pubmed, constraint)
-    paste_tag(x, tag = tag, type = "local", sep = "")
+    paste_tag(x, tag = tag, type = "local", location = "right", sep = "")
 }
 
 scielo <- function(..., constraint = NULL) {
@@ -227,7 +227,7 @@ scielo <- function(..., constraint = NULL) {
 
     x <- unlist(list(...), use.names = FALSE)
     tag <- get_tag(sqlr::provider_tags$scielo, constraint)
-    paste_tag(x, tag = tag, type = "global", sep = ":")
+    paste_tag(x, tag = tag, type = "local", location = "left", sep = ":")
 }
 
 scopus <- function(..., constraint = NULL) {
@@ -255,7 +255,7 @@ scopus <- function(..., constraint = NULL) {
 
     x <- unlist(list(...), use.names = FALSE)
     tag <- get_tag(sqlr::provider_tags$scopus, constraint)
-    paste_tag(x, tag = tag, type = "global", sep = "")
+    paste_tag(x, tag = tag, type = "global", location = "left", sep = "")
 }
 
 wos <- function(..., constraint = NULL) {
@@ -279,7 +279,7 @@ wos <- function(..., constraint = NULL) {
 
     x <- unlist(list(...), use.names = FALSE)
     tag <- get_tag(sqlr::provider_tags$wos, constraint)
-    paste_tag(x, tag = tag, type = "global", sep = "=")
+    paste_tag(x, tag = tag, type = "global", location = "left", sep = "=")
 }
 
 chopper <- function(..., delimiter = NULL) {
@@ -442,14 +442,14 @@ get_tag <- function(data, constraint) {
     out
 }
 
-paste_tag <- function(..., tag = NULL, type = "local", sep = "") {
+paste_tag <- function(..., tag = NULL, type = "local", location = "right",
+                      sep = "") {
     x <- unlist(list(...), use.names = FALSE)
-
-    choices <- c("local", "global")
 
     checkmate::assert_character(x, min.len = 1)
     checkmate::assert_character(tag, null.ok = TRUE)
-    checkmate::assert_choice(type, choices)
+    checkmate::assert_choice(type, c("local", "global"))
+    checkmate::assert_choice(location, c("left", "right"))
     checkmate::assert_string(sep)
 
     if (type == "local") {
@@ -457,7 +457,11 @@ paste_tag <- function(..., tag = NULL, type = "local", sep = "") {
             out <- character()
 
             for (i in tag) {
-                y <- paste0(x, sep, i)
+                if (location == "left") {
+                    y <- paste0(i, sep, x)
+                } else {
+                    y <- paste0(x, sep, i)
+                }
                 # if (length(y) > 1) y <- paste0("(", y, ")")
                 y <- paste(y, collapse = " OR ")
 
@@ -481,7 +485,11 @@ paste_tag <- function(..., tag = NULL, type = "local", sep = "") {
             out <- character()
 
             for (i in tag) {
-                out <- append(out, paste0(i, sep, x))
+                if (location == "left") {
+                    out <- append(out, paste0(i, sep, x))
+                } else {
+                    out <- append(out, paste0(x, sep, i))
+                }
             }
 
             paste(out, collapse = " OR ")

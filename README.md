@@ -70,7 +70,7 @@ citation("sqlr")
 #> 
 #> To cite sqlr in publications use:
 #> 
-#>   Vartanian D., Benedito-Silva, A. A., Pedrazzoli, M. (2021). sqlr: An
+#>   Vartanian, D., Benedito-Silva, A. A., Pedrazzoli, M. (2021). sqlr: An
 #>   R package for systematic quantitative literature reviews. Retrieved
 #>   from https://gipsousp.github.io/sqlr/ .
 #> 

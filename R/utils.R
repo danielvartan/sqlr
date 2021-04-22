@@ -236,6 +236,14 @@ cutter <- function(x, index) {
     out
 }
 
+return_duplications <- function(x) {
+    if (anyDuplicated(x) == 0) {
+        NULL
+    } else {
+        x[duplicated(x)]
+    }
+}
+
 str_extract_ <- function(string, pattern, ignore.case = FALSE, perl = TRUE,
                          fixed = FALSE, useBytes = FALSE, invert = FALSE) {
     checkmate::assert_string(pattern)

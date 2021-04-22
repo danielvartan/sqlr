@@ -69,6 +69,12 @@ write_query <- function(range = NULL, package = NULL) {
         if (is.na(search$domain_set[i])) {
             out <- out %>% append(as.character(NA))
         } else {
+            if (tolower(search$provider[i]) == "scopus") {
+                enclosure <- "curly bracket"
+            } else {
+                enclosure <- "double quote"
+            }
+
             out <- out %>% append(
                 query(domain_set(search$domain_set[i],
                                  search$language[i],
@@ -76,7 +82,8 @@ write_query <- function(range = NULL, package = NULL) {
                       provider = search$provider[i],
                       constraint = constraint_set(search$constraint_set[i],
                                                   package),
-                      delimiter = ",", print = FALSE, clipboard = FALSE)
+                      delimiter = ",", print = FALSE, clipboard = FALSE,
+                      enclosure = enclosure)
             )
         }
     }
