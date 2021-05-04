@@ -7,6 +7,12 @@
     <loc>https://gipsousp.github.io/sqlr//reference/constraint.html</loc>
   </url>
   <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/count_ris.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/cutter.html</loc>
+  </url>
+  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/domain.html</loc>
   </url>
   <url>
@@ -23,6 +29,9 @@
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/raw_data.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/read_ris.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/read_sheet.html</loc>

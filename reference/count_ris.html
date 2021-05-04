@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Constraint dataset — constraint • sqlr</title>
+<title>Count citations/references from RIS files — count_ris • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,11 @@
 
 
 
-<meta property="og:title" content="Constraint dataset — constraint" />
+<meta property="og:title" content="Count citations/references from RIS files — count_ris" />
 <meta property="og:description" content="
-UNDER DEVELOPMENT" />
+count_ris() count citations/references from RIS (Research Information
+Systems) files. If more than one file is used, the function returns the sum
+of the count of the citations/references from each file." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
 
 
@@ -121,23 +123,46 @@ UNDER DEVELOPMENT" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Constraint dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>constraint.Rd</code></div>
+    <h1>Count citations/references from RIS files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/count_ris.R'><code>R/count_ris.R</code></a></small>
+    <div class="hidden name"><code>count_ris.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><strong>UNDER DEVELOPMENT</strong></p>
+<p><code>count_ris()</code> count citations/references from RIS (Research Information
+Systems) files. If more than one file is used, the function returns the sum
+of the count of the citations/references from each file.</p>
     </div>
 
-    <pre class="usage"><span class='va'>constraint</span></pre>
+    <pre class="usage"><span class='fu'>count_ris</span><span class='op'>(</span>file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>file</th>
+      <td><p>(optional) A <code>character</code> object indicating RIS or ZIP file names.
+If not assigned, a dialog window will be open enabling the user to search
+and select a file (only for interactive sessions).</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 4 rows and 4 columns.</p>
+    <p>A <code>numeric</code> object with the count or sum of the count of the
+citations/references found in the 'file' argument.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p><code>count_ris()</code> also allows you to read zip compacted files. Just assign
+the zip file in the <code>file</code> argument.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other citation functions: 
+<code><a href='read_ris.html'>read_ris</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

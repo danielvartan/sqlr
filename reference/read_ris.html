@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get paths to sqlr raw data — raw_data • sqlr</title>
+<title>Read citations/references from RIS files — read_ris • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,11 @@
 
 
 
-<meta property="og:title" content="Get paths to sqlr raw data — raw_data" />
+<meta property="og:title" content="Read citations/references from RIS files — read_ris" />
 <meta property="og:description" content="
-raw_data() returns the raw data paths of the sqlr package." />
+read_ris() read citations/references from RIS (Research Information
+Systems) files. When more than one file is used, the function binds the
+citations/references from each file." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
 
 
@@ -121,29 +123,40 @@ raw_data() returns the raw data paths of the sqlr package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get paths to <code>sqlr</code> raw data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/raw_data.R'><code>R/raw_data.R</code></a></small>
-    <div class="hidden name"><code>raw_data.Rd</code></div>
+    <h1>Read citations/references from RIS files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/read_ris.R'><code>R/read_ris.R</code></a></small>
+    <div class="hidden name"><code>read_ris.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><code>raw_data()</code> returns the raw data paths of the <code>sqlr</code> package.</p>
+<p><code>read_ris()</code> read citations/references from RIS (Research Information
+Systems) files. When more than one file is used, the function binds the
+citations/references from each file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_data</span><span class='op'>(</span>type <span class='op'>=</span> <span class='cn'>NULL</span>, file <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_ris</span><span class='op'>(</span>file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span><span class='op'>(</span><span class='op'>)</span>, sep <span class='op'>=</span> <span class='st'>" | "</span>, tag_pattern <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>type</th>
-      <td><p>(optional) a string indicating the file type of the raw dataset
-(default: <code>NULL</code>).</p></td>
+      <th>file</th>
+      <td><p>(optional) A <code>character</code> object indicating RIS or ZIP file names.
+If not assigned, a dialog window will be open enabling the user to search
+and select a file (only for interactive sessions).</p></td>
     </tr>
     <tr>
-      <th>file</th>
-      <td><p>(optional) a string indicating the file name of the raw dataset.</p></td>
+      <th>sep</th>
+      <td><p>(optional) A string indicating the separator to be used when
+combining values with the same tag (default: <code>" | "</code>).</p></td>
+    </tr>
+    <tr>
+      <th>tag_pattern</th>
+      <td><p>(optional) A string indicating the database provider from
+which the citation file was exported, or a <code>data.frame</code> object containing
+instructions on how to rename and rearrange the tags. See the Details
+section to learn more (default: <code>NULL</code>).</p></td>
     </tr>
     <tr>
       <th>quiet</th>
@@ -154,24 +167,79 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A <code>data.frame</code> object with the citations/references found in the
+'file' argument.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
     
-<ul>
-<li><p>If <code>type = NULL</code>, a <code>character</code> object with all file type names
-available.</p></li>
-<li><p>If <code>type != NULL</code> and <code>file = NULL</code>, a <code>character</code> object with all file
-names available from type.</p></li>
-<li><p>If <code>type != NULL</code> and <code>file != NULL</code>, a string file name path.</p></li>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a><code>sep</code> argument</h3>
+
+
+<p>The <code>sep</code> argument is only used if the citations in the RIS file have
+duplicated tags. In those cases, <code>read_ris()</code> will join all the same tag
+values using the <code>sep</code> value.</p>
+<p>Example:</p><pre>read_ris(file, sep = " | ")
+
+AU  - Wang, H
+AU  - Chen, LL
+AU  - Shen, D
+
+
+Joined tags: AU - Wang, H | Chen, LL | Shen, D
+</pre>
+
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a><code>tag_pattern</code> argument</h3>
+
+
+<p>(at the moment, only the <code>tag_pattern = NULL</code> works)</p>
+<p><code>read_ris()</code> allows you to rename and rearrange the tags from RIS files. You
+can create your own settings for that task or use the settings provided by
+the <code>sqlr</code> package. Use <code>tag_pattern = NULL</code> (default) to preserve the
+original tag names.</p>
+<p>To use you own settings, you will need to assign an <code>data.frame</code> object to
+the <code>tag_pattern</code> argument. This <code>data.frame</code> need to have the 3 columns
+below:</p><ul>
+<li><p><code>tag</code>: a <code>character</code> column indicating the RIS tag.</p></li>
+<li><p><code>order</code>: a <code>integer</code> column, with greater or equal than 1 values,
+indicating the columns order.</p></li>
+<li><p><code>name</code>: a <code>character</code> column indicating the name to replace the tag
+name indicated in the <code>tag</code> column.</p></li>
 </ul>
+
+<p>To use the settings from the <code>sqlr</code> package, choose and assign one of the
+following values to the <code>tag_pattern</code> argument, accordingly to the database
+provider from which the citation file was exported. You can see the <code>sqlr</code>
+package settings in <code>sqlr::ris_tags</code> or at <a href='https://bit.ly/3efSgHr'>https://bit.ly/3efSgHr</a>.</p><ul>
+<li><p><code>"apa"</code>: for <a href='http://help.psycnet.org/'>APA</a> (American Psychology
+Association).</p></li>
+<li><p><code>"ebsco"</code>: for <a href='http://support.ebsco.com/help/'>EBSCO</a> (Elton Bryson
+Stephens Company).</p></li>
+<li><p><code>"embase"</code>: for <a href='https://bit.ly/399d14T'>EMBASE</a> (Excerpta Medica
+dataBASE)</p></li>
+<li><p><code>"pubmed"</code>: for <a href='https://pubmed.ncbi.nlm.nih.gov/help/'>PubMed</a>.</p></li>
+<li><p><code>"scopus"</code>: for <a href='https://bit.ly/2QAylcS'>Scopus</a>.</p></li>
+<li><p><code>"wos"</code>: for <a href='https://bit.ly/3sj8nsz'>Web of Science</a>.</p></li>
+</ul>
+
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Reading <code>zip</code> files</h3>
+
+
+<p><code>read_ris()</code> also allows you to read zip compacted files. Just assign
+the zip file in the <code>file</code> argument.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other utility functions: 
-<code><a href='cutter.html'>cutter</a>()</code></p></div>
+    <div class='dont-index'><p>Other citation functions: 
+<code><a href='count_ris.html'>count_ris</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>raw_data</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
+<span class='va'>file</span> <span class='op'>&lt;-</span> <span class='st'>"2021-04-27_citations_apa_en_1-1150.zip"</span>
+<span class='va'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='raw_data.html'>raw_data</a></span><span class='op'>(</span><span class='st'>"citation"</span>, <span class='va'>file</span><span class='op'>)</span>
+
+<span class='fu'>read_ris</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span><span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
