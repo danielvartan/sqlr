@@ -34,4 +34,8 @@ names available from type.
 raw_data()
 }
 }
+\seealso{
+Other utility functions: 
+\code{\link{cutter}()}
+}
 \concept{utility functions}

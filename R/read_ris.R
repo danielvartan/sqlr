@@ -1,0 +1,306 @@
+#' Read citations/references from RIS files
+#'
+#' @description
+#'
+#' `r lifecycle::badge("experimental")`
+#'
+#' `read_ris()` read citations/references from RIS (Research Information
+#' Systems) files. When more than one file is used, the function binds the
+#' citations/references from each file.
+#'
+#' @details
+#'
+#' ## `sep` argument
+#'
+#' The `sep` argument is only used if the citations in the RIS file have
+#' duplicated tags. In those cases, `read_ris()` will join all the same tag
+#' values using the `sep` value.
+#'
+#' Example:
+#'
+#' ```
+#' read_ris(file, sep = " | ")
+#'
+#' AU  - Wang, H
+#' AU  - Chen, LL
+#' AU  - Shen, D
+#'
+#'
+#' Joined tags: AU - Wang, H | Chen, LL | Shen, D
+#' ```
+#'
+#' ## `tag_pattern` argument
+#'
+#' (at the moment, only the `tag_pattern = NULL` works)
+#'
+#' `read_ris()` allows you to rename and rearrange the tags from RIS files. You
+#' can create your own settings for that task or use the settings provided by
+#' the `sqlr` package. Use `tag_pattern = NULL` (default) to preserve the
+#' original tag names.
+#'
+#' To use you own settings, you will need to assign an `data.frame` object to
+#' the `tag_pattern` argument. This `data.frame` need to have the 3 columns
+#' below:
+#'
+#' * `tag`: a `character` column indicating the RIS tag.
+#' * `order`: a `integer` column, with greater or equal than 1 values,
+#' indicating the columns order.
+#' * `name`: a `character` column indicating the name to replace the tag
+#' name indicated in the `tag` column.
+#'
+#' To use the settings from the `sqlr` package, choose and assign one of the
+#' following values to the `tag_pattern` argument, accordingly to the database
+#' provider from which the citation file was exported. You can see the `sqlr`
+#' package settings in `sqlr::ris_tags` or at <https://bit.ly/3efSgHr>.
+#'
+#' * `"apa"`: for [APA](http://help.psycnet.org/) (American Psychology
+#' Association).
+#' * `"ebsco"`: for [EBSCO](http://support.ebsco.com/help/) (Elton Bryson
+#' Stephens Company).
+#' * `"embase"`: for [EMBASE](https://bit.ly/399d14T) (Excerpta Medica
+#' dataBASE)
+#' * `"pubmed"`: for [PubMed](https://pubmed.ncbi.nlm.nih.gov/help/).
+#' * `"scopus"`: for [Scopus](https://bit.ly/2QAylcS).
+#' * `"wos"`: for [Web of Science](https://bit.ly/3sj8nsz).
+#'
+#' ## Reading `zip` files
+#'
+#' `read_ris()` also allows you to read zip compacted files. Just assign
+#' the zip file in the `file` argument.
+#'
+#' @param file (optional) A `character` object indicating RIS or ZIP file names.
+#'   If not assigned, a dialog window will be open enabling the user to search
+#'   and select a file (only for interactive sessions).
+#' @param sep (optional) A string indicating the separator to be used when
+#'   combining values with the same tag (default: `" | "`).
+#' @param tag_pattern (optional) A string indicating the database provider from
+#'   which the citation file was exported, or a `data.frame` object containing
+#'   instructions on how to rename and rearrange the tags. See the Details
+#'   section to learn more (default: `NULL`).
+#'
+#' @return A `data.frame` object with the citations/references found in the
+#'   'file' argument.
+#'
+#' @family citation functions
+#' @inheritParams tidy_keyword
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' file <- "2021-04-27_citations_apa_en_1-1150.zip"
+#' file <- raw_data("citation", file)
+#'
+#' read_ris(file)}
+read_ris <- function(file = file.choose(), sep = " | ", tag_pattern = NULL,
+                     quiet = FALSE) {
+    checkmate::assert_character(file, min.len = 1, any.missing = FALSE,
+                                all.missing = FALSE)
+    checkmate::assert_file_exists(file)
+    checkmate::assert_string(sep)
+    checkmate::assert_multi_class(tag_pattern, c("character", "data.frame"),
+                                  null.ok = TRUE)
+
+    if (all(stringr::str_detect(file, ".zip$"))) {
+        if (!require_namespace("utils", quietly = TRUE)) {
+            stop("This function requires the 'utils' package ",
+                 'to unzip files. You can install it by running: \n\n',
+                 'install.packages("utils")', call. = FALSE)
+        }
+
+        out <- dplyr::tibble()
+        shush(alert("\nThis may take a while. Please be patient.\n"), quiet)
+
+        for (i in file) {
+            zip_files <- utils::unzip(i, exdir = tempdir())
+            data <- read_ris(zip_files, sep = sep, tag_pattern = tag_pattern,
+                             quiet = TRUE)
+            out <- dplyr::bind_rows(out, data)
+        }
+
+        return(out)
+    }
+
+    if (length(file) > 1) {
+        out <- dplyr::tibble()
+        shush(alert("\nThis may take a while. Please be patient.\n"), quiet)
+
+        for (i in file) {
+            data <- read_ris(i, sep = sep, tag_pattern = tag_pattern,
+                             quiet = TRUE)
+            out <- dplyr::bind_rows(out, data)
+        }
+
+        return(out)
+    }
+
+    count <- count_ris(file)
+
+    if (count == 0) {
+        stop("No citation/reference was identified in ", single_quote_(file),
+             ".", call. = FALSE)
+    } else if (count > 100) {
+        shush(alert("\nThis may take a while. Please be patient.\n"), quiet)
+    }
+
+    out <- chopp_ris(file) %>%
+        remove_ris_header() %>%
+        lapply(join_ris_solo_lines) %>%
+        lapply(stringr::str_squish) %>%
+        lapply(join_ris_tag_values, sep = sep) %>%
+        convert_ris_to_tibble()
+
+    out
+}
+
+chopp_ris <- function(file) {
+    checkmate::assert_character(file, min.len = 1, any.missing = FALSE,
+                                all.missing = FALSE)
+    checkmate::assert_file_exists(file)
+
+    encoding <- readr::guess_encoding(file)
+    encoding <- encoding$encoding[which(encoding$confidence ==
+                                            max(encoding$confidence))]
+
+    data <- readLines(file[1], encoding = encoding, warn = FALSE)
+    index_1 <- vapply(data, stringr::str_detect, logical(1),
+                      pattern = "^PMID$|^PMID |^PMID-")
+    index_2 <- vapply(data, stringr::str_detect, logical(1),
+                      pattern = "^ER$|^ER |^ER-")
+
+    if (length(which(index_1 == TRUE)) >= length(which(index_2 == TRUE))) {
+        index <- which(index_1 == TRUE)
+        between <- "left"
+    } else {
+        index <- which(index_2 == TRUE)
+        between <- "right"
+    }
+
+    out <- cutter(data, index, between = between) %>%
+        lapply(function(x) x[!stringr::str_detect(x, "^\\s*$")]) %>%
+        lapply(function(x) x[!stringr::str_detect(x, "^ER$|^ER |^ER-")])
+    out <- out[!lengths(out) == 0]
+
+    out
+}
+
+remove_ris_header <- function(x) {
+    checkmate::assert_list(x, min.len = 1)
+
+    if (stringr::str_detect(x[[1]][1], "^[^A-Z]") &&
+        stringr::str_detect(x[[1]][1],
+                            "^.*[A-Z][A-Z0-9]+(?=(-\\s+|\\s+-\\s+))")) {
+        x[[1]][1] <- stringr::str_remove(x[[1]][1], "^[^A-Z]+(?=[A-Z])")
+    }
+
+    pattern_tag <- "^[A-Z][A-Z0-9]+(?=(-\\s+|\\s+-\\s+))"
+    first_tag <- which(stringr::str_detect(x[[1]], pattern_tag) == TRUE)[1]
+
+    if (!first_tag == 1) {
+        x[[1]] <- unlist(cutter(x[[1]], first_tag, between = "left",
+                                rm_start = TRUE))
+    }
+
+    x
+}
+
+convert_ris_to_tibble <- function(x) {
+    checkmate::assert_list(x, min.len = 1)
+
+    out <- dplyr::tibble()
+    envir <- environment()
+
+    invisible(lapply(x, bind_ris, envir = envir))
+
+    dplyr::as_tibble(out)
+}
+
+join_ris_solo_lines <- function(x) {
+    checkmate::assert_character(x, min.len = 1)
+
+    pattern_tag <- "^[A-Z][A-Z0-9]+(?=(-\\s+|\\s+-\\s+))"
+    tag_detect <- stringr::str_detect(x, pattern_tag)
+    tagged_lines <- which(tag_detect == TRUE)
+    # diff <- diff(tagged_lines)
+    # missing_tags <- which(tag_detect == FALSE)
+
+    if (any(!tag_detect)) {
+        x <- x %>%
+            cutter(index = tagged_lines, between = "left") %>%
+            lapply(function(i) paste(trimws(i), collapse = " ")) %>%
+            unlist()
+    }
+
+    x
+}
+
+join_ris_tag_values <- function(x, sep) {
+    checkmate::assert_character(x, min.len = 1)
+    checkmate::assert_string(sep)
+
+    pattern_tag <- "^[A-Z][A-Z0-9]+(?=(-\\s+|\\s+-\\s+))"
+    pattern_data <- "(?<=-).*"
+    tags <- stringr::str_extract(x, pattern_tag)
+
+    if (!anyDuplicated(rm_na(tags)) == 0) {
+        duplicated_tags <- unique(tags[duplicated(tags)]) %>% rm_na()
+
+        for (i in duplicated_tags) {
+            pattern <- paste0("^", i, "\\s", "|", "^", i, "-")
+            index <- which(stringr::str_detect(x, pattern))
+            values <- x[index]
+
+            tag <- paste0(i, paste(rep(" ", 4 - nchar(i)), collapse = ""),
+                          "- ")
+            data <- paste0(trimws(stringr::str_extract(values, pattern_data)),
+                           collapse = sep)
+
+            x[index[1]] <- paste0(tag, data)
+            x <- x[-index[-1]]
+        }
+    }
+
+    x
+}
+
+bind_ris <- function(x, envir) {
+    checkmate::assert_character(x, min.len = 1)
+    checkmate::assert_environment(envir)
+
+    pattern_tag <- "^[A-Z][A-Z0-9]+(?=(-\\s+|\\s+-\\s+))"
+    pattern_data <- "(?<=-).*"
+
+    col <- stringr::str_extract(x, pattern_tag)
+    row <- trimws(stringr::str_extract(x, pattern_data))
+
+    if (any(stringr::str_detect(col, "^ER$"), na.rm = TRUE)) {
+        index <- which(stringr::str_detect(col, "^ER$"))
+        col <- col[-index]
+        row <- row[-index]
+    }
+
+    if (length(col) != length(row)) {
+        stop("The length of 'col' doesn't match the 'row' length.")
+    }
+
+    if (any(is.na(col))) {
+        index <- which(is.na(col))
+        col <- col[-index]
+        row <- row[-index]
+    }
+
+    x <- data.frame(as.list(row))
+    names(x) <- col
+
+    assign("out", dplyr::bind_rows(get("out", envir = envir), x), envir = envir)
+
+    NULL
+}
+
+# file <- "2021-04-27_citations_apa_en_1-1150.zip"
+# file <- "2021-04-27_citations_pubmed_en_1-2869.zip"
+# file <- "2021-04-27_citations_web-of-science_en_1-4018.zip"
+# file <- "2021-04-28_citations_ebsco_en_1-1128.zip"
+# file <- "2021-04-28_citations_embase_en_1-4298.zip"
+# file <- "2021-04-28_citations_scopus_en_1-7721.zip"
+# file <- raw_data("citation", file)
+# writeLines(out[[1]], tempfile())

@@ -21,6 +21,11 @@ reference:
   - query
   - tidy_keyword
 
+- title: Citations
+  contents:
+  - count_ris
+  - read_ris
+
 - title: Data
   contents:
   - sheets
@@ -34,8 +39,9 @@ reference:
 - title: Utilities
   contents:
   - raw_data
+  - cutter
 
-- title: (only for GIPSO)
+- title: SQLR system
   contents:
   - keyword_set
   - start_sqlr

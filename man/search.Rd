@@ -5,7 +5,7 @@
 \alias{search}
 \title{Search dataset}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 30 rows and 16 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 18 rows and 16 columns.
 }
 \usage{
 search

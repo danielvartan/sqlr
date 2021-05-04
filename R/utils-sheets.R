@@ -39,7 +39,8 @@ write_metadata <- function(id, sheet = "Dataset") {
              'install.packages("googlesheets4")', call. = FALSE)
     }
 
-    data <- googlesheets4::read_sheet(id, sheet, col_types = "c")
+    data <- googlesheets4::read_sheet(id, sheet, col_types = "c",
+                                      na = c("", "NA"))
 
     data <- data %>%
         dplyr::filter(!(name == "operators")) %>%
@@ -133,7 +134,7 @@ read_sheet <- function(name = NULL, package = NULL) {
     }
 
     for (i in sheets) {
-        data <- googlesheets4::read_sheet(i$id, i$sheet)
+        data <- googlesheets4::read_sheet(i$id, i$sheet, na = c("", "NA"))
         assign(i$name, data)
     }
 

@@ -30,16 +30,6 @@ test_check("sqlr")
 # usethis::use_logo("./.archive/ai/hex-logo.png")
 # normalizePath(readClipboard(), "/", mustWork = FALSE)
 #
-# # Read references
-# file <- "2021-04-05 - Citations - PubMed - EN - 1-2821.txt"
-# path <- "C:\\Users\\Daniel\\Desktop\\"
-# file <- paste0(path, file)
-# test <- synthesisr::read_ref(file)
-#
-# path <- "C:\\Users\\Daniel\\Desktop\\TEMP\\"
-# files <- paste0(path, dir(path))
-# test <- synthesisr::read_refs(files)
-#
 # # Normalize file names
 # path <- "./inst/extdata/citation/"
 # path <- "./inst/extdata/search_history/"

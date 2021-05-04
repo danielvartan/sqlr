@@ -169,7 +169,7 @@ get_package_name <- function() {
              'install.packages("rstudioapi")' , call. = FALSE)
     }
 
-    str_extract_(rstudioapi::getActiveProject(), "[a-zA-Z0-9.]*$")
+    stringr::str_extract(rstudioapi::getActiveProject(), "[a-zA-Z0-9.]*$")
 }
 
 fix_character <- function(x) {
@@ -184,96 +184,22 @@ fix_character <- function(x) {
     x
 }
 
-rm_na <- function(x) {
-    x[which(!is.na(x))]
-}
+rm_na <- function(x) x[which(!is.na(x))]
 
 rm_pattern <- function(x, pattern, ignore_case = TRUE) {
     x[!grepl(pattern, x, ignore.case = ignore_case)]
 }
 
-cutter <- function(x, index) {
-    checkmate::assert_atomic(x, min.len = 1)
-    checkmate::assert_integerish(index, lower = 1, any.missing = FALSE,
-                                 unique = TRUE)
-
-    if (index[1] == 1 || index[length(index)] == length(x)) {
-        stop("You cannot use an index in the start or at the end of ",
-             "a object.", call. = FALSE)
-    }
-
-    if (any(Reduce("-", index) == -1)) {
-        stop("Indexes must have at least a distance of 1 between each other.",
-             call. = FALSE)
-    }
-
-    out <- list()
-
-    for (i in index) {
-        i_index <- grep(i, index)
-        j <- length(out) + 1
-
-        if (i == index[1]) {
-            out[[j]] <- x[seq(1 , i - 1)]
-            names(out)[j] <- j
-
-            if (length(index) == 1) {
-                out[[j + 1]] <- x[seq(i + 1 , length(x))]
-                names(out) <- c(1, 2)
-            } else {
-                out[[j + 1]] <- x[seq(i + 1 , index[i_index + 1] - 1)]
-                names(out) <- c(1, 2)
-            }
-        } else if (i == index[length(index)]) {
-            out[[j]] <- x[seq(i + 1, length(x))]
-            names(out)[j] <- j
-        } else {
-            out[[j]] <- x[seq(i + 1, index[i_index + 1] - 1)]
-            names(out)[j] <- j
-        }
-    }
-
-    out
-}
-
-return_duplications <- function(x) {
+return_duplications <- function(x, rm_na = TRUE) {
     if (anyDuplicated(x) == 0) {
         NULL
     } else {
-        x[duplicated(x)]
+        out <- x[duplicated(x)]
+
+        if (isTRUE(rm_na)) {
+            rm_na(out)
+        } else {
+            x[duplicated(x)]
+        }
     }
-}
-
-str_extract_ <- function(string, pattern, ignore.case = FALSE, perl = TRUE,
-                         fixed = FALSE, useBytes = FALSE, invert = FALSE) {
-    checkmate::assert_string(pattern)
-    checkmate::assert_flag(ignore.case)
-    checkmate::assert_flag(perl)
-    checkmate::assert_flag(fixed)
-    checkmate::assert_flag(useBytes)
-    checkmate::assert_flag(invert)
-
-    match <- regexpr(pattern, string, ignore.case = ignore.case, perl = perl,
-                     fixed = fixed, useBytes = useBytes)
-    out <- rep(NA, length(string))
-    out[match != -1 & !is.na(match)] <- regmatches(string, match,
-                                                   invert = invert)
-    out
-}
-
-str_subset_ <- function(string, pattern, negate = FALSE, ignore.case = FALSE,
-                        perl = TRUE, fixed = FALSE, useBytes = FALSE) {
-    checkmate::assert_string(pattern)
-    checkmate::assert_flag(negate)
-
-    match <- grepl(pattern, string, ignore.case = ignore.case, perl = perl,
-                   fixed = fixed, useBytes = useBytes)
-
-    if (isTRUE(negate)) {
-        out <- subset(string, !match)
-    } else {
-        out <- subset(string, match)
-    }
-
-    if (length(out) == 0) as.character(NA) else out
 }

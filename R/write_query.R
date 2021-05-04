@@ -91,6 +91,7 @@ write_query <- function(range = NULL, package = NULL) {
     out <- dplyr::tibble(query = out)
     googlesheets4::range_write(sheets$search$id, out, sheets$search$sheet,
                                range, col_names = FALSE, reformat = FALSE)
+    write_sheet("search", package = package)
 
     invisible(NULL)
 }

@@ -38,6 +38,7 @@ Imports:
     dplyr,
     lifecycle,
     magrittr,
+    readr,
     stringr,
     synthesisr
 Suggests: 
