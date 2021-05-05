@@ -75,7 +75,7 @@ for the \code{provider} argument are:
 Association).
 \item \code{"ebsco"}: for \href{https://search.ebscohost.com/}{EBSCO} (Elton Bryson
 Stephens Company).
-\item \code{"embase"}: for \href{https://www.embase.com/}{EMBASE} (Excerpta Medica
+\item \code{"embase"}: for \href{https://www.embase.com/}{Embase} (Excerpta Medica
 dataBASE).
 \item \code{"lilacs"}: for \href{https://lilacs.bvsalud.org/}{LILACS} (Literatura
 Latino-americana e do Caribe em Ciencias da Saude).
@@ -108,7 +108,7 @@ Here are the documentation links of the database providers supported by the
 Association).
 \item \code{"ebsco"}: for \href{http://support.ebsco.com/help/}{EBSCO} (Elton Bryson
 Stephens Company).
-\item \code{"embase"}: for \href{https://bit.ly/399d14T}{EMBASE} (Excerpta Medica
+\item \code{"embase"}: for \href{https://bit.ly/399d14T}{Embase} (Excerpta Medica
 dataBASE)
 \item \code{"lilacs"}: for \href{https://bit.ly/3aqb2to}{LILACS} (Literatura
 Latino-americana e do Caribe em Ciencias da Saude).

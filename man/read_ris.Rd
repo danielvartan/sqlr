@@ -4,20 +4,20 @@
 \alias{read_ris}
 \title{Read citations/references from RIS files}
 \usage{
-read_ris(file = file.choose(), sep = " | ", tag_pattern = NULL, quiet = FALSE)
+read_ris(file = file.choose(), lookup = NULL, sep = " | ", quiet = FALSE)
 }
 \arguments{
 \item{file}{(optional) A \code{character} object indicating RIS or ZIP file names.
 If not assigned, a dialog window will be open enabling the user to search
 and select a file (only for interactive sessions).}
 
-\item{sep}{(optional) A string indicating the separator to be used when
-combining values with the same tag (default: \code{" | "}).}
-
-\item{tag_pattern}{(optional) A string indicating the database provider from
+\item{lookup}{(optional) A string indicating the database provider from
 which the citation file was exported, or a \code{data.frame} object containing
 instructions on how to rename and rearrange the tags. See the Details
 section to learn more (default: \code{NULL}).}
+
+\item{sep}{(optional) A string indicating the separator to be used when
+combining values with the same tag (default: \code{" | "}).}
 
 \item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
 must be suppressed (default: \code{FALSE}).}
@@ -46,33 +46,30 @@ AU  - Wang, H
 AU  - Chen, LL
 AU  - Shen, D
 
-
 Joined tags: AU - Wang, H | Chen, LL | Shen, D
 }
 }
 
-\subsection{\code{tag_pattern} argument}{
-
-(at the moment, only the \code{tag_pattern = NULL} works)
+\subsection{\code{lookup} argument}{
 
 \code{read_ris()} allows you to rename and rearrange the tags from RIS files. You
 can create your own settings for that task or use the settings provided by
-the \code{sqlr} package. Use \code{tag_pattern = NULL} (default) to preserve the
+the \code{sqlr} package. Use \code{lookup = NULL} (default) to preserve the
 original tag names.
 
 To use you own settings, you will need to assign an \code{data.frame} object to
-the \code{tag_pattern} argument. This \code{data.frame} need to have the 3 columns
+the \code{lookup} argument. This \code{data.frame} need to have the 3 columns
 below:
 \itemize{
 \item \code{tag}: a \code{character} column indicating the RIS tag.
-\item \code{order}: a \code{integer} column, with greater or equal than 1 values,
-indicating the columns order.
+\item \code{order}: an \code{integer} column, with greater than 0 values, indicating the
+columns order.
 \item \code{name}: a \code{character} column indicating the name to replace the tag
-name indicated in the \code{tag} column.
+indicated in the \code{tag} column.
 }
 
 To use the settings from the \code{sqlr} package, choose and assign one of the
-following values to the \code{tag_pattern} argument, accordingly to the database
+following values to the \code{lookup} argument, accordingly to the database
 provider from which the citation file was exported. You can see the \code{sqlr}
 package settings in \code{sqlr::ris_tags} or at \url{https://bit.ly/3efSgHr}.
 \itemize{
@@ -80,7 +77,7 @@ package settings in \code{sqlr::ris_tags} or at \url{https://bit.ly/3efSgHr}.
 Association).
 \item \code{"ebsco"}: for \href{http://support.ebsco.com/help/}{EBSCO} (Elton Bryson
 Stephens Company).
-\item \code{"embase"}: for \href{https://bit.ly/399d14T}{EMBASE} (Excerpta Medica
+\item \code{"embase"}: for \href{https://bit.ly/399d14T}{Embase} (Excerpta Medica
 dataBASE)
 \item \code{"pubmed"}: for \href{https://pubmed.ncbi.nlm.nih.gov/help/}{PubMed}.
 \item \code{"scopus"}: for \href{https://bit.ly/2QAylcS}{Scopus}.
@@ -96,10 +93,11 @@ the zip file in the \code{file} argument.
 }
 \examples{
 \dontrun{
-file <- "2021-04-27_citations_apa_en_1-1150.zip"
+citations <- raw_data("citation")
+file <- citations[grep("_apa_", citations)]
 file <- raw_data("citation", file)
 
-read_ris(file)}
+read_ris(file, "apa")}
 }
 \seealso{
 Other citation functions: 

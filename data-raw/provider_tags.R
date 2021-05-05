@@ -10,28 +10,23 @@
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `provider_tags()` returns a `list` object containing lists with the search
-#' field tags of several databases. This values are used by the `query()`
-#' function.
+#' `provider_tags()` returns a `list` object containing `data.frame` objects
+#' with the search field tags of several databases.
 #'
-#' The provider tags values are stored in a Google Sheets. You can see it in
+#' The provider tags values are stored in a Google Sheets. You can see it at
 #' <https://bit.ly/3m4Ys7z>.
 #'
-#' See the `query()` function documentation to get a list of the database
-#' providers documentation.
+#' See the `query()` function documentation to learn more.
 #'
 #' @param write (optional) a `logical` value indicating if the function must
 #'   write a `provider_tags.rda` file to `"./data/"` (default: `FALSE`).
-#'
-#' @return An invisible `list` object containing lists with the search field
-#'   tags of several databases.
 #'
 #' @family data functions
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' tags()
+#' provider_tags()
 #' }
 provider_tags <- function(write = FALSE) {
     checkmate::assert_flag(write)
@@ -41,7 +36,7 @@ provider_tags <- function(write = FALSE) {
     sheets <- list(
         apa = list(name = "apa", sheet = "APA"),
         ebsco = list(name = "ebsco", sheet = "EBSCO"),
-        embase = list(name = "embase", sheet = "EMBASE"),
+        embase = list(name = "embase", sheet = "Embase"),
         lilacs = list(name = "lilacs", sheet = "LILACS"),
         pubmed = list(name = "pubmed", sheet = "PubMed"),
         scielo = list(name = "scielo", sheet = "SciELO"),
@@ -52,7 +47,8 @@ provider_tags <- function(write = FALSE) {
     provider_tags <- list()
 
     for (i in sheets) {
-        data <- googlesheets4::read_sheet(id, i$sheet, col_types = "c")
+        data <- googlesheets4::read_sheet(id, i$sheet, col_types = "c",
+                                          na = c("", "NA"))
         provider_tags[[i$name]] <- data
     }
 

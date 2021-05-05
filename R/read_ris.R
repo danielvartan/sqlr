@@ -25,31 +25,28 @@
 #' AU  - Chen, LL
 #' AU  - Shen, D
 #'
-#'
 #' Joined tags: AU - Wang, H | Chen, LL | Shen, D
 #' ```
 #'
-#' ## `tag_pattern` argument
-#'
-#' (at the moment, only the `tag_pattern = NULL` works)
+#' ## `lookup` argument
 #'
 #' `read_ris()` allows you to rename and rearrange the tags from RIS files. You
 #' can create your own settings for that task or use the settings provided by
-#' the `sqlr` package. Use `tag_pattern = NULL` (default) to preserve the
+#' the `sqlr` package. Use `lookup = NULL` (default) to preserve the
 #' original tag names.
 #'
 #' To use you own settings, you will need to assign an `data.frame` object to
-#' the `tag_pattern` argument. This `data.frame` need to have the 3 columns
+#' the `lookup` argument. This `data.frame` need to have the 3 columns
 #' below:
 #'
 #' * `tag`: a `character` column indicating the RIS tag.
-#' * `order`: a `integer` column, with greater or equal than 1 values,
-#' indicating the columns order.
+#' * `order`: an `integer` column, with greater than 0 values, indicating the
+#' columns order.
 #' * `name`: a `character` column indicating the name to replace the tag
-#' name indicated in the `tag` column.
+#' indicated in the `tag` column.
 #'
 #' To use the settings from the `sqlr` package, choose and assign one of the
-#' following values to the `tag_pattern` argument, accordingly to the database
+#' following values to the `lookup` argument, accordingly to the database
 #' provider from which the citation file was exported. You can see the `sqlr`
 #' package settings in `sqlr::ris_tags` or at <https://bit.ly/3efSgHr>.
 #'
@@ -57,7 +54,7 @@
 #' Association).
 #' * `"ebsco"`: for [EBSCO](http://support.ebsco.com/help/) (Elton Bryson
 #' Stephens Company).
-#' * `"embase"`: for [EMBASE](https://bit.ly/399d14T) (Excerpta Medica
+#' * `"embase"`: for [Embase](https://bit.ly/399d14T) (Excerpta Medica
 #' dataBASE)
 #' * `"pubmed"`: for [PubMed](https://pubmed.ncbi.nlm.nih.gov/help/).
 #' * `"scopus"`: for [Scopus](https://bit.ly/2QAylcS).
@@ -73,7 +70,7 @@
 #'   and select a file (only for interactive sessions).
 #' @param sep (optional) A string indicating the separator to be used when
 #'   combining values with the same tag (default: `" | "`).
-#' @param tag_pattern (optional) A string indicating the database provider from
+#' @param lookup (optional) A string indicating the database provider from
 #'   which the citation file was exported, or a `data.frame` object containing
 #'   instructions on how to rename and rearrange the tags. See the Details
 #'   section to learn more (default: `NULL`).
@@ -87,21 +84,35 @@
 #'
 #' @examples
 #' \dontrun{
-#' file <- "2021-04-27_citations_apa_en_1-1150.zip"
+#' citations <- raw_data("citation")
+#' file <- citations[grep("_apa_", citations)]
 #' file <- raw_data("citation", file)
 #'
-#' read_ris(file)}
-read_ris <- function(file = file.choose(), sep = " | ", tag_pattern = NULL,
+#' read_ris(file, "apa")}
+read_ris <- function(file = file.choose(), lookup = NULL, sep = " | ",
                      quiet = FALSE) {
     checkmate::assert_character(file, min.len = 1, any.missing = FALSE,
                                 all.missing = FALSE)
     checkmate::assert_file_exists(file)
-    checkmate::assert_string(sep)
-    checkmate::assert_multi_class(tag_pattern, c("character", "data.frame"),
+    checkmate::assert_multi_class(lookup, c("character", "data.frame"),
                                   null.ok = TRUE)
+    checkmate::assert_string(sep)
 
-    if (all(stringr::str_detect(file, ".zip$"))) {
-        if (!require_namespace("utils", quietly = TRUE)) {
+    if (inherits(lookup, "character")) {
+        choices <- c("apa", "ebsco", "embase", "pubmed", "scopus", "wos")
+
+        checkmate::assert_choice(lookup, choices)
+    } else if (inherits(lookup, "data.frame")) {
+        choices <- c("tag", "order", "name")
+
+        checkmate::assert_data_frame(lookup, min.rows = 1, min.cols = 3)
+        checkmate::assert_names(names(lookup), must.include = choices)
+    }
+
+    if (length(file) > 1 ||
+        any(stringr::str_detect(file, ".zip$"), na.rm = TRUE)) {
+        if (any(stringr::str_detect(file, ".zip$"), na.rm = TRUE) &&
+            !require_namespace("utils", quietly = TRUE)) {
             stop("This function requires the 'utils' package ",
                  'to unzip files. You can install it by running: \n\n',
                  'install.packages("utils")', call. = FALSE)
@@ -111,21 +122,11 @@ read_ris <- function(file = file.choose(), sep = " | ", tag_pattern = NULL,
         shush(alert("\nThis may take a while. Please be patient.\n"), quiet)
 
         for (i in file) {
-            zip_files <- utils::unzip(i, exdir = tempdir())
-            data <- read_ris(zip_files, sep = sep, tag_pattern = tag_pattern,
-                             quiet = TRUE)
-            out <- dplyr::bind_rows(out, data)
-        }
+            if (stringr::str_detect(i, ".zip$")) {
+                i <- utils::unzip(i, exdir = tempdir())
+            }
 
-        return(out)
-    }
-
-    if (length(file) > 1) {
-        out <- dplyr::tibble()
-        shush(alert("\nThis may take a while. Please be patient.\n"), quiet)
-
-        for (i in file) {
-            data <- read_ris(i, sep = sep, tag_pattern = tag_pattern,
+            data <- read_ris(i, sep = sep, lookup = lookup,
                              quiet = TRUE)
             out <- dplyr::bind_rows(out, data)
         }
@@ -142,14 +143,13 @@ read_ris <- function(file = file.choose(), sep = " | ", tag_pattern = NULL,
         shush(alert("\nThis may take a while. Please be patient.\n"), quiet)
     }
 
-    out <- chopp_ris(file) %>%
+    chopp_ris(file) %>%
         remove_ris_header() %>%
         lapply(join_ris_solo_lines) %>%
         lapply(stringr::str_squish) %>%
         lapply(join_ris_tag_values, sep = sep) %>%
-        convert_ris_to_tibble()
-
-    out
+        convert_ris_to_tibble() %>%
+        rename_ris(lookup, file)
 }
 
 chopp_ris <- function(file) {
@@ -178,9 +178,8 @@ chopp_ris <- function(file) {
     out <- cutter(data, index, between = between) %>%
         lapply(function(x) x[!stringr::str_detect(x, "^\\s*$")]) %>%
         lapply(function(x) x[!stringr::str_detect(x, "^ER$|^ER |^ER-")])
-    out <- out[!lengths(out) == 0]
 
-    out
+    out[!lengths(out) == 0]
 }
 
 remove_ris_header <- function(x) {
@@ -203,29 +202,16 @@ remove_ris_header <- function(x) {
     x
 }
 
-convert_ris_to_tibble <- function(x) {
-    checkmate::assert_list(x, min.len = 1)
-
-    out <- dplyr::tibble()
-    envir <- environment()
-
-    invisible(lapply(x, bind_ris, envir = envir))
-
-    dplyr::as_tibble(out)
-}
-
 join_ris_solo_lines <- function(x) {
     checkmate::assert_character(x, min.len = 1)
 
     pattern_tag <- "^[A-Z][A-Z0-9]+(?=(-\\s+|\\s+-\\s+))"
     tag_detect <- stringr::str_detect(x, pattern_tag)
-    tagged_lines <- which(tag_detect == TRUE)
-    # diff <- diff(tagged_lines)
-    # missing_tags <- which(tag_detect == FALSE)
+    tagged_elements <- which(tag_detect == TRUE)
 
     if (any(!tag_detect)) {
         x <- x %>%
-            cutter(index = tagged_lines, between = "left") %>%
+            cutter(index = tagged_elements, between = "left") %>%
             lapply(function(i) paste(trimws(i), collapse = " ")) %>%
             unlist()
     }
@@ -262,6 +248,17 @@ join_ris_tag_values <- function(x, sep) {
     x
 }
 
+convert_ris_to_tibble <- function(x) {
+    checkmate::assert_list(x, min.len = 1)
+
+    out <- dplyr::tibble()
+    envir <- environment()
+
+    invisible(lapply(x, bind_ris, envir = envir))
+
+    out
+}
+
 bind_ris <- function(x, envir) {
     checkmate::assert_character(x, min.len = 1)
     checkmate::assert_environment(envir)
@@ -279,7 +276,8 @@ bind_ris <- function(x, envir) {
     }
 
     if (length(col) != length(row)) {
-        stop("The length of 'col' doesn't match the 'row' length.")
+        stop("The number of RIS tags doesn't match the number of values ",
+             "in at least one record.", call. = FALSE)
     }
 
     if (any(is.na(col))) {
@@ -296,11 +294,55 @@ bind_ris <- function(x, envir) {
     NULL
 }
 
-# file <- "2021-04-27_citations_apa_en_1-1150.zip"
-# file <- "2021-04-27_citations_pubmed_en_1-2869.zip"
-# file <- "2021-04-27_citations_web-of-science_en_1-4018.zip"
-# file <- "2021-04-28_citations_ebsco_en_1-1128.zip"
-# file <- "2021-04-28_citations_embase_en_1-4298.zip"
-# file <- "2021-04-28_citations_scopus_en_1-7721.zip"
-# file <- raw_data("citation", file)
-# writeLines(out[[1]], tempfile())
+rename_ris <- function(x, lookup, file) {
+    checkmate::assert_data_frame(x)
+    checkmate::assert_multi_class(lookup, c("character", "data.frame"),
+                                  null.ok = TRUE)
+    checkmate::assert_string(file)
+
+    if (inherits(lookup, "character")) {
+        choices <- c("apa", "ebsco", "embase", "pubmed", "scopus", "wos")
+
+        checkmate::assert_choice(lookup, choices)
+
+        code_lookup <- list(apa = "APA", ebsco = "EBSCO", embase = "Embase",
+                            pubmed = "PubMed", scopus = "Scopus",
+                            wos = "Web of Science")
+
+        provider <- code_lookup[[lookup]]
+        lookup <- ris_tags[[lookup]]
+    } else if (inherits(lookup, "data.frame")) {
+        choices <- c("tag", "order", "name")
+
+        checkmate::assert_data_frame(lookup, min.rows = 1, min.cols = 3)
+        checkmate::assert_names(names(lookup), must.include = choices)
+    } else {
+        return(x)
+    }
+
+    lookup <- lookup %>% dplyr::arrange(order)
+    replacement_index <- which(lookup$tag %in% names(x))
+    replacement_tag <- lookup$tag[replacement_index]
+    replacement_name <- lookup$name[replacement_index]
+
+    match <- unlist(lapply(replacement_tag, match, table = names(x)))
+    no_match <- which(!names(x) %in% lookup$tag)
+    order <- append(match, no_match)
+
+    x <- x[order] %>%
+        dplyr::rename_with(function(x) replacement_name,
+                           dplyr::all_of(replacement_tag))
+
+    if ("provider" %in% ls()) {
+        if (!"provider" %in% names(x)) {
+            x %>% dplyr::mutate(provider = provider,
+                                file = basename(file))
+        } else {
+            x <- x %>%
+                dplyr::relocate("provider", .after = dplyr::last(names(x))) %>%
+                dplyr::mutate(file = basename(file))
+        }
+    } else {
+        x %>% dplyr::mutate(file = basename(file))
+    }
+}

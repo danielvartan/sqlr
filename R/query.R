@@ -18,7 +18,7 @@
 #' Association).
 #' * `"ebsco"`: for [EBSCO](https://search.ebscohost.com/) (Elton Bryson
 #' Stephens Company).
-#' * `"embase"`: for [EMBASE](https://www.embase.com/) (Excerpta Medica
+#' * `"embase"`: for [Embase](https://www.embase.com/) (Excerpta Medica
 #' dataBASE).
 #' * `"lilacs"`: for [LILACS](https://lilacs.bvsalud.org/) (Literatura
 #' Latino-americana e do Caribe em Ciencias da Saude).
@@ -49,7 +49,7 @@
 #' Association).
 #' * `"ebsco"`: for [EBSCO](http://support.ebsco.com/help/) (Elton Bryson
 #' Stephens Company).
-#' * `"embase"`: for [EMBASE](https://bit.ly/399d14T) (Excerpta Medica
+#' * `"embase"`: for [Embase](https://bit.ly/399d14T) (Excerpta Medica
 #' dataBASE)
 #' * `"lilacs"`: for [LILACS](https://bit.ly/3aqb2to) (Literatura
 #' Latino-americana e do Caribe em Ciencias da Saude).

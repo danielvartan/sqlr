@@ -28,8 +28,7 @@
 #' file <- "2021-04-28 - Citations - APA - EN - 1-1150.zip"
 #' file <- raw_data("citation", file)
 #'
-#' count_ris(file)
-#' #> [1] 1150 # Expected}
+#' count_ris(file)}
 count_ris <- function(file = file.choose()) {
     checkmate::assert_character(file, min.len = 1, any.missing = FALSE,
                                 all.missing = FALSE)
