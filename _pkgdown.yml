@@ -16,7 +16,7 @@ navbar:
     articles: ~
 
 reference:
-- title: Keyword manipulation
+- title: Keywords
   contents:
   - query
   - tidy_keyword
@@ -29,28 +29,35 @@ reference:
 
 - title: Data
   contents:
+  - provider_tags
+  - ris_tags
+
+- title: Utilities
+  contents:
+  - cutter
+  - raw_data
+
+- title: SQLR system
+- subtitle: Keywords
+  contents:
+  - keyword_set
+- subtitle: Google Sheets
+  contents:
+  - read_sheet
+  - write_query
+  - write_sheet
+- subtitle: Data
+  contents:
   - sheets
   - domain
   - constraint
   - keyword
   - source
   - search
-  - provider_tags
-  - ris_tags
-
-- title: Utilities
+- subtitle: Utilities
   contents:
-  - raw_data
-  - cutter
-
-- title: SQLR system
-  contents:
-  - keyword_set
   - normalize_extdata
   - start_sqlr
-  - read_sheet
-  - write_query
-  - write_sheet
 
 authors:
   Daniel Vartanian:

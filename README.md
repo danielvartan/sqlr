@@ -49,7 +49,7 @@ R](https://www.coursera.org/specializations/data-science-foundations-r)
 
 `sqlr` is still at the
 [experimental](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-stage of development, that means that people can use the package and
+stage of development. That means that people can use the package and
 provide feedback, but it comes with no promises for long term stability.
 
 You can install `sqlr` from GitHub with:
