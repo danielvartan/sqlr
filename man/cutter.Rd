@@ -97,6 +97,7 @@ cutter(seq(10), c(3, 9), rm_end = TRUE)
 }
 \seealso{
 Other utility functions: 
+\code{\link{normalize_extdata}()},
 \code{\link{raw_data}()}
 }
 \concept{utility functions}

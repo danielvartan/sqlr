@@ -44,6 +44,7 @@ Imports:
 Suggests: 
     covr,
     crayon,
+    emojifont,
     ggplot2,
     googlesheets4,
     grDevices,

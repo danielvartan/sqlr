@@ -16,6 +16,15 @@
 #' __UNDER DEVELOPMENT__
 "provider_tags"
 
+#' List of search tags from several database providers
+#'
+#' @description
+#'
+#' `r lifecycle::badge("experimental")`
+#'
+#' __UNDER DEVELOPMENT__
+"ris_tags"
+
 #' Domain dataset
 #'
 #' @description
@@ -23,6 +32,7 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' __UNDER DEVELOPMENT__
+#'
 "domain"
 
 #' Constraint dataset

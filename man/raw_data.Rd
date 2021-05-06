@@ -36,6 +36,7 @@ raw_data()
 }
 \seealso{
 Other utility functions: 
-\code{\link{cutter}()}
+\code{\link{cutter}()},
+\code{\link{normalize_extdata}()}
 }
 \concept{utility functions}

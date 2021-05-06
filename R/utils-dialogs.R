@@ -34,9 +34,13 @@ dialog_line <- function(..., combined_styles = NULL,
     answer
 }
 
-alert <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {
+alert <- function(..., combined_styles = c("bold", "red"), type = "message",
+                  abort = FALSE) {
+    choices <- c("cat", "message", "warning")
+
     assert_has_length(list(...))
     checkmate::assert_character(combined_styles)
+    checkmate::assert_choice(type, choices)
     checkmate::assert_flag(abort)
 
     if (isTRUE(abort)) return(invisible(NULL))
@@ -48,7 +52,13 @@ alert <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {
         message <- crayonize(message)
     }
 
-    message(message)
+    if (type == "cat") {
+        cat(message)
+    } else if (type == "message") {
+        message(message)
+    } else if (type == "warning") {
+        warning(message, call. = FALSE)
+    }
 
     invisible(NULL)
 }
@@ -97,7 +107,6 @@ crayonize <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {
     if (isTRUE(abort)) return(invisible(NULL))
 
     out <- unlist(list(...))
-    # out <- vapply(list(...), paste0, character(1))
 
     if (require_namespace("crayon", quietly = TRUE)) {
         crayonize <- shush(crayon::combine_styles(combined_styles))
@@ -105,4 +114,33 @@ crayonize <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {
     }
 
     out
+}
+
+emojinize <- function(aliases, alternative = "", left_space = FALSE,
+                      right_space = FALSE, print = FALSE) {
+    checkmate::assert_string(aliases)
+    checkmate::assert_string(alternative)
+    checkmate::assert_flag(left_space)
+    checkmate::assert_flag(right_space)
+    checkmate::assert_flag(print)
+
+    if (require_namespace("emojifont", quietly = TRUE)) {
+        out <- emojifont::emoji(aliases)
+
+        if (isTRUE(left_space)) {
+            out <- paste0(" ", out)
+        }
+
+        if (isTRUE(right_space)) {
+            out <- paste0(out, " ")
+        }
+
+        if (isTRUE(print)) {
+            cat(out)
+        } else {
+            out
+        }
+    } else {
+        alternative
+    }
 }

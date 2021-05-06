@@ -21,10 +21,11 @@ reference:
   - query
   - tidy_keyword
 
-- title: Citations
+- title: Citations/References
   contents:
-  - count_ris
-  - read_ris
+  - count_ref
+  - guess_ref
+  - read_ref
 
 - title: Data
   contents:
@@ -35,6 +36,7 @@ reference:
   - source
   - search
   - provider_tags
+  - ris_tags
 
 - title: Utilities
   contents:
@@ -44,6 +46,7 @@ reference:
 - title: SQLR system
   contents:
   - keyword_set
+  - normalize_extdata
   - start_sqlr
   - read_sheet
   - write_query

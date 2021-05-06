@@ -19,6 +19,7 @@ start_sqlr <- function(id, sheet = "Dataset", package = NULL) {
     checkmate::assert_string(sheet)
     checkmate::assert_string(package, null.ok = TRUE)
 
+    shush(normalize_extdata())
     shush(write_metadata(id, sheet))
     shush(write_sheet(package = package))
 

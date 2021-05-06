@@ -29,11 +29,3 @@ test_check("sqlr")
 # usethis::use_github_action_check_standard()
 # usethis::use_logo("./.archive/ai/hex-logo.png")
 # normalizePath(readClipboard(), "/", mustWork = FALSE)
-#
-# # Normalize file names
-# path <- "./inst/extdata/citation/"
-# path <- "./inst/extdata/search_history/"
-# new_name <- tolower(dir(path))
-# new_name <- stringr::str_replace_all(new_name, " - ", "_")
-# new_name <- stringr::str_replace_all(new_name, " ", "-")
-# file.rename(paste0(path, dir(path)), paste0(path, new_name))
