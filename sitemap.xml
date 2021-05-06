@@ -7,7 +7,7 @@
     <loc>https://gipsousp.github.io/sqlr//reference/constraint.html</loc>
   </url>
   <url>
-    <loc>https://gipsousp.github.io/sqlr//reference/count_ris.html</loc>
+    <loc>https://gipsousp.github.io/sqlr//reference/count_ref.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/cutter.html</loc>
@@ -16,10 +16,16 @@
     <loc>https://gipsousp.github.io/sqlr//reference/domain.html</loc>
   </url>
   <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/guess_ref.html</loc>
+  </url>
+  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/keyword.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/keyword_set.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/normalize_extdata.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/provider_tags.html</loc>
@@ -31,10 +37,13 @@
     <loc>https://gipsousp.github.io/sqlr//reference/raw_data.html</loc>
   </url>
   <url>
-    <loc>https://gipsousp.github.io/sqlr//reference/read_ris.html</loc>
+    <loc>https://gipsousp.github.io/sqlr//reference/read_ref.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/read_sheet.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/ris_tags.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/search.html</loc>

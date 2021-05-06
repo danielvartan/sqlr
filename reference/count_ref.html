@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get paths to sqlr raw data — raw_data • sqlr</title>
+<title>Count citations/references from files — count_ref • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,13 @@
 
 
 
-<meta property="og:title" content="Get paths to sqlr raw data — raw_data" />
+<meta property="og:title" content="Count citations/references from files — count_ref" />
 <meta property="og:description" content="
-raw_data() returns the raw data paths of the sqlr package." />
+count_ref() count citations/references from files. If more than one file is
+used, the function returns the sum of the count of the citations/references
+from each file.
+At the moment, count_ref() works only with PubMed and RIS (Research
+Information Systems) formats." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
 
 
@@ -121,58 +125,54 @@ raw_data() returns the raw data paths of the sqlr package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get paths to <code>sqlr</code> raw data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/raw_data.R'><code>R/raw_data.R</code></a></small>
-    <div class="hidden name"><code>raw_data.Rd</code></div>
+    <h1>Count citations/references from files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/count_ref.R'><code>R/count_ref.R</code></a></small>
+    <div class="hidden name"><code>count_ref.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><code>raw_data()</code> returns the raw data paths of the <code>sqlr</code> package.</p>
+<p><code>count_ref()</code> count citations/references from files. If more than one file is
+used, the function returns the sum of the count of the citations/references
+from each file.</p>
+<p>At the moment, <code>count_ref()</code> works only with PubMed and RIS (Research
+Information Systems) formats.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_data</span><span class='op'>(</span>type <span class='op'>=</span> <span class='cn'>NULL</span>, file <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>count_ref</span><span class='op'>(</span>file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>type</th>
-      <td><p>(optional) a string indicating the file type of the raw dataset
-(default: <code>NULL</code>).</p></td>
-    </tr>
-    <tr>
       <th>file</th>
-      <td><p>(optional) a string indicating the file name of the raw dataset.</p></td>
-    </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
-must be suppressed (default: <code>FALSE</code>).</p></td>
+      <td><p>(optional) a <code>character</code> object indicating RIS or ZIP file names.
+If not assigned, a dialog window will be open enabling the user to search
+and select a file (only for interactive sessions).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-<ul>
-<li><p>If <code>type = NULL</code>, a <code>character</code> object with all file type names
-available.</p></li>
-<li><p>If <code>type != NULL</code> and <code>file = NULL</code>, a <code>character</code> object with all file
-names available from type.</p></li>
-<li><p>If <code>type != NULL</code> and <code>file != NULL</code>, a string file name path.</p></li>
-</ul>
+    <p>A <code>numeric</code> value with the count or sum of the count of the
+citations/references found in the <code>file</code> argument.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p><code>count_ref()</code> also allows you to read ZIP compacted files. Just assign
+the ZIP file in the <code>file</code> argument.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other utility functions: 
-<code><a href='cutter.html'>cutter</a>()</code>,
-<code><a href='normalize_extdata.html'>normalize_extdata</a>()</code></p></div>
+    <div class='dont-index'><p>Other citation functions: 
+<code><a href='guess_ref.html'>guess_ref</a>()</code>,
+<code><a href='read_ref.html'>read_ref</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>raw_data</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
+<span class='va'>citations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='raw_data.html'>raw_data</a></span><span class='op'>(</span><span class='st'>"citation"</span><span class='op'>)</span>
+<span class='va'>file</span> <span class='op'>&lt;-</span> <span class='va'>citations</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grep</a></span><span class='op'>(</span><span class='st'>"_apa_"</span>, <span class='va'>citations</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='raw_data.html'>raw_data</a></span><span class='op'>(</span><span class='st'>"citation"</span>, <span class='va'>file</span><span class='op'>)</span>
+
+<span class='fu'>count_ref</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span><span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
