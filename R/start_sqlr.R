@@ -11,7 +11,7 @@
 #' @param sheet (optional) a string indicating the worksheet/tab where the
 #'   sheets data can be found on the 'Sheets spreadsheet (default: `"Dataset"`).
 #'
-#' @family data functions
+#' @family SQLR system functions
 #' @template param_a
 #' @export
 start_sqlr <- function(id, sheet = "Dataset", package = NULL) {

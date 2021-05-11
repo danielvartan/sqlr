@@ -6,5 +6,7 @@
 ## usethis namespace: start
 #' @importFrom dplyr across
 #' @importFrom lifecycle deprecate_soft
+#' @importFrom magrittr %>%
+#' @importFrom rlang :=
 ## usethis namespace: end
 NULL

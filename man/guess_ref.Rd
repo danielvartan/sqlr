@@ -2,12 +2,12 @@
 % Please edit documentation in R/guess_ref.R
 \name{guess_ref}
 \alias{guess_ref}
-\title{Guess the format of citations/references from a file}
+\title{Guess the format of references/citations from a file}
 \usage{
 guess_ref(file = file.choose(), return_data = FALSE, quiet = FALSE)
 }
 \arguments{
-\item{file}{(optional) a string indicating a citation/reference file. If not
+\item{file}{(optional) a string indicating a reference/citation file. If not
 assigned, a dialog window will be open enabling the user to search and
 select a file (only for interactive sessions).}
 
@@ -20,7 +20,7 @@ must be suppressed (default: \code{FALSE}).}
 }
 \value{
 \itemize{
-\item If \code{return_data = FALSE}, a string with the name of the citation/reference
+\item If \code{return_data = FALSE}, a string with the name of the reference/citation
 format found in the \code{file} argument.
 \item If \code{return_data = TRUE}, a \code{list} object with the data and metadata from
 the \code{file} argument. See the Details section to learn more.
@@ -30,7 +30,7 @@ the \code{file} argument. See the Details section to learn more.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{guess_ref()} try to guess the format of citations/references from a file
+\code{guess_ref()} try to guess the format of references/citations from a file
 (\emph{e.g.}, PubMed, RIS).
 
 At the moment, \code{guess_ref()} works only with PubMed and RIS (Research
@@ -42,16 +42,16 @@ Information Systems) formats.
 When \code{return_data = TRUE}, \code{guess_ref()} will return a \code{list} object with
 the following elements:
 \itemize{
-\item \code{format}: a string with the name of the citation/reference format found in
+\item \code{format}: a string with the name of the reference/citation format found in
 the \code{file} argument.
 \item \code{data}: a \code{character} object representing all the lines found in the \code{file}
 argument.
-\item \code{count}: A \code{numeric} value with the count of the citations/references found
+\item \code{count}: A \code{numeric} value with the count of the references/citations found
 in the \code{file} argument. If you're only interest in this data, use the
 \code{count_ref()} function.
 \item \code{index}: an \code{integer} object with values indicating the cut points of the
-citations/references. If the cut point is located at the end of the
-citations/references, the \code{between} value (see below) will be set to
+references/citations. If the cut point is located at the end of the
+references/citations, the \code{between} value (see below) will be set to
 \code{"right"}, else, it will be set to \verb{"left}.
 \item \code{between}: a \code{"left"} or \code{"right"} value that can be used with the
 \code{cutter()} function. See the documentation for the mentioned function to
@@ -71,8 +71,8 @@ if (require_namespace("utils", quietly = TRUE)) {
 }}
 }
 \seealso{
-Other citation functions: 
+Other reference/citation functions: 
 \code{\link{count_ref}()},
 \code{\link{read_ref}()}
 }
-\concept{citation functions}
+\concept{reference/citation functions}

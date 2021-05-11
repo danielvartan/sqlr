@@ -169,7 +169,7 @@ get_package_name <- function() {
              'install.packages("rstudioapi")' , call. = FALSE)
     }
 
-    stringr::str_extract(rstudioapi::getActiveProject(), "[a-zA-Z0-9.]*$")
+    basename(rstudioapi::getActiveProject())
 }
 
 fix_character <- function(x) {

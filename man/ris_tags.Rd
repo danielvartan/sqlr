@@ -3,9 +3,9 @@
 \docType{data}
 \name{ris_tags}
 \alias{ris_tags}
-\title{List of search tags from several database providers}
+\title{Lookup list with RIS tags and indexes for several database providers}
 \format{
-An object of class \code{list} of length 4.
+An object of class \code{list} of length 7.
 }
 \usage{
 ris_tags

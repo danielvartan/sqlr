@@ -22,4 +22,14 @@ project directory (requires the \code{rstudioapi} package) (default: \code{NULL}
 \code{start_sqlr()} handles the initial commands to start Systematic Quantitative
 Literature Reviews R packages.
 }
-\concept{data functions}
+\seealso{
+Other SQLR system functions: 
+\code{\link{build_reference}()},
+\code{\link{keyword_set}()},
+\code{\link{normalize_extdata}()},
+\code{\link{read_sheet}()},
+\code{\link{write_metadata}()},
+\code{\link{write_query}()},
+\code{\link{write_sheet}()}
+}
+\concept{SQLR system functions}

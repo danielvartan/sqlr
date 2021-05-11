@@ -13,7 +13,7 @@
 #'
 #' @return A `character` object with a keyword set.
 #'
-#' @family GIPSO functions
+#' @family SQLR system functions
 #' @template param_a
 #' @importFrom magrittr %>%
 #' @export

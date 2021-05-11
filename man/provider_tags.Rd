@@ -3,7 +3,7 @@
 \docType{data}
 \name{provider_tags}
 \alias{provider_tags}
-\title{List of search tags from several database providers}
+\title{Lookup list with search tags from several database providers}
 \format{
 An object of class \code{list} of length 8.
 }

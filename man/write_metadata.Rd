@@ -33,10 +33,13 @@ write_metadata("1x6Aj8cXl9qFtpXq48Q6zdmT-w9EEqNG1iVQcKVRhgKM")
 }
 }
 \seealso{
-Other GIPSO functions: 
+Other SQLR system functions: 
+\code{\link{build_reference}()},
 \code{\link{keyword_set}()},
+\code{\link{normalize_extdata}()},
 \code{\link{read_sheet}()},
+\code{\link{start_sqlr}()},
 \code{\link{write_query}()},
 \code{\link{write_sheet}()}
 }
-\concept{GIPSO functions}
+\concept{SQLR system functions}

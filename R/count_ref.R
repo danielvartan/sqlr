@@ -1,11 +1,11 @@
-#' Count citations/references from files
+#' Count references/citations from files
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `count_ref()` count citations/references from files. If more than one file is
-#' used, the function returns the sum of the count of the citations/references
+#' `count_ref()` count references/citations from files. If more than one file is
+#' used, the function returns the sum of the count of the references/citations
 #' from each file.
 #'
 #' At the moment, `count_ref()` works only with PubMed and RIS (Research
@@ -21,9 +21,9 @@
 #'   and select a file (only for interactive sessions).
 #'
 #' @return A `numeric` value with the count or sum of the count of the
-#'   citations/references found in the `file` argument.
+#'   references/citations found in the `file` argument.
 #'
-#' @family citation functions
+#' @family reference/citation functions
 #' @export
 #'
 #' @examples

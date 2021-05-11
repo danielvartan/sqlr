@@ -8,9 +8,11 @@
 #'
 #' @param type (optional) a string indicating the file type of the raw dataset
 #'   (default: `NULL`).
-#' @param file (optional) a string indicating the file name of the raw dataset.
-#' @param quiet (optional) a `logical` value indicating if warnings or messages
-#'   must be suppressed (default: `FALSE`).
+#' @param file (optional) a `character` object indicating the file name(s) of
+#'   the raw dataset.
+#' @param package (optional) a string indicating the package with the database
+#'   data. If `NULL`, the function will try to use the name of the active
+#'   project directory (requires the `rstudioapi` package) (default: `sqlr`).
 #'
 #' @return
 #'
@@ -18,7 +20,7 @@
 #'   available.
 #' * If `type != NULL` and `file = NULL`, a `character` object with all file
 #' names available from type.
-#' * If `type != NULL` and `file != NULL`, a string file name path.
+#' * If `type != NULL` and `file != NULL`, a string with the file name path.
 #'
 #' @family utility functions
 #' @export
@@ -27,24 +29,25 @@
 #' \dontrun{
 #' raw_data()
 #' }
-raw_data <- function(type = NULL, file = NULL, quiet = FALSE) {
+raw_data <- function(type = NULL, file = NULL, package = "sqlr") {
     index <- list(
-        citation = list(name = "Citation",
-                        path = "extdata/citation"),
+        reference = list(name = "Reference",
+                         path = "inst/extdata/reference"),
         search_history = list(name = "Search history",
-                              path = "extdata/search_history")
+                              path = "inst/extdata/search_history")
     )
 
-    checkmate::assert_string(file, null.ok = TRUE)
+    checkmate::assert_character(file, min.len = 1, null.ok = TRUE)
     checkmate::assert_choice(type, names(index), null.ok = TRUE)
-    checkmate::assert_flag(quiet)
+    checkmate::assert_string(package, null.ok = TRUE)
 
-    package <- "sqlr"
+    if (is.null(package)) package <- get_package_name()
+    assert_namespace(package)
 
     if (is.null(file) && is.null(type)) {
-        dir(system.file("extdata", package = package))
+        list.files(system.file("inst/extdata", package = package))
     } else if (is.null(file) && !is.null(type)) {
-        dir(system.file(index[[type]]$path, package = package))
+        list.files(system.file(index[[type]]$path, package = package))
     } else if (!is.null(file) && !is.null(type)) {
         system.file(index[[type]]$path, file, package = package,
                     mustWork = TRUE)

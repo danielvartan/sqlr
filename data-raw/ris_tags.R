@@ -36,12 +36,13 @@ ris_tags <- function(write = FALSE) {
     id <- "1T39uRC96lWo3OgxZQviO2qFiBwa9qiRpUYMaLLwwynM"
 
     sheets <- list(
+        general = list(name = "general", sheet = "General"),
         apa = list(name = "apa", sheet = "APA"),
         ebsco = list(name = "ebsco", sheet = "EBSCO"),
         embase = list(name = "embase", sheet = "Embase"),
-        pubmed = list(name = "pubmed", sheet = "PubMed")
-        # scopus = list(name = "scopus", sheet = "Scopus"),
-        # wos = list(name = "wos", sheet = "Web of Science")
+        pubmed = list(name = "pubmed", sheet = "PubMed"),
+        scopus = list(name = "scopus", sheet = "Scopus"),
+        wos = list(name = "wos", sheet = "Web of Science")
     )
 
     ris_tags <- list()

@@ -49,12 +49,11 @@
 #'   removed from the output (default: `TRUE`).
 #' @param duplicate_rm (optional) A `logical` value indicating if duplicate
 #'   values must be removed from the output (default: `TRUE`).
-#' @param quiet (optional) a `logical` value indicating if warnings or messages
-#'   must be suppressed (default: `FALSE`).
 #'
 #' @return A `character` object with keywords in `...` tidied.
 #'
 #' @family keyword functions
+#' @template param_b
 #' @export
 #'
 #' @examples

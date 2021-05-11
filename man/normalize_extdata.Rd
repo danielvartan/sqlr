@@ -4,7 +4,12 @@
 \alias{normalize_extdata}
 \title{Normalize file names from the \code{extdata} folder}
 \usage{
-normalize_extdata()
+normalize_extdata(package = NULL)
+}
+\arguments{
+\item{package}{(optional) a string indicating the package with the database
+data. If \code{NULL}, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -21,8 +26,13 @@ and substitute \code{" "} characters for \code{"-"}.
 normalize_files()}
 }
 \seealso{
-Other utility functions: 
-\code{\link{cutter}()},
-\code{\link{raw_data}()}
+Other SQLR system functions: 
+\code{\link{build_reference}()},
+\code{\link{keyword_set}()},
+\code{\link{read_sheet}()},
+\code{\link{start_sqlr}()},
+\code{\link{write_metadata}()},
+\code{\link{write_query}()},
+\code{\link{write_sheet}()}
 }
-\concept{utility functions}
+\concept{SQLR system functions}

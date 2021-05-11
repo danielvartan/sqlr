@@ -45,10 +45,13 @@ read_sheet(sheet_id()[1])
 }
 }
 \seealso{
-Other GIPSO functions: 
+Other SQLR system functions: 
+\code{\link{build_reference}()},
 \code{\link{keyword_set}()},
+\code{\link{normalize_extdata}()},
+\code{\link{start_sqlr}()},
 \code{\link{write_metadata}()},
 \code{\link{write_query}()},
 \code{\link{write_sheet}()}
 }
-\concept{GIPSO functions}
+\concept{SQLR system functions}

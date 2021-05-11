@@ -11,7 +11,7 @@
 #'   target rectangle where the function must write the output. See the `range`
 #'   argument from `googlesheets4::range_write()` to learn more.
 #'
-#' @family GIPSO functions
+#' @family SQLR system functions
 #' @template param_a
 #' @importFrom magrittr %>%
 #' @export
@@ -28,13 +28,11 @@ write_query <- function(range = NULL, package = NULL) {
     constraint_set <- query <- approved <- constraint <- constraint_id <- NULL
 
     if (!require_namespace("utils", quietly = TRUE) ||
-        !require_namespace("magrittr", quietly = TRUE) ||
         !require_namespace("googlesheets4", quietly = TRUE)) {
         stop("This function requires the 'utils', 'magrittr', and ",
              "'googlesheets4' packages to run. ",
              "You can install them by running: \n\n",
              'install.packages("utils") \n',
-             'install.packages("magrittr") \n',
              'install.packages("googlesheets4") \n', call. = FALSE)
     }
 

@@ -49,7 +49,7 @@ alert <- function(..., combined_styles = c("bold", "red"), type = "message",
     message <- paste0(message, collapse = "")
 
     if (require_namespace("crayon", quietly = TRUE)) {
-        message <- crayonize(message)
+        message <- crayonize(message, combined_styles = combined_styles)
     }
 
     if (type == "cat") {

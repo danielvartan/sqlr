@@ -2,7 +2,7 @@
 % Please edit documentation in R/count_ref.R
 \name{count_ref}
 \alias{count_ref}
-\title{Count citations/references from files}
+\title{Count references/citations from files}
 \usage{
 count_ref(file = file.choose())
 }
@@ -13,13 +13,13 @@ and select a file (only for interactive sessions).}
 }
 \value{
 A \code{numeric} value with the count or sum of the count of the
-citations/references found in the \code{file} argument.
+references/citations found in the \code{file} argument.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{count_ref()} count citations/references from files. If more than one file is
-used, the function returns the sum of the count of the citations/references
+\code{count_ref()} count references/citations from files. If more than one file is
+used, the function returns the sum of the count of the references/citations
 from each file.
 
 At the moment, \code{count_ref()} works only with PubMed and RIS (Research
@@ -38,8 +38,8 @@ file <- raw_data("citation", file)
 count_ref(file)}
 }
 \seealso{
-Other citation functions: 
+Other reference/citation functions: 
 \code{\link{guess_ref}()},
 \code{\link{read_ref}()}
 }
-\concept{citation functions}
+\concept{reference/citation functions}

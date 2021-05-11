@@ -21,7 +21,7 @@ reference:
   - query
   - tidy_keyword
 
-- title: Citations/References
+- title: References/Citations
   contents:
   - count_ref
   - guess_ref
@@ -31,16 +31,19 @@ reference:
   contents:
   - provider_tags
   - ris_tags
+  - ris_types
 
 - title: Utilities
   contents:
   - cutter
-  - raw_data
 
 - title: SQLR system
 - subtitle: Keywords
   contents:
   - keyword_set
+- subtitle: References/Citations
+  contents:
+  - build_reference
 - subtitle: Google Sheets
   contents:
   - read_sheet
@@ -54,9 +57,11 @@ reference:
   - keyword
   - source
   - search
+  - reference
 - subtitle: Utilities
   contents:
   - normalize_extdata
+  - raw_data
   - start_sqlr
 
 authors:

@@ -1,10 +1,10 @@
-#' Guess the format of citations/references from a file
+#' Guess the format of references/citations from a file
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `guess_ref()` try to guess the format of citations/references from a file
+#' `guess_ref()` try to guess the format of references/citations from a file
 #' (_e.g._, PubMed, RIS).
 #'
 #' At the moment, `guess_ref()` works only with PubMed and RIS (Research
@@ -17,22 +17,22 @@
 #' When `return_data = TRUE`, `guess_ref()` will return a `list` object with
 #' the following elements:
 #'
-#' * `format`: a string with the name of the citation/reference format found in
+#' * `format`: a string with the name of the reference/citation format found in
 #' the `file` argument.
 #' * `data`: a `character` object representing all the lines found in the `file`
 #' argument.
-#' * `count`: A `numeric` value with the count of the citations/references found
+#' * `count`: A `numeric` value with the count of the references/citations found
 #' in the `file` argument. If you're only interest in this data, use the
 #' `count_ref()` function.
 #' * `index`: an `integer` object with values indicating the cut points of the
-#' citations/references. If the cut point is located at the end of the
-#' citations/references, the `between` value (see below) will be set to
+#' references/citations. If the cut point is located at the end of the
+#' references/citations, the `between` value (see below) will be set to
 #' `"right"`, else, it will be set to `"left`.
 #' * `between`: a `"left"` or `"right"` value that can be used with the
 #' `cutter()` function. See the documentation for the mentioned function to
 #' learn more.
 #'
-#' @param file (optional) a string indicating a citation/reference file. If not
+#' @param file (optional) a string indicating a reference/citation file. If not
 #'   assigned, a dialog window will be open enabling the user to search and
 #'   select a file (only for interactive sessions).
 #' @param return_data (optional) a `logical` value indicating if the function
@@ -41,13 +41,13 @@
 #'
 #' @return
 #'
-#' * If `return_data = FALSE`, a string with the name of the citation/reference
+#' * If `return_data = FALSE`, a string with the name of the reference/citation
 #' format found in the `file` argument.
 #' * If `return_data = TRUE`, a `list` object with the data and metadata from
 #' the `file` argument. See the Details section to learn more.
 #' * The function will return an invisible `NULL` if it fails to found a format.
 #'
-#' @family citation functions
+#' @family reference/citation functions
 #' @inheritParams tidy_keyword
 #' @export
 #'

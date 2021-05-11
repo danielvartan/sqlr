@@ -30,10 +30,13 @@ A \code{character} object with a keyword set.
 keyword_set(1, "english")}
 }
 \seealso{
-Other GIPSO functions: 
+Other SQLR system functions: 
+\code{\link{build_reference}()},
+\code{\link{normalize_extdata}()},
 \code{\link{read_sheet}()},
+\code{\link{start_sqlr}()},
 \code{\link{write_metadata}()},
 \code{\link{write_query}()},
 \code{\link{write_sheet}()}
 }
-\concept{GIPSO functions}
+\concept{SQLR system functions}

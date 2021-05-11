@@ -19,7 +19,7 @@
 #' @return An invisible `list` object containing lists with the Google Sheets
 #'   metadata of the review tables hosted on the platform.
 #'
-#' @family GIPSO functions
+#' @family SQLR system functions
 #' @importFrom magrittr %>%
 #' @export
 #'
@@ -90,7 +90,7 @@ write_metadata <- function(id, sheet = "Dataset") {
 #' * If `name` have length == 1, an invisible `tibble` object of the sheet/table
 #' indicated in `name`.
 #'
-#' @family GIPSO functions
+#' @family SQLR system functions
 #' @template param_a
 #' @importFrom magrittr %>%
 #' @export
@@ -163,7 +163,7 @@ read_sheet <- function(name = NULL, package = NULL) {
 #' @param name (optional) A `character` object indicating the name or names of
 #'   the sheets that the function must write (default: `NULL`).
 #'
-#' @family GIPSO functions
+#' @family SQLR system functions
 #' @template param_a
 #' @export
 #'
@@ -195,9 +195,9 @@ write_sheet <- function(name = NULL, package = NULL) {
     utils::data("sheets", package = package, envir = environment())
 
     if (!is.null(name)) {
-        if (any(name == "sheets")) {
-            stop("You can't rewrite the 'sheets' table. ",
-                 "Use 'write_metadata()' to reload the sheets metadata.",
+        if (any(name %in% c("sheets", "reference", "document"))) {
+            stop("You can't rewrite the 'sheets', 'reference', or 'document' ",
+                 "table. Use 'write_metadata()' to reload the sheets metadata.",
                  call. = FALSE)
         }
 

@@ -39,18 +39,16 @@ Imports:
     lifecycle,
     magrittr,
     readr,
-    stringr,
-    synthesisr
+    rlang,
+    tidyr,
+    stringr
 Suggests: 
     covr,
     crayon,
     emojifont,
-    ggplot2,
     googlesheets4,
     grDevices,
     knitr,
-    revtools,
-    rlang,
     rmarkdown,
     rstudioapi,
     spelling,

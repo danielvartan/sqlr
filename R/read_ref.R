@@ -1,11 +1,11 @@
-#' Read citations/references from files
+#' Read references/citations from files
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `read_ref()` read citations/references from files. When more than one file is
-#' used, the function binds the citations/references from each file.
+#' `read_ref()` read references/citations from files. When more than one file is
+#' used, the function binds the references from each file.
 #'
 #' At the moment, `read_ref()` works only with PubMed and RIS (Research
 #' Information Systems) formats.
@@ -14,9 +14,9 @@
 #'
 #' ## `sep` argument
 #'
-#' The `sep` argument is only used if the citation files have duplicated tags.
-#' In those cases, `read_ref()` will join all the same tag values using the
-#' `sep` value.
+#' The `sep` argument is only used if the reference/citation files have
+#' duplicated tags. In those cases, `read_ref()` will join all the same tag
+#' values using the `sep` value.
 #'
 #' Example:
 #'
@@ -33,9 +33,25 @@
 #' ## `lookup` argument
 #'
 #' `read_ref()` allows you to rename and rearrange the tags/variables from
-#' citation/reference files. You can create your own settings for that task or
+#' reference files. You can create your own settings for that task or
 #' use the settings provided by the `sqlr` package. Use `lookup = NULL`
 #' (default) to preserve the original tag names.
+#'
+#' To use the settings from the `sqlr` package, choose and assign one of the
+#' following values to the `lookup` argument, accordingly to the database
+#' provider from which the reference file was exported. You can see the
+#' `sqlr` package settings in `sqlr::ris_tags` or at <https://bit.ly/3efSgHr>.
+#'
+#' * `"general"`: A general lookup table for RIS files.
+#' * `"apa"`: for [APA](http://help.psycnet.org/) (American Psychology
+#' Association).
+#' * `"ebsco"`: for [EBSCO](http://support.ebsco.com/help/) (Elton Bryson
+#' Stephens Company).
+#' * `"embase"`: for [Embase](https://bit.ly/399d14T) (Excerpta Medica
+#' dataBASE)
+#' * `"pubmed"`: for [PubMed](https://pubmed.ncbi.nlm.nih.gov/help/).
+#' * `"scopus"`: for [Scopus](https://bit.ly/2QAylcS).
+#' * `"wos"`: for [Web of Science](https://bit.ly/3sj8nsz).
 #'
 #' To use you own settings, you will need to assign a `data.frame` object to
 #' the `lookup` argument. This `data.frame` need to have the 3 columns
@@ -47,20 +63,16 @@
 #' * `name`: a `character` column indicating the name to replace the
 #' tag/variable indicated in the `tag` column.
 #'
-#' To use the settings from the `sqlr` package, choose and assign one of the
-#' following values to the `lookup` argument, accordingly to the database
-#' provider from which the citation/reference file was exported. You can see the
-#' `sqlr` package settings in `sqlr::ris_tags` or at <https://bit.ly/3efSgHr>.
+#' Note that `read_ref()` will perform a cleaning process to the `lookup`
+#' data frame. This process involves:
 #'
-#' * `"apa"`: for [APA](http://help.psycnet.org/) (American Psychology
-#' Association).
-#' * `"ebsco"`: for [EBSCO](http://support.ebsco.com/help/) (Elton Bryson
-#' Stephens Company).
-#' * `"embase"`: for [Embase](https://bit.ly/399d14T) (Excerpta Medica
-#' dataBASE)
-#' * `"pubmed"`: for [PubMed](https://pubmed.ncbi.nlm.nih.gov/help/).
-#' * `"scopus"`: for [Scopus](https://bit.ly/2QAylcS).
-#' * `"wos"`: for [Web of Science](https://bit.ly/3sj8nsz).
+#' * Removing rows with `NA` values found in the `tag`, `order` and/or `name`
+#' columns.
+#' * Removing any duplicated `tag` values, considering the last values after
+#' arranging the table by the `order` column.
+#'
+#' Also, if one or more `tag` values have the same `name` value, `read_ref()`
+#' will combine them with the separator assigned in the `sep` argument.
 #'
 #' ## Reading ZIP files
 #'
@@ -71,7 +83,7 @@
 #'   file names. If not assigned, a dialog window will be open enabling the user
 #'   to search and select a file (only for interactive sessions).
 #' @param lookup (optional) a string indicating the database provider from which
-#'   the citation/reference file was exported, or a `data.frame` object
+#'   the reference/citation file was exported, or a `data.frame` object
 #'   containing instructions on how to rename and rearrange the tags/variables.
 #'   See the Details section to learn more (default: `NULL`).
 #' @param sep (optional) a string indicating the separator to be used when
@@ -80,7 +92,7 @@
 #' @return A `data.frame` object with the citations/references found in the
 #'   `file` argument.
 #'
-#' @family citation functions
+#' @family reference/citation functions
 #' @inheritParams tidy_keyword
 #' @export
 #'
@@ -101,7 +113,8 @@ read_ref <- function(file = file.choose(), lookup = NULL, sep = " | ",
     checkmate::assert_string(sep)
 
     if (inherits(lookup, "character")) {
-        choices <- c("apa", "ebsco", "embase", "pubmed", "scopus", "wos")
+        choices <- c("general", "apa", "ebsco", "embase", "pubmed", "scopus",
+                     "wos")
 
         checkmate::assert_choice(lookup, choices)
     } else if (inherits(lookup, "data.frame")) {
@@ -144,19 +157,21 @@ read_ref <- function(file = file.choose(), lookup = NULL, sep = " | ",
     data <- guess_ref(file, return_data = TRUE, quiet = TRUE)
 
     if (is.null(data)) {
-        stop("No citation/reference was identified in ", single_quote_(file),
+        stop("No reference/citation was identified in ", single_quote_(file),
              ".", call. = FALSE)
     } else if (data$count > 100) {
         if (isFALSE(quiet)) cat(message)
     }
 
-    chopp_ref(data) %>%
+    out <- chopp_ref(data) %>%
         remove_ref_header() %>%
         lapply(join_ref_solo_lines) %>%
         lapply(stringr::str_squish) %>%
         lapply(join_ref_tag_values, sep = sep) %>%
         convert_ref_to_tibble() %>%
-        rename_ref(lookup, file)
+        rename_ref(lookup, file, sep)
+
+    invisible(out)
 }
 
 chopp_ref <- function(data) {
@@ -166,7 +181,9 @@ chopp_ref <- function(data) {
         lapply(function(x) x[!stringr::str_detect(x, "^\\s*$")]) %>%
         lapply(function(x) x[!stringr::str_detect(x, "^ER$|^ER |^ER-")])
 
-    out[!lengths(out) == 0]
+    out <- out[!lengths(out) == 0]
+
+    invisible(out)
 }
 
 remove_ref_header <- function(x) {
@@ -186,7 +203,7 @@ remove_ref_header <- function(x) {
                                 rm_start = TRUE))
     }
 
-    x
+    invisible(x)
 }
 
 join_ref_solo_lines <- function(x) {
@@ -214,7 +231,7 @@ join_ref_tag_values <- function(x, sep) {
     pattern_data <- "(?<=-).*"
     tags <- stringr::str_extract(x, pattern_tag)
 
-    if (!anyDuplicated(rm_na(tags)) == 0) {
+    if (any(duplicated(rm_na(tags)), na.rm = TRUE)) {
         duplicated_tags <- unique(tags[duplicated(tags)]) %>% rm_na()
 
         for (i in duplicated_tags) {
@@ -243,7 +260,7 @@ convert_ref_to_tibble <- function(x) {
 
     invisible(lapply(x, bind_ref, envir = envir))
 
-    out
+    invisible(out)
 }
 
 bind_ref <- function(x, envir) {
@@ -281,22 +298,24 @@ bind_ref <- function(x, envir) {
     invisible(NULL)
 }
 
-rename_ref <- function(x, lookup, file) {
+rename_ref <- function(x, lookup, file, sep) {
     checkmate::assert_data_frame(x)
     checkmate::assert_multi_class(lookup, c("character", "data.frame"),
                                   null.ok = TRUE)
     checkmate::assert_string(file)
+    checkmate::assert_string(sep)
 
     if (inherits(lookup, "character")) {
-        choices <- c("apa", "ebsco", "embase", "pubmed", "scopus", "wos")
+        choices <- c("general", "apa", "ebsco", "embase", "pubmed", "scopus",
+                     "wos")
 
         checkmate::assert_choice(lookup, choices)
 
-        code_lookup <- list(apa = "APA", ebsco = "EBSCO", embase = "Embase",
-                            pubmed = "PubMed", scopus = "Scopus",
-                            wos = "Web of Science")
+        code_lookup <- list(general = "General", apa = "APA", ebsco = "EBSCO",
+                            embase = "Embase", pubmed = "PubMed",
+                            scopus = "Scopus", wos = "Web of Science")
 
-        provider <- code_lookup[[lookup]]
+        if (!lookup == "general") provider <- code_lookup[[lookup]]
         lookup <- sqlr::ris_tags[[lookup]]
     } else if (inherits(lookup, "data.frame")) {
         choices <- c("tag", "order", "name")
@@ -304,32 +323,101 @@ rename_ref <- function(x, lookup, file) {
         checkmate::assert_data_frame(lookup, min.rows = 1, min.cols = 3)
         checkmate::assert_names(names(lookup), must.include = choices)
     } else {
+        x <- x %>% dplyr::mutate(file = basename(file))
+
         return(x)
     }
 
     lookup <- lookup %>% dplyr::arrange(order)
+    lookup <- clean_lookup_table(lookup)
+    x <- join_ref_col_values(x, lookup, sep)
     replacement_index <- which(lookup$tag %in% names(x))
-    replacement_tag <- lookup$tag[replacement_index]
-    replacement_name <- lookup$name[replacement_index]
 
-    match <- unlist(lapply(replacement_tag, match, table = names(x)))
-    no_match <- which(!names(x) %in% lookup$tag)
-    order <- append(match, no_match)
+    if (!length(replacement_index) == 0) {
+        replacement_tag <- lookup$tag[replacement_index]
+        replacement_name <- lookup$name[replacement_index]
 
-    x <- x[order] %>%
-        dplyr::rename_with(function(x) replacement_name,
-                           dplyr::all_of(replacement_tag))
+        match <- unlist(lapply(replacement_tag, match, table = names(x)))
+        no_match <- which(!names(x) %in% lookup$tag)
+        order <- append(match, no_match)
+
+        x <- x[order] %>%
+            dplyr::rename_with(function(x) replacement_name,
+                               dplyr::all_of(replacement_tag))
+    }
 
     if ("provider" %in% ls()) {
         if (!"provider" %in% names(x)) {
-            x %>% dplyr::mutate(provider = provider,
-                                file = basename(file))
+            x <- x %>% dplyr::mutate(provider = provider,
+                                     file = basename(file))
         } else {
             x <- x %>%
                 dplyr::relocate("provider", .after = dplyr::last(names(x))) %>%
                 dplyr::mutate(file = basename(file))
         }
     } else {
-        x %>% dplyr::mutate(file = basename(file))
+        x <- x %>% dplyr::mutate(file = basename(file))
+    }
+
+    invisible(x)
+}
+
+clean_lookup_table <- function(lookup) {
+    choices <- c("tag", "order", "name")
+
+    checkmate::assert_data_frame(lookup, min.rows = 1, min.cols = 3)
+    checkmate::assert_names(names(lookup), must.include = choices)
+
+    for (i in c("tag", "order", "name")) {
+        if (any(is.na(lookup[[i]]))) {
+            alert("The lookup table has 'NA' values in the ",
+                  single_quote_(i), " column ", "(row(s) ",
+                  paste_collapse(which(is.na(lookup[[i]])), sep = ", ",
+                                 last = " and "),
+                  "). This row(s) were removed.",
+                  type = "warning")
+
+            lookup <- lookup[-which(is.na(lookup[[i]])), ]
+        }
+    }
+
+    if (nrow(lookup) == 0) {
+        stop("No rows remained in the lookup table after the cleaning ",
+             "process. Check the function documentation to learn more.",
+             call. = FALSE)
+    }
+
+    lookup <- lookup[!duplicated(lookup$tag), ]
+
+    invisible(lookup)
+}
+
+join_ref_col_values <- function(x, lookup, sep) {
+    choices <- c("tag", "order", "name")
+
+    checkmate::assert_data_frame(x)
+    checkmate::assert_data_frame(lookup, min.rows = 1, min.cols = 3)
+    checkmate::assert_names(names(lookup), must.include = choices)
+    checkmate::assert_string(sep)
+
+    if (any(duplicated(lookup$name), na.rm = TRUE)) {
+        duplicate_names <- unique(lookup$name[duplicated(lookup$name)]) %>%
+            rm_na()
+
+        for (i in duplicate_names) {
+            tags <- lookup$tag[which(lookup$name == i)]
+
+            if (any(tags %in% names(x), na.rm = TRUE)) {
+                cols <- tags[tags %in% names(x)]
+
+                x <- x %>%
+                    tidyr::unite(!!as.symbol(cols[1]), dplyr::all_of(cols),
+                                 sep = " | ", na.rm = TRUE)
+            }
+        }
+
+        invisible(x)
+    } else {
+        invisible(x)
     }
 }

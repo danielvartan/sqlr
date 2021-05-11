@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_ref.R
 \name{read_ref}
 \alias{read_ref}
-\title{Read citations/references from files}
+\title{Read references/citations from files}
 \usage{
 read_ref(file = file.choose(), lookup = NULL, sep = " | ", quiet = FALSE)
 }
@@ -12,7 +12,7 @@ file names. If not assigned, a dialog window will be open enabling the user
 to search and select a file (only for interactive sessions).}
 
 \item{lookup}{(optional) a string indicating the database provider from which
-the citation/reference file was exported, or a \code{data.frame} object
+the reference/citation file was exported, or a \code{data.frame} object
 containing instructions on how to rename and rearrange the tags/variables.
 See the Details section to learn more (default: \code{NULL}).}
 
@@ -29,8 +29,8 @@ A \code{data.frame} object with the citations/references found in the
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{read_ref()} read citations/references from files. When more than one file is
-used, the function binds the citations/references from each file.
+\code{read_ref()} read references/citations from files. When more than one file is
+used, the function binds the references from each file.
 
 At the moment, \code{read_ref()} works only with PubMed and RIS (Research
 Information Systems) formats.
@@ -38,9 +38,9 @@ Information Systems) formats.
 \details{
 \subsection{\code{sep} argument}{
 
-The \code{sep} argument is only used if the citation files have duplicated tags.
-In those cases, \code{read_ref()} will join all the same tag values using the
-\code{sep} value.
+The \code{sep} argument is only used if the reference/citation files have
+duplicated tags. In those cases, \code{read_ref()} will join all the same tag
+values using the \code{sep} value.
 
 Example:\preformatted{read_ref(file, sep = " | ")
 
@@ -55,9 +55,26 @@ Joined tags: AU - Stoykova B | Slota C | Doward L
 \subsection{\code{lookup} argument}{
 
 \code{read_ref()} allows you to rename and rearrange the tags/variables from
-citation/reference files. You can create your own settings for that task or
+reference files. You can create your own settings for that task or
 use the settings provided by the \code{sqlr} package. Use \code{lookup = NULL}
 (default) to preserve the original tag names.
+
+To use the settings from the \code{sqlr} package, choose and assign one of the
+following values to the \code{lookup} argument, accordingly to the database
+provider from which the reference file was exported. You can see the
+\code{sqlr} package settings in \code{sqlr::ris_tags} or at \url{https://bit.ly/3efSgHr}.
+\itemize{
+\item \code{"general"}: A general lookup table for RIS files.
+\item \code{"apa"}: for \href{http://help.psycnet.org/}{APA} (American Psychology
+Association).
+\item \code{"ebsco"}: for \href{http://support.ebsco.com/help/}{EBSCO} (Elton Bryson
+Stephens Company).
+\item \code{"embase"}: for \href{https://bit.ly/399d14T}{Embase} (Excerpta Medica
+dataBASE)
+\item \code{"pubmed"}: for \href{https://pubmed.ncbi.nlm.nih.gov/help/}{PubMed}.
+\item \code{"scopus"}: for \href{https://bit.ly/2QAylcS}{Scopus}.
+\item \code{"wos"}: for \href{https://bit.ly/3sj8nsz}{Web of Science}.
+}
 
 To use you own settings, you will need to assign a \code{data.frame} object to
 the \code{lookup} argument. This \code{data.frame} need to have the 3 columns
@@ -70,21 +87,17 @@ columns order.
 tag/variable indicated in the \code{tag} column.
 }
 
-To use the settings from the \code{sqlr} package, choose and assign one of the
-following values to the \code{lookup} argument, accordingly to the database
-provider from which the citation/reference file was exported. You can see the
-\code{sqlr} package settings in \code{sqlr::ris_tags} or at \url{https://bit.ly/3efSgHr}.
+Note that \code{read_ref()} will perform a cleaning process to the \code{lookup}
+data frame. This process involves:
 \itemize{
-\item \code{"apa"}: for \href{http://help.psycnet.org/}{APA} (American Psychology
-Association).
-\item \code{"ebsco"}: for \href{http://support.ebsco.com/help/}{EBSCO} (Elton Bryson
-Stephens Company).
-\item \code{"embase"}: for \href{https://bit.ly/399d14T}{Embase} (Excerpta Medica
-dataBASE)
-\item \code{"pubmed"}: for \href{https://pubmed.ncbi.nlm.nih.gov/help/}{PubMed}.
-\item \code{"scopus"}: for \href{https://bit.ly/2QAylcS}{Scopus}.
-\item \code{"wos"}: for \href{https://bit.ly/3sj8nsz}{Web of Science}.
+\item Removing rows with \code{NA} values found in the \code{tag}, \code{order} and/or \code{name}
+columns.
+\item Removing any duplicated \code{tag} values, considering the last values after
+arranging the table by the \code{order} column.
 }
+
+Also, if one or more \code{tag} values have the same \code{name} value, \code{read_ref()}
+will combine them with the separator assigned in the \code{sep} argument.
 }
 
 \subsection{Reading ZIP files}{
@@ -102,8 +115,8 @@ file <- raw_data("citation", file)
 read_ref(file, "apa")}
 }
 \seealso{
-Other citation functions: 
+Other reference/citation functions: 
 \code{\link{count_ref}()},
 \code{\link{guess_ref}()}
 }
-\concept{citation functions}
+\concept{reference/citation functions}
