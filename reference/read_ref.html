@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read citations/references from files — read_ref • sqlr</title>
+<title>Read references/citations from files — read_ref • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,10 @@
 
 
 
-<meta property="og:title" content="Read citations/references from files — read_ref" />
+<meta property="og:title" content="Read references/citations from files — read_ref" />
 <meta property="og:description" content="
-read_ref() read citations/references from files. When more than one file is
-used, the function binds the citations/references from each file.
+read_ref() read references/citations from files. When more than one file is
+used, the function binds the references from each file.
 At the moment, read_ref() works only with PubMed and RIS (Research
 Information Systems) formats." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
@@ -124,15 +124,15 @@ Information Systems) formats." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read citations/references from files</h1>
+    <h1>Read references/citations from files</h1>
     <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/read_ref.R'><code>R/read_ref.R</code></a></small>
     <div class="hidden name"><code>read_ref.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><code>read_ref()</code> read citations/references from files. When more than one file is
-used, the function binds the citations/references from each file.</p>
+<p><code>read_ref()</code> read references/citations from files. When more than one file is
+used, the function binds the references from each file.</p>
 <p>At the moment, <code>read_ref()</code> works only with PubMed and RIS (Research
 Information Systems) formats.</p>
     </div>
@@ -151,7 +151,7 @@ to search and select a file (only for interactive sessions).</p></td>
     <tr>
       <th>lookup</th>
       <td><p>(optional) a string indicating the database provider from which
-the citation/reference file was exported, or a <code>data.frame</code> object
+the reference/citation file was exported, or a <code>data.frame</code> object
 containing instructions on how to rename and rearrange the tags/variables.
 See the Details section to learn more (default: <code>NULL</code>).</p></td>
     </tr>
@@ -177,9 +177,9 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a><code>sep</code> argument</h3>
 
 
-<p>The <code>sep</code> argument is only used if the citation files have duplicated tags.
-In those cases, <code>read_ref()</code> will join all the same tag values using the
-<code>sep</code> value.</p>
+<p>The <code>sep</code> argument is only used if the reference/citation files have
+duplicated tags. In those cases, <code>read_ref()</code> will join all the same tag
+values using the <code>sep</code> value.</p>
 <p>Example:</p><pre>read_ref(file, sep = " | ")
 
 AU  - Stoykova B
@@ -194,23 +194,14 @@ Joined tags: AU - Stoykova B | Slota C | Doward L
 
 
 <p><code>read_ref()</code> allows you to rename and rearrange the tags/variables from
-citation/reference files. You can create your own settings for that task or
+reference files. You can create your own settings for that task or
 use the settings provided by the <code>sqlr</code> package. Use <code>lookup = NULL</code>
 (default) to preserve the original tag names.</p>
-<p>To use you own settings, you will need to assign a <code>data.frame</code> object to
-the <code>lookup</code> argument. This <code>data.frame</code> need to have the 3 columns
-below:</p><ul>
-<li><p><code>tag</code>: a <code>character</code> column indicating the tag/variable.</p></li>
-<li><p><code>order</code>: an <code>integer</code> column, with greater than 0 values, indicating the
-columns order.</p></li>
-<li><p><code>name</code>: a <code>character</code> column indicating the name to replace the
-tag/variable indicated in the <code>tag</code> column.</p></li>
-</ul>
-
 <p>To use the settings from the <code>sqlr</code> package, choose and assign one of the
 following values to the <code>lookup</code> argument, accordingly to the database
-provider from which the citation/reference file was exported. You can see the
+provider from which the reference file was exported. You can see the
 <code>sqlr</code> package settings in <code><a href='ris_tags.html'>sqlr::ris_tags</a></code> or at <a href='https://bit.ly/3efSgHr'>https://bit.ly/3efSgHr</a>.</p><ul>
+<li><p><code>"general"</code>: A general lookup table for RIS files.</p></li>
 <li><p><code>"apa"</code>: for <a href='http://help.psycnet.org/'>APA</a> (American Psychology
 Association).</p></li>
 <li><p><code>"ebsco"</code>: for <a href='http://support.ebsco.com/help/'>EBSCO</a> (Elton Bryson
@@ -222,6 +213,26 @@ dataBASE)</p></li>
 <li><p><code>"wos"</code>: for <a href='https://bit.ly/3sj8nsz'>Web of Science</a>.</p></li>
 </ul>
 
+<p>To use you own settings, you will need to assign a <code>data.frame</code> object to
+the <code>lookup</code> argument. This <code>data.frame</code> need to have the 3 columns
+below:</p><ul>
+<li><p><code>tag</code>: a <code>character</code> column indicating the tag/variable.</p></li>
+<li><p><code>order</code>: an <code>integer</code> column, with greater than 0 values, indicating the
+columns order.</p></li>
+<li><p><code>name</code>: a <code>character</code> column indicating the name to replace the
+tag/variable indicated in the <code>tag</code> column.</p></li>
+</ul>
+
+<p>Note that <code>read_ref()</code> will perform a cleaning process to the <code>lookup</code>
+data frame. This process involves:</p><ul>
+<li><p>Removing rows with <code>NA</code> values found in the <code>tag</code>, <code>order</code> and/or <code>name</code>
+columns.</p></li>
+<li><p>Removing any duplicated <code>tag</code> values, considering the last values after
+arranging the table by the <code>order</code> column.</p></li>
+</ul>
+
+<p>Also, if one or more <code>tag</code> values have the same <code>name</code> value, <code>read_ref()</code>
+will combine them with the separator assigned in the <code>sep</code> argument.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Reading ZIP files</h3>
 
@@ -231,7 +242,7 @@ the ZIP file in the <code>file</code> argument.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other citation functions: 
+    <div class='dont-index'><p>Other reference/citation functions: 
 <code><a href='count_ref.html'>count_ref</a>()</code>,
 <code><a href='guess_ref.html'>guess_ref</a>()</code></p></div>
 

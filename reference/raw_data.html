@@ -131,7 +131,7 @@ raw_data() returns the raw data paths of the sqlr package." />
 <p><code>raw_data()</code> returns the raw data paths of the <code>sqlr</code> package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_data</span><span class='op'>(</span>type <span class='op'>=</span> <span class='cn'>NULL</span>, file <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>raw_data</span><span class='op'>(</span>type <span class='op'>=</span> <span class='cn'>NULL</span>, file <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='st'>"sqlr"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,12 +143,14 @@ raw_data() returns the raw data paths of the sqlr package." />
     </tr>
     <tr>
       <th>file</th>
-      <td><p>(optional) a string indicating the file name of the raw dataset.</p></td>
+      <td><p>(optional) a <code>character</code> object indicating the file name(s) of
+the raw dataset.</p></td>
     </tr>
     <tr>
-      <th>quiet</th>
-      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
-must be suppressed (default: <code>FALSE</code>).</p></td>
+      <th>package</th>
+      <td><p>(optional) a string indicating the package with the database
+data. If <code>NULL</code>, the function will try to use the name of the active
+project directory (requires the <code>rstudioapi</code> package) (default: <code>sqlr</code>).</p></td>
     </tr>
     </table>
 
@@ -160,14 +162,13 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
 available.</p></li>
 <li><p>If <code>type != NULL</code> and <code>file = NULL</code>, a <code>character</code> object with all file
 names available from type.</p></li>
-<li><p>If <code>type != NULL</code> and <code>file != NULL</code>, a string file name path.</p></li>
+<li><p>If <code>type != NULL</code> and <code>file != NULL</code>, a string with the file name path.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other utility functions: 
-<code><a href='cutter.html'>cutter</a>()</code>,
-<code><a href='normalize_extdata.html'>normalize_extdata</a>()</code></p></div>
+<code><a href='cutter.html'>cutter</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>

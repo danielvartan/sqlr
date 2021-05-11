@@ -4,13 +4,25 @@
     <loc>https://gipsousp.github.io/sqlr//index.html</loc>
   </url>
   <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/build_reference.html</loc>
+  </url>
+  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/constraint.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/count_ref.html</loc>
   </url>
   <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/criteria.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/critical_appraisal.html</loc>
+  </url>
+  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/cutter.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/document.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/domain.html</loc>
@@ -43,7 +55,13 @@
     <loc>https://gipsousp.github.io/sqlr//reference/read_sheet.html</loc>
   </url>
   <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/reference.html</loc>
+  </url>
+  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/ris_tags.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/ris_types.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/search.html</loc>
@@ -62,6 +80,9 @@
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/tidy_keyword.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/trial.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/write_metadata.html</loc>

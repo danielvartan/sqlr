@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Guess the format of citations/references from a file — guess_ref • sqlr</title>
+<title>Guess the format of references/citations from a file — guess_ref • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Guess the format of citations/references from a file — guess_ref" />
+<meta property="og:title" content="Guess the format of references/citations from a file — guess_ref" />
 <meta property="og:description" content="
-guess_ref() try to guess the format of citations/references from a file
+guess_ref() try to guess the format of references/citations from a file
 (e.g., PubMed, RIS).
 At the moment, guess_ref() works only with PubMed and RIS (Research
 Information Systems) formats." />
@@ -124,14 +124,14 @@ Information Systems) formats." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Guess the format of citations/references from a file</h1>
+    <h1>Guess the format of references/citations from a file</h1>
     <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/guess_ref.R'><code>R/guess_ref.R</code></a></small>
     <div class="hidden name"><code>guess_ref.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><code>guess_ref()</code> try to guess the format of citations/references from a file
+<p><code>guess_ref()</code> try to guess the format of references/citations from a file
 (<em>e.g.</em>, PubMed, RIS).</p>
 <p>At the moment, <code>guess_ref()</code> works only with PubMed and RIS (Research
 Information Systems) formats.</p>
@@ -144,7 +144,7 @@ Information Systems) formats.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>file</th>
-      <td><p>(optional) a string indicating a citation/reference file. If not
+      <td><p>(optional) a string indicating a reference/citation file. If not
 assigned, a dialog window will be open enabling the user to search and
 select a file (only for interactive sessions).</p></td>
     </tr>
@@ -165,7 +165,7 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
 
     
 <ul>
-<li><p>If <code>return_data = FALSE</code>, a string with the name of the citation/reference
+<li><p>If <code>return_data = FALSE</code>, a string with the name of the reference/citation
 format found in the <code>file</code> argument.</p></li>
 <li><p>If <code>return_data = TRUE</code>, a <code>list</code> object with the data and metadata from
 the <code>file</code> argument. See the Details section to learn more.</p></li>
@@ -180,16 +180,16 @@ the <code>file</code> argument. See the Details section to learn more.</p></li>
 
 <p>When <code>return_data = TRUE</code>, <code>guess_ref()</code> will return a <code>list</code> object with
 the following elements:</p><ul>
-<li><p><code>format</code>: a string with the name of the citation/reference format found in
+<li><p><code>format</code>: a string with the name of the reference/citation format found in
 the <code>file</code> argument.</p></li>
 <li><p><code>data</code>: a <code>character</code> object representing all the lines found in the <code>file</code>
 argument.</p></li>
-<li><p><code>count</code>: A <code>numeric</code> value with the count of the citations/references found
+<li><p><code>count</code>: A <code>numeric</code> value with the count of the references/citations found
 in the <code>file</code> argument. If you're only interest in this data, use the
 <code><a href='count_ref.html'>count_ref()</a></code> function.</p></li>
 <li><p><code>index</code>: an <code>integer</code> object with values indicating the cut points of the
-citations/references. If the cut point is located at the end of the
-citations/references, the <code>between</code> value (see below) will be set to
+references/citations. If the cut point is located at the end of the
+references/citations, the <code>between</code> value (see below) will be set to
 <code>"right"</code>, else, it will be set to <code>"left</code>.</p></li>
 <li><p><code>between</code>: a <code>"left"</code> or <code>"right"</code> value that can be used with the
 <code><a href='cutter.html'>cutter()</a></code> function. See the documentation for the mentioned function to
@@ -199,7 +199,7 @@ learn more.</p></li>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other citation functions: 
+    <div class='dont-index'><p>Other reference/citation functions: 
 <code><a href='count_ref.html'>count_ref</a>()</code>,
 <code><a href='read_ref.html'>read_ref</a>()</code></p></div>
 
