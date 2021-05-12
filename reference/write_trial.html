@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read the review tables hosted on Google Sheets — read_sheet • sqlr</title>
+<title>Write the trial_* table to a Google Spreadsheets — write_trial • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,12 @@
 
 
 
-<meta property="og:title" content="Read the review tables hosted on Google Sheets — read_sheet" />
+<meta property="og:title" content="Write the trial_* table to a Google Spreadsheets — write_trial" />
 <meta property="og:description" content="
 CAUTION: This function must be used only with packages that follow the
 SQLR system.
-read_sheet() reads and returns the review tables hosted on Google Sheets.
+write_trial() writes a trial_* table of the Systematic Quantitative
+Literature Review (SQLR) system to a Google Spreadsheets.
 You must have a sheets data object with the sheets metadata before running
 this function. See ?write_metadata() to learn more." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
@@ -125,29 +126,29 @@ this function. See ?write_metadata() to learn more." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read the review tables hosted on Google Sheets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/utils-sheets.R'><code>R/utils-sheets.R</code></a></small>
-    <div class="hidden name"><code>read_sheet.Rd</code></div>
+    <h1>Write the <code>trial_*</code> table to a Google Spreadsheets</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/write_trial.R'><code>R/write_trial.R</code></a></small>
+    <div class="hidden name"><code>write_trial.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p><strong>CAUTION</strong>: This function must be used only with packages that follow the
 SQLR system.</p>
-<p><code>read_sheet()</code> reads and returns the review tables hosted on Google Sheets.</p>
+<p><code>write_trial()</code> writes a <code>trial_*</code> table of the Systematic Quantitative
+Literature Review (SQLR) system to a Google Spreadsheets.</p>
 <p>You must have a <code>sheets</code> data object with the sheets metadata before running
 this function. See <code>?write_metadata()</code> to learn more.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_sheet</span><span class='op'>(</span>name <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>write_trial</span><span class='op'>(</span><span class='va'>trial_id</span>, package <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p>(optional) A <code>character</code> object indicating the name or names of
-the sheets that the function must return (default: <code>NULL</code>).</p></td>
+      <th>trial_id</th>
+      <td><p>A string indicating the ID of the trial to be written.</p></td>
     </tr>
     <tr>
       <th>package</th>
@@ -155,20 +156,12 @@ the sheets that the function must return (default: <code>NULL</code>).</p></td>
 data. If <code>NULL</code>, the function will try to use the name of the active
 project directory (requires the <code>rstudioapi</code> package) (default: <code>NULL</code>).</p></td>
     </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
+must be suppressed (default: <code>FALSE</code>).</p></td>
+    </tr>
     </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    
-<ul>
-<li><p>If <code>name = NULL</code>, an invisible <code>list</code> object with <code>tibbles</code> objects of all
-entity sheet/tables available as elements, with the exception of the
-'sheets', 'reference', and 'document' tables and any other non-entity tables.</p></li>
-<li><p>If <code>name</code> have length &gt; 1, an invisible <code>list</code> object with <code>tibbles</code>
-objects of sheet/tables indicated in <code>name</code> as elements.</p></li>
-<li><p>If <code>name</code> have length == 1, an invisible <code>tibble</code> object of the sheet/table
-indicated in <code>name</code>.</p></li>
-</ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -177,24 +170,21 @@ indicated in <code>name</code>.</p></li>
 <code><a href='keyword_set.html'>keyword_set</a>()</code>,
 <code><a href='normalize_extdata.html'>normalize_extdata</a>()</code>,
 <code><a href='range_write.html'>range_write</a>()</code>,
+<code><a href='read_sheet.html'>read_sheet</a>()</code>,
 <code><a href='sheet_nrow.html'>sheet_nrow</a>()</code>,
 <code><a href='start_sqlr.html'>start_sqlr</a>()</code>,
 <code><a href='write_metadata.html'>write_metadata</a>()</code>,
 <code><a href='write_query.html'>write_query</a>()</code>,
-<code><a href='write_sheet.html'>write_sheet</a>()</code>,
-<code><a href='write_trial.html'>write_trial</a>()</code></p></div>
+<code><a href='write_sheet.html'>write_sheet</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>## __ To get a 'list' object with all the sheets __</span>
-<span class='fu'>read_sheet</span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>## __ Writing the Trial - DUP table __</span>
+<span class='fu'>write_trial</span><span class='op'>(</span><span class='st'>"dup"</span><span class='op'>)</span>
 
-<span class='co'>## __ To get a 'list' object with some sheets __</span>
-<span class='fu'>read_sheet</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sheets</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sheets</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## __ To get a 'tibble' object of a specific sheet __</span>
-<span class='fu'>read_sheet</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sheets</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
-<span class='op'>}</span>
+<span class='co'>## __ Checking the number of rows with the 'reference' table __</span>
+<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>reference</span>, <span class='va'>criteria_id</span> <span class='op'>==</span> <span class='st'>"DUP"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+<span class='fu'><a href='sheet_nrow.html'>sheet_nrow</a></span><span class='op'>(</span><span class='st'>"trial_nr1"</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>reference</span><span class='op'>)</span><span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

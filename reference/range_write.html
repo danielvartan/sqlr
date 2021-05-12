@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read the review tables hosted on Google Sheets — read_sheet • sqlr</title>
+<title>Write a data.frame object to a review table hosted on Google Sheets — range_write • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,16 @@
 
 
 
-<meta property="og:title" content="Read the review tables hosted on Google Sheets — read_sheet" />
+<meta property="og:title" content="Write a data.frame object to a review table hosted on Google Sheets — range_write" />
 <meta property="og:description" content="
 CAUTION: This function must be used only with packages that follow the
 SQLR system.
-read_sheet() reads and returns the review tables hosted on Google Sheets.
+range_write() writes a data.frame object to a specific range of a review
+table hosted on Google Sheets.
+This function was created as workaround to googlesheets4::range_write
+writing limit. It bypass this limit by writing in batches.
+Please note that this function will always write in the A1 range and will
+delete all but the 2 first rows of the worksheet before writing on it.
 You must have a sheets data object with the sheets metadata before running
 this function. See ?write_metadata() to learn more." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
@@ -125,29 +130,38 @@ this function. See ?write_metadata() to learn more." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read the review tables hosted on Google Sheets</h1>
+    <h1>Write a <code>data.frame</code> object to a review table hosted on Google Sheets</h1>
     <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/utils-sheets.R'><code>R/utils-sheets.R</code></a></small>
-    <div class="hidden name"><code>read_sheet.Rd</code></div>
+    <div class="hidden name"><code>range_write.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p><strong>CAUTION</strong>: This function must be used only with packages that follow the
 SQLR system.</p>
-<p><code>read_sheet()</code> reads and returns the review tables hosted on Google Sheets.</p>
+<p><code>range_write()</code> writes a <code>data.frame</code> object to a specific range of a review
+table hosted on Google Sheets.</p>
+<p>This function was created as workaround to <a href='https://rdrr.io/pkg/googlesheets4/man/range_write.html'>googlesheets4::range_write</a>
+writing limit. It bypass this limit by writing in batches.</p>
+<p>Please note that this function will always write in the <code>A1</code> range and will
+delete all but the 2 first rows of the worksheet before writing on it.</p>
 <p>You must have a <code>sheets</code> data object with the sheets metadata before running
 this function. See <code>?write_metadata()</code> to learn more.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_sheet</span><span class='op'>(</span>name <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>range_write</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>name</span>, package <span class='op'>=</span> <span class='cn'>NULL</span>, limit <span class='op'>=</span> <span class='fl'>2e+05</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>x</th>
+      <td><p>A <code>data.frame</code> object with at least 1 row.</p></td>
+    </tr>
+    <tr>
       <th>name</th>
-      <td><p>(optional) A <code>character</code> object indicating the name or names of
-the sheets that the function must return (default: <code>NULL</code>).</p></td>
+      <td><p>A string indicating the name of the sheets that the
+function must write.</p></td>
     </tr>
     <tr>
       <th>package</th>
@@ -155,20 +169,19 @@ the sheets that the function must return (default: <code>NULL</code>).</p></td>
 data. If <code>NULL</code>, the function will try to use the name of the active
 project directory (requires the <code>rstudioapi</code> package) (default: <code>NULL</code>).</p></td>
     </tr>
+    <tr>
+      <th>limit</th>
+      <td><p>(optional) a number with the limit amount of data to write for
+each batch. Example: a limit of <code>200000</code> will write a <code>data.frame</code> with
+<code>10000</code> rows and <code>50</code> columns in 3 batches, because <code>10000 * 50 = 500000</code>
+(over the limit) and <code>ceiling(500000 / 200000) = 3</code> (default: <code>200000</code>).</p></td>
+    </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
+must be suppressed (default: <code>FALSE</code>).</p></td>
+    </tr>
     </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    
-<ul>
-<li><p>If <code>name = NULL</code>, an invisible <code>list</code> object with <code>tibbles</code> objects of all
-entity sheet/tables available as elements, with the exception of the
-'sheets', 'reference', and 'document' tables and any other non-entity tables.</p></li>
-<li><p>If <code>name</code> have length &gt; 1, an invisible <code>list</code> object with <code>tibbles</code>
-objects of sheet/tables indicated in <code>name</code> as elements.</p></li>
-<li><p>If <code>name</code> have length == 1, an invisible <code>tibble</code> object of the sheet/table
-indicated in <code>name</code>.</p></li>
-</ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -176,7 +189,7 @@ indicated in <code>name</code>.</p></li>
 <code><a href='build_reference.html'>build_reference</a>()</code>,
 <code><a href='keyword_set.html'>keyword_set</a>()</code>,
 <code><a href='normalize_extdata.html'>normalize_extdata</a>()</code>,
-<code><a href='range_write.html'>range_write</a>()</code>,
+<code><a href='read_sheet.html'>read_sheet</a>()</code>,
 <code><a href='sheet_nrow.html'>sheet_nrow</a>()</code>,
 <code><a href='start_sqlr.html'>start_sqlr</a>()</code>,
 <code><a href='write_metadata.html'>write_metadata</a>()</code>,
@@ -186,15 +199,7 @@ indicated in <code>name</code>.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>## __ To get a 'list' object with all the sheets __</span>
-<span class='fu'>read_sheet</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'>## __ To get a 'list' object with some sheets __</span>
-<span class='fu'>read_sheet</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sheets</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sheets</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## __ To get a 'tibble' object of a specific sheet __</span>
-<span class='fu'>read_sheet</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sheets</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
-<span class='op'>}</span>
+<span class='fu'>range_write</span><span class='op'>(</span><span class='va'>reference</span>, <span class='st'>"reference"</span><span class='op'>)</span><span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

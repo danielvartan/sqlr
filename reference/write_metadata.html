@@ -48,6 +48,8 @@
 
 <meta property="og:title" content="Create a list with Google Sheets metadata for tables hosted on the platform — write_metadata" />
 <meta property="og:description" content="
+CAUTION: This function must be used only with packages that follow the
+SQLR system.
 write_metadata() creates and returns a list object containing lists with
 the Google Sheets metadata of the review tables hosted on the platform.
 This must be set for all R packages from GIPSO for systematic quantitative
@@ -132,6 +134,8 @@ You can see a example of a metadata sheets in: https://bit.ly/2PFWhev." />
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
+<p><strong>CAUTION</strong>: This function must be used only with packages that follow the
+SQLR system.</p>
 <p><code>write_metadata()</code> creates and returns a <code>list</code> object containing lists with
 the Google Sheets metadata of the review tables hosted on the platform.</p>
 <p>This must be set for all R packages from GIPSO for systematic quantitative
@@ -146,12 +150,13 @@ literature reviews.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>id</th>
-      <td><p>A string with the Google Sheets ID from the 'Sheets' table.</p></td>
+      <td><p>A string with the Google Sheets ID from the <code>Sheets</code> table.</p></td>
     </tr>
     <tr>
       <th>sheet</th>
       <td><p>(optional) a string indicating the worksheet/tab where the
-sheets data can be found on the 'Sheets spreadsheet (default: <code>"Dataset"</code>).</p></td>
+sheets data can be found in the <code>Sheets</code> spreadsheet (default:
+<code>"Dataset"</code>).</p></td>
     </tr>
     </table>
 
@@ -165,10 +170,13 @@ metadata of the review tables hosted on the platform.</p>
 <code><a href='build_reference.html'>build_reference</a>()</code>,
 <code><a href='keyword_set.html'>keyword_set</a>()</code>,
 <code><a href='normalize_extdata.html'>normalize_extdata</a>()</code>,
+<code><a href='range_write.html'>range_write</a>()</code>,
 <code><a href='read_sheet.html'>read_sheet</a>()</code>,
+<code><a href='sheet_nrow.html'>sheet_nrow</a>()</code>,
 <code><a href='start_sqlr.html'>start_sqlr</a>()</code>,
 <code><a href='write_query.html'>write_query</a>()</code>,
-<code><a href='write_sheet.html'>write_sheet</a>()</code></p></div>
+<code><a href='write_sheet.html'>write_sheet</a>()</code>,
+<code><a href='write_trial.html'>write_trial</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>

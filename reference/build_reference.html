@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build and add the 'reference' table to the package — build_reference • sqlr</title>
+<title>Build and write the reference table to a SQLR package — build_reference • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Build and add the 'reference' table to the package — build_reference" />
+<meta property="og:title" content="Build and write the reference table to a SQLR package — build_reference" />
 <meta property="og:description" content="
-build_reference() builds and adds the 'reference' entity table of
+build_reference() builds and write the reference entity table of
 the Systematic Quantitative Literature Review (SQLR) system to an R package.
 You must have a sheets data object with the sheets metadata before running
 this function. See ?write_metadata() to learn more." />
@@ -124,20 +124,20 @@ this function. See ?write_metadata() to learn more." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build and add the 'reference' table to the package</h1>
+    <h1>Build and write the <code>reference</code> table to a SQLR package</h1>
     <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/build_reference.R'><code>R/build_reference.R</code></a></small>
     <div class="hidden name"><code>build_reference.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p><code>build_reference()</code> builds and adds the 'reference' entity table of
+<p><code>build_reference()</code> builds and write the <code>reference</code> entity table of
 the Systematic Quantitative Literature Review (SQLR) system to an R package.</p>
 <p>You must have a <code>sheets</code> data object with the sheets metadata before running
 this function. See <code>?write_metadata()</code> to learn more.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_reference</span><span class='op'>(</span>package <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>build_reference</span><span class='op'>(</span>package <span class='op'>=</span> <span class='cn'>NULL</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,6 +147,12 @@ this function. See <code>?write_metadata()</code> to learn more.</p>
       <td><p>(optional) a string indicating the package with the database
 data. If <code>NULL</code>, the function will try to use the name of the active
 project directory (requires the <code>rstudioapi</code> package) (default: <code>NULL</code>).</p></td>
+    </tr>
+    <tr>
+      <th>write</th>
+      <td><p>(optional) a <code>logical</code> value indicating if the function must
+write a <code>reference.rda</code> file to <code>"./data/"</code> and also write to the reference
+spreadsheet listed on the <code><a href='sheets.html'>sqlr::sheets</a></code> object (default: <code>TRUE</code>).</p></td>
     </tr>
     <tr>
       <th>quiet</th>
@@ -160,11 +166,14 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
     <div class='dont-index'><p>Other SQLR system functions: 
 <code><a href='keyword_set.html'>keyword_set</a>()</code>,
 <code><a href='normalize_extdata.html'>normalize_extdata</a>()</code>,
+<code><a href='range_write.html'>range_write</a>()</code>,
 <code><a href='read_sheet.html'>read_sheet</a>()</code>,
+<code><a href='sheet_nrow.html'>sheet_nrow</a>()</code>,
 <code><a href='start_sqlr.html'>start_sqlr</a>()</code>,
 <code><a href='write_metadata.html'>write_metadata</a>()</code>,
 <code><a href='write_query.html'>write_query</a>()</code>,
-<code><a href='write_sheet.html'>write_sheet</a>()</code></p></div>
+<code><a href='write_sheet.html'>write_sheet</a>()</code>,
+<code><a href='write_trial.html'>write_trial</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
