@@ -50,6 +50,7 @@ reference:
   - range_write
   - read_sheet
   - sheet_nrow
+  - write_metadata
   - write_query
   - write_sheet
 - subtitle: Data
@@ -60,7 +61,11 @@ reference:
   - keyword
   - source
   - search
+  - criteria
+  - trial
+  - critical_appraisal
   - reference
+  - document
 - subtitle: Utilities
   contents:
   - normalize_extdata

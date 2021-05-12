@@ -98,7 +98,7 @@ read_ref_extdata <- function(package = NULL, quiet = FALSE) {
         lookup <- stringr::str_extract(i, pattern)
         lookup <- stringr::str_replace(lookup, "^web-of-science$", "wos")
 
-        i <- raw_data("reference", i)
+        i <- raw_data("reference", i, package = package)
         data <- read_ref(i, lookup = lookup, quiet = TRUE)
         out <- dplyr::bind_rows(out, data)
     }
@@ -226,21 +226,23 @@ assign_ref_ids <- function(x, package = NULL, quiet = FALSE) {
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
-    assert_data("sheets", package, alert = "gipso_1")
 
     # R CMD Check variable bindings fix
-    sheets <- provider <- year <- title <- reference_id <- NULL
-    criteria_id <- trial_id <- source_id <- search_id <- NULL
+    sheets <- source <- search <- provider <- year <- title <- NULL
+    reference_id <- criteria_id <- trial_id <- source_id <- search_id <- NULL
     pdf <- NULL
 
+    assert_data("sheets", package, alert = "gipso_1")
     utils::data("sheets", package = package, envir = environment())
-    choices <- c("source", "search")
-    checkmate::assert_subset(choices, names(sheets))
+
+    assert_data("source", package)
+    utils::data("source", package = package, envir = environment())
+
+    assert_data("search", package)
+    utils::data("search", package = package, envir = environment())
 
     alert("** Assigning IDs and finalizing the dataset **",
           combined_styles = c("silver"), abort = quiet)
-
-    list2env(read_sheet(choices, package), envir = environment())
 
     lookup_builder <- function(provider, id, filter = NULL) {
         checkmate::assert_character(provider)
@@ -291,7 +293,7 @@ assign_ref_ids <- function(x, package = NULL, quiet = FALSE) {
     if (!length(which(is.na(x$source_id))) == 0 ||
         !length(which(is.na(x$search_id))) == 0) {
         stop("'source_id' and 'search_id' have 'NA's. ",
-             "Check the 'source' and 'search' spreadsheet and try again.",
+             "Check the 'source' and 'search' tables and try again.",
              call. = FALSE)
     }
 
