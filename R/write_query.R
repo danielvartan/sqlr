@@ -4,6 +4,9 @@
 #'
 #' `r lifecycle::badge("experimental")`
 #'
+#' __CAUTION__: This function must be used only with packages that follow the
+#' SQLR system.
+#'
 #' `write_query()` create queries for each row of the `search` dataset and
 #' write them in the `query` column.
 #'

@@ -101,15 +101,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "ggplot2",
-      "name": "ggplot2",
+      "identifier": "emojifont",
+      "name": "emojifont",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=ggplot2"
+      "sameAs": "https://CRAN.R-project.org/package=emojifont"
     },
     {
       "@type": "SoftwareApplication",
@@ -139,30 +139,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "revtools",
-      "name": "revtools",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=revtools"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "rlang",
-      "name": "rlang",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
     {
       "@type": "SoftwareApplication",
@@ -276,6 +252,42 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "readr",
+      "name": "readr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=readr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
       "provider": {
@@ -285,23 +297,11 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=stringr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "synthesisr",
-      "name": "synthesisr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=synthesisr"
     }
   ],
   "readme": "https://github.com/gipsousp/sqlr/blob/master/README.md",
-  "fileSize": "64053.784KB",
-  "contIntegration": ["https://travis-ci.com/gipsousp/sqlr", "https://codecov.io/gh/gipsousp/sqlr?branch=master"],
+  "fileSize": "51222.314KB",
+  "contIntegration": "https://codecov.io/gh/gipsousp/sqlr?branch=master",
   "developmentStatus": ["https://www.repostatus.org/#wip", "https://lifecycle.r-lib.org/articles/stages.html#experimental"],
   "keywords": [
     "r-package",

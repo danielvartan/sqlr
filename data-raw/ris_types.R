@@ -6,13 +6,13 @@
 # library(magrittr)
 # library(usethis)
 
-#' Create a list with types of references used in RIS files
+#' Build a lookup `list` with types of references used in RIS files
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `ris_types()` returns a `list` object with elements for each type of
+#' `ris_types()` returns a lookup `list` object with elements for each type of
 #' reference used in RIS files accompanied by a regular expression (for pattern
 #' matching).
 #'
@@ -53,8 +53,9 @@ ris_types <- function(write = FALSE) {
 
     if (isTRUE(write)) usethis::use_data(ris_types, overwrite = TRUE)
 
-    message("\n", "Don't forget to run 'devtools::load_all()' ",
-            "(Ctrl + Shift + L).")
+    message("\n", "Run (in order):\n\n",
+            "devtools::document() [Ctrl + Shift  + D]\n",
+            "devtools::load_all() [Ctrl + Shift  + L]")
 
     invisible(ris_types)
 }

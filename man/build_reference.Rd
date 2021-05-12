@@ -2,14 +2,18 @@
 % Please edit documentation in R/build_reference.R
 \name{build_reference}
 \alias{build_reference}
-\title{Build and add the 'reference' table to the package}
+\title{Build and write the \code{reference} table to a SQLR package}
 \usage{
-build_reference(package = NULL, quiet = FALSE)
+build_reference(package = NULL, write = TRUE, quiet = FALSE)
 }
 \arguments{
 \item{package}{(optional) a string indicating the package with the database
 data. If \code{NULL}, the function will try to use the name of the active
 project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+
+\item{write}{(optional) a \code{logical} value indicating if the function must
+write a \code{reference.rda} file to \code{"./data/"} and also write to the reference
+spreadsheet listed on the \code{sqlr::sheets} object (default: \code{TRUE}).}
 
 \item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
 must be suppressed (default: \code{FALSE}).}
@@ -17,7 +21,7 @@ must be suppressed (default: \code{FALSE}).}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\code{build_reference()} builds and adds the 'reference' entity table of
+\code{build_reference()} builds and write the \code{reference} entity table of
 the Systematic Quantitative Literature Review (SQLR) system to an R package.
 
 You must have a \code{sheets} data object with the sheets metadata before running
@@ -31,10 +35,13 @@ build_reference()}
 Other SQLR system functions: 
 \code{\link{keyword_set}()},
 \code{\link{normalize_extdata}()},
+\code{\link{range_write}()},
 \code{\link{read_sheet}()},
+\code{\link{sheet_nrow}()},
 \code{\link{start_sqlr}()},
 \code{\link{write_metadata}()},
 \code{\link{write_query}()},
-\code{\link{write_sheet}()}
+\code{\link{write_sheet}()},
+\code{\link{write_trial}()}
 }
 \concept{SQLR system functions}

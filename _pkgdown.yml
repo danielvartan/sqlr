@@ -44,9 +44,12 @@ reference:
 - subtitle: References/Citations
   contents:
   - build_reference
+  - write_trial
 - subtitle: Google Sheets
   contents:
+  - range_write
   - read_sheet
+  - sheet_nrow
   - write_query
   - write_sheet
 - subtitle: Data

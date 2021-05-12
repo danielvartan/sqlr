@@ -18,6 +18,9 @@ project directory (requires the \code{rstudioapi} package) (default: \code{NULL}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
+\strong{CAUTION}: This function must be used only with packages that follow the
+SQLR system.
+
 \code{write_query()} create queries for each row of the \code{search} dataset and
 write them in the \code{query} column.
 }
@@ -30,9 +33,12 @@ Other SQLR system functions:
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
 \code{\link{normalize_extdata}()},
+\code{\link{range_write}()},
 \code{\link{read_sheet}()},
+\code{\link{sheet_nrow}()},
 \code{\link{start_sqlr}()},
 \code{\link{write_metadata}()},
-\code{\link{write_sheet}()}
+\code{\link{write_sheet}()},
+\code{\link{write_trial}()}
 }
 \concept{SQLR system functions}

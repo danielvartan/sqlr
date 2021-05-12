@@ -5,7 +5,7 @@
 \alias{criteria}
 \title{Criteria dataset}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 0 rows and 0 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 16 rows and 8 columns.
 }
 \usage{
 criteria

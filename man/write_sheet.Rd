@@ -17,13 +17,17 @@ project directory (requires the \code{rstudioapi} package) (default: \code{NULL}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
+\strong{CAUTION}: This function must be used only with packages that follow the
+SQLR system.
+
 \code{write_sheet()} reads and write the review tables hosted on Google Sheets in
 the data directory of an R package.
 
 You must have a \code{sheets} data object with the sheets metadata before running
 this function. See \code{?write_metadata()} to learn more.
 
-\code{write_sheet()} don't rewrite the \code{sheets} table.
+\code{write_sheet()} don't rewrite the \code{sheets}, \code{reference} or \code{document} table.
+It also don't write non-entity tables.
 }
 \examples{
 \dontrun{
@@ -31,16 +35,19 @@ this function. See \code{?write_metadata()} to learn more.
 write_sheet()
 
 ## __ To write one or more specific sheets __
-write_sheet(sheet_id()[1])}
+write_sheet(sheets$domain$name)}
 }
 \seealso{
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
 \code{\link{normalize_extdata}()},
+\code{\link{range_write}()},
 \code{\link{read_sheet}()},
+\code{\link{sheet_nrow}()},
 \code{\link{start_sqlr}()},
 \code{\link{write_metadata}()},
-\code{\link{write_query}()}
+\code{\link{write_query}()},
+\code{\link{write_trial}()}
 }
 \concept{SQLR system functions}

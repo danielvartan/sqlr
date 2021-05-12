@@ -4,14 +4,14 @@
 # library(googlesheets4)
 # library(usethis)
 
-#' Create a list with search field tags from several databases
+#' Build a lookup `list` with search field tags from several databases
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `provider_tags()` returns a `list` object containing `data.frame` objects
-#' with the search field tags of several databases.
+#' `provider_tags()` returns a lookup `list` object containing `data.frame`
+#' objects with the search field tags of several databases.
 #'
 #' The provider tags values are stored in a Google Sheets. You can see it at
 #' <https://bit.ly/3m4Ys7z>.
@@ -54,8 +54,9 @@ provider_tags <- function(write = FALSE) {
 
     if (isTRUE(write)) usethis::use_data(provider_tags, overwrite = TRUE)
 
-    message("\n", "Don't forget to run 'devtools::load_all()' ",
-            "(Ctrl + Shift + L).")
+    message("\n", "Run (in order):\n\n",
+            "devtools::document() [Ctrl + Shift  + D]\n",
+            "devtools::load_all() [Ctrl + Shift  + L]")
 
     invisible(provider_tags)
 }

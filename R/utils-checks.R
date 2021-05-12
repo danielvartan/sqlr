@@ -203,3 +203,12 @@ assert_data <- function(data, package, alert = NULL) {
         invisible(TRUE)
     }
 }
+
+assert_interactive <- function(){
+    if (!is_interactive()) {
+        stop("You must be in a interactive R session to use this function",
+             call. = FALSE)
+    }
+
+    invisible(TRUE)
+}

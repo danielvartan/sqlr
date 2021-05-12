@@ -23,6 +23,9 @@ A \code{character} object with a keyword set.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
+\strong{CAUTION}: This function must be used only with packages that follow the
+SQLR system.
+
 \code{keyword_set()} returns a keyword set from the \code{keyword} dataset.
 }
 \examples{
@@ -33,10 +36,13 @@ keyword_set(1, "english")}
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{normalize_extdata}()},
+\code{\link{range_write}()},
 \code{\link{read_sheet}()},
+\code{\link{sheet_nrow}()},
 \code{\link{start_sqlr}()},
 \code{\link{write_metadata}()},
 \code{\link{write_query}()},
-\code{\link{write_sheet}()}
+\code{\link{write_sheet}()},
+\code{\link{write_trial}()}
 }
 \concept{SQLR system functions}

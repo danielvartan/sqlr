@@ -6,14 +6,14 @@
 # library(magrittr)
 # library(usethis)
 
-#' Create a list with RIS tags used in several databases
+#' Build a lookup `list` with RIS tags used in several databases
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `ris_tags()` returns a `list` object containing `data.frame` objects with RIS
-#' tags used in several databases.
+#' `ris_tags()` returns a lookup `list` object containing `data.frame` objects
+#' with RIS tags used in several databases.
 #'
 #' The RIS tags values are stored in a Google Sheets. You can see it at
 #' <https://bit.ly/3efSgHr>.
@@ -58,8 +58,9 @@ ris_tags <- function(write = FALSE) {
 
     if (isTRUE(write)) usethis::use_data(ris_tags, overwrite = TRUE)
 
-    message("\n", "Don't forget to run 'devtools::load_all()' ",
-            "(Ctrl + Shift + L).")
+    message("\n", "Run (in order):\n\n",
+            "devtools::document() [Ctrl + Shift  + D]\n",
+            "devtools::load_all() [Ctrl + Shift  + L]")
 
     invisible(ris_tags)
 }

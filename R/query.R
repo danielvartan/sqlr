@@ -424,7 +424,8 @@ builder <- function(x, provider, constraint, min_chars, enclosure, delimiter,
 get_tag <- function(data, constraint) {
     checkmate::assert_data_frame(data, min.rows = 1)
     checkmate::assert_character(constraint, min.len = 1, null.ok = TRUE)
-    checkmate::assert_subset(constraint, tolower(data$name), empty.ok = TRUE)
+    checkmate::assert_subset(constraint, tolower(data$description),
+                             empty.ok = TRUE)
 
     out <- character()
 
@@ -432,8 +433,8 @@ get_tag <- function(data, constraint) {
         for (i in constraint) {
             pattern <- paste0("^", i, "$")
 
-            if (any(grepl(pattern, tolower(data$name)))) {
-                index <- grep(pattern, tolower(data$name))
+            if (any(grepl(pattern, tolower(data$description)))) {
+                index <- grep(pattern, tolower(data$description))
                 out <- append(out, data$tag[index])
             }
         }

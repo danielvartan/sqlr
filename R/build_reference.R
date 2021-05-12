@@ -1,14 +1,18 @@
-#' Build and add the 'reference' table to the package
+#' Build and write the `reference` table to a SQLR package
 #'
 #' @description
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' `build_reference()` builds and adds the 'reference' entity table of
+#' `build_reference()` builds and write the `reference` entity table of
 #' the Systematic Quantitative Literature Review (SQLR) system to an R package.
 #'
 #' You must have a `sheets` data object with the sheets metadata before running
 #' this function. See `?write_metadata()` to learn more.
+#'
+#' @param write (optional) a `logical` value indicating if the function must
+#'   write a `reference.rda` file to `"./data/"` and also write to the reference
+#'   spreadsheet listed on the `sqlr::sheets` object (default: `TRUE`).
 #'
 #' @family SQLR system functions
 #' @template param_a
@@ -18,8 +22,9 @@
 #' @examples
 #' \dontrun{
 #' build_reference()}
-build_reference <- function(package = NULL, quiet = FALSE) {
+build_reference <- function(package = NULL, write = TRUE, quiet = FALSE) {
     checkmate::assert_string(package, null.ok = TRUE)
+    checkmate::assert_flag(write)
     checkmate::assert_flag(quiet)
 
     # R CMD Check variable bindings fix
@@ -38,8 +43,18 @@ build_reference <- function(package = NULL, quiet = FALSE) {
     assert_data("sheets", package, alert = "gipso_1")
 
     utils::data("sheets", package = package, envir = environment())
-    choices <- c("reference", "source", "search")
+    choices <- c("source", "search")
     checkmate::assert_subset(choices, names(sheets))
+
+    if (isTRUE(write)) {
+        if (!is_interactive()) {
+            stop("You must be in a interactive R session to write the ",
+                 "'reference' table.", call. = FALSE)
+        }
+
+        checkmate::assert_subset("reference", names(sheets))
+        googlesheets4::gs4_auth()
+    }
 
     message <- paste0("\n",
                       crayonize("This may take a while. Please be patient."),
@@ -52,14 +67,19 @@ build_reference <- function(package = NULL, quiet = FALSE) {
         identify_ref_duplicates(quiet = quiet) %>%
         assign_ref_ids(package = package, quiet = quiet)
 
-    out %>% write_reference(package = package, quiet = quiet)
+    if (isTRUE(write)) {
+        out %>% write_reference(package = package, quiet = quiet)
+    }
 
     invisible(out)
 }
 
-read_ref_extdata <- function(package, quiet = FALSE) {
-    checkmate::assert_string(package)
+read_ref_extdata <- function(package = NULL, quiet = FALSE) {
+    checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_flag(quiet)
+
+    if (is.null(package)) package <- get_package_name()
+    assert_namespace(package)
 
     normalize_extdata(package)
     files <- raw_data("reference", package = package)
@@ -130,13 +150,6 @@ tidy_reference <- function(x, quiet = FALSE) {
             year = stringr::str_extract(year, "^\\d{4}"))
     }
 
-    if ("title" %in% names(x)) {
-        x <- x %>% dplyr::mutate(
-            title = dplyr::case_when(
-                is.na(title) & !is.na(book_title) ~ book_title,
-                TRUE ~ title))
-    }
-
     if (all(c("start_page", "end_page", "pagination") %in% names(x),
             na.rm = TRUE)) {
         x <- x %>% dplyr::mutate(
@@ -160,7 +173,7 @@ tidy_reference <- function(x, quiet = FALSE) {
               "editor", "corporate_author", "subsidiary_author", "short_title",
               "secondary_title", "tertiary_title", "journal_abbreviation",
               "book_title", "work_type", "publication_status", "language",
-              "database", "length", "provider", "file")
+              "database", "provider", "file", "length")
 
     x <- x %>% dplyr::rowwise() %>%
         dplyr::select(dplyr::all_of(cols[which(cols %in% names(x))])) %>%
@@ -170,6 +183,14 @@ tidy_reference <- function(x, quiet = FALSE) {
 
     x <- x %>%
         dplyr::select(dplyr::all_of(cols[which(cols %in% names(x))]))
+
+    if ("year" %in% names(x)) {
+        x <- x %>% dplyr::mutate(year = as.integer(year))
+    }
+
+    if ("pmid" %in% names(x)) {
+        x <- x %>% dplyr::mutate(pmid = as.numeric(pmid))
+    }
 
     x
 }
@@ -198,15 +219,19 @@ identify_ref_duplicates <- function(x, quiet = FALSE) {
     x
 }
 
-assign_ref_ids <- function(x, package, quiet = FALSE) {
+assign_ref_ids <- function(x, package = NULL, quiet = FALSE) {
     checkmate::assert_data_frame(x, min.rows = 1)
+    checkmate::assert_string(package, null.ok = TRUE)
+    checkmate::assert_flag(quiet)
+
+    if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
     assert_data("sheets", package, alert = "gipso_1")
-    checkmate::assert_flag(quiet)
 
     # R CMD Check variable bindings fix
     sheets <- provider <- year <- title <- reference_id <- NULL
     criteria_id <- trial_id <- source_id <- search_id <- NULL
+    pdf <- NULL
 
     utils::data("sheets", package = package, envir = environment())
     choices <- c("source", "search")
@@ -270,21 +295,25 @@ assign_ref_ids <- function(x, package, quiet = FALSE) {
              call. = FALSE)
     }
 
-    x <- x %>% dplyr::arrange(dplyr::desc(year), title)
+    x <- x %>%
+        dplyr::arrange(dplyr::desc(year), title) %>%
+        dplyr::mutate(pdf = as.character(NA))
 
     x <- x %>% dplyr::mutate(reference_id = seq(1, nrow(x))) %>%
         dplyr::relocate(reference_id, criteria_id, trial_id, source_id,
-                        search_id)
+                        search_id, pdf)
 
     x
 }
 
-write_reference <- function(x, package, quiet = FALSE) {
+write_reference <- function(x, package = NULL, quiet = FALSE) {
     checkmate::assert_data_frame(x, min.rows = 1)
     checkmate::assert_string(package, null.ok = TRUE)
+    checkmate::assert_flag(quiet)
+
+    if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
     assert_data("sheets", package, alert = "gipso_1")
-    checkmate::assert_flag(quiet)
 
     # R CMD Check variable bindings fix
     sheets <- where <- doi <- pmid <- year <- NULL
@@ -293,7 +322,7 @@ write_reference <- function(x, package, quiet = FALSE) {
     file <- paste0("./data/", "reference", ".rda")
     reference <- x
 
-    alert("** Writing the reference table to the package **",
+    alert("** Writing the 'reference' table to the package **",
           combined_styles = c("silver"), abort = quiet)
 
     save(reference, file = file, envir = environment(), compress = "bzip2",
@@ -303,7 +332,7 @@ write_reference <- function(x, package, quiet = FALSE) {
     utils::data("sheets", package = package, envir = environment())
     checkmate::assert_subset("reference", names(sheets))
 
-    alert("** Writing the reference table to Google Sheets **",
+    alert("** Writing the 'reference' table to Google Sheets **",
           combined_styles = c("silver"), abort = quiet)
 
     str_subset <- function(x) {
@@ -315,49 +344,11 @@ write_reference <- function(x, package, quiet = FALSE) {
 
     x <- x %>% dplyr::mutate(dplyr::across(where(is.character), str_subset))
 
-    if (nrow(x) <= 5000) {
-        googlesheets4::range_write(sheets$reference$id, x,
-                                   sheets$reference$sheet, "A1",
-                                   col_names = TRUE, reformat = FALSE)
-    } else {
-        get_ref_rows <- function() {
-            # R CMD Check variable bindings fix
-            name <- NULL
-
-            sheets <- sqlr::sheets
-
-            properties <- googlesheets4::sheet_properties(sheets$reference$id)
-            properties <- dplyr::filter(properties,
-                                        name == sheets$reference$sheet)
-            properties$grid_rows
-        }
-
-        googlesheets4::range_write(sheets$reference$id, x[seq(5000),],
-                                   sheets$reference$sheet, "A1",
-                                   col_names = TRUE, reformat = FALSE)
-
-        rows <- get_ref_rows()
-
-        while (rows < nrow(x)) {
-            if (rows + 4999 > nrow(x)) {
-                from <- rows
-                to <- nrow(x)
-            } else if (rows + 4999 <= nrow(x)) {
-                from <- rows
-                to <- rows + 4999
-            }
-
-            googlesheets4::sheet_append(sheets$reference$id,
-                                        x[seq(from, to),],
-                                        sheets$reference$sheet)
-
-            rows <- get_ref_rows()
-        }
-    }
+    range_write(x, name = "reference", package = package, quiet = quiet)
 
     message("\n", "Run (in order):\n\n",
-            "devtools::document()\n",
-            "devtools::load_all()")
+            "devtools::document() [Ctrl + Shift  + D]\n",
+            "devtools::load_all() [Ctrl + Shift  + L]")
 
     invisible(NULL)
 }
