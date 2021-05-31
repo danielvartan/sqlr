@@ -34,7 +34,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends:
     R (>= 3.6)
-Imports: 
+Imports:
     checkmate,
     dplyr,
     lifecycle,
@@ -42,7 +42,7 @@ Imports:
     rlang,
     tidyr,
     stringr
-Suggests: 
+Suggests:
     covr,
     crayon,
     emojifont,
