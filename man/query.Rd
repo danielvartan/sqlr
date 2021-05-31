@@ -150,20 +150,20 @@ an error in those cases.
 }
 
 \examples{
-## __ Creating simple queries __
+## Creating simple queries
 
 query("Lorem", "Ipsum, dolor", "sit", provider = "PubMed",
       constraint = c("title", "abstract"), clipboard = FALSE)
 #> (lorem[Title/Abstract]) OR (ipsum[Title/Abstract]) OR
 #> (dolor[Title/Abstract]) OR (sit[Title/Abstract]) # Expected
 
-## __ Creating queries from multiple domains __
+## Creating queries from multiple domains
 
 query("Lorem", "AND", "Ipsum", "NOT", "dolor", provider = "EMBASE",
       constraint = c("title", "abstract"), clipboard = FALSE)
 #> (lorem:ti,ab) AND (ipsum:ti,ab) NOT (dolor:ti,ab) # Expected
 
-## __ A real-life query example __
+## A real-life query example
 
 \dontrun{
 query(keyword_set(1, "english"), "AND", keyword_set(2, "english"),

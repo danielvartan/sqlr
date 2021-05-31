@@ -99,13 +99,16 @@ write_metadata <- function(id, sheet = "Dataset") {
 #'
 #' @examples
 #' \dontrun{
-#' ## __ To get a 'list' object with all the sheets __
+#' ## To get a 'list' object with all the sheets
+#'
 #' read_sheet()
 #'
-#' ## __ To get a 'list' object with some sheets __
+#' ## To get a 'list' object with some sheets
+#'
 #' read_sheet(c(names(sheets)[2], names(sheets)[3]))
 #'
-#' ## __ To get a 'tibble' object of a specific sheet __
+#' ## To get a 'tibble' object of a specific sheet
+#'
 #' read_sheet(names(sheets)[2])
 #' }
 read_sheet <- function(name = NULL, package = NULL) {
@@ -185,10 +188,12 @@ read_sheet <- function(name = NULL, package = NULL) {
 #'
 #' @examples
 #' \dontrun{
-#' ## __ To write all sheets __
+#' ## To write all sheets
+#'
 #' write_sheet()
 #'
-#' ## __ To write one or more specific sheets __
+#' ## To write one or more specific sheets
+#'
 #' write_sheet(sheets$domain$name)}
 write_sheet <- function(name = NULL, package = NULL) {
     checkmate::assert_character(name, any.missing = FALSE,

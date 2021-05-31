@@ -31,10 +31,12 @@ It also don't write non-entity tables.
 }
 \examples{
 \dontrun{
-## __ To write all sheets __
+## To write all sheets
+
 write_sheet()
 
-## __ To write one or more specific sheets __
+## To write one or more specific sheets
+
 write_sheet(sheets$domain$name)}
 }
 \seealso{

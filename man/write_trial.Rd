@@ -30,10 +30,12 @@ this function. See \code{?write_metadata()} to learn more.
 }
 \examples{
 \dontrun{
-## __ Writing the Trial - DUP table __
+## Writing the Trial - DUP table
+
 write_trial("dup")
 
-## __ Checking the number of rows with the 'reference' table __
+## Checking the number of rows with the 'reference' table
+
 nrow(dplyr::filter(reference, criteria_id == "DUP")) +
 sheet_nrow("trial_nr1") == nrow(reference)}
 }

@@ -38,13 +38,16 @@ this function. See \code{?write_metadata()} to learn more.
 }
 \examples{
 \dontrun{
-## __ To get a 'list' object with all the sheets __
+## To get a 'list' object with all the sheets
+
 read_sheet()
 
-## __ To get a 'list' object with some sheets __
+## To get a 'list' object with some sheets
+
 read_sheet(c(names(sheets)[2], names(sheets)[3]))
 
-## __ To get a 'tibble' object of a specific sheet __
+## To get a 'tibble' object of a specific sheet
+
 read_sheet(names(sheets)[2])
 }
 }

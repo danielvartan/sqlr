@@ -85,7 +85,7 @@ guess_ref <- function(file = file.choose(), return_data = FALSE,
             invisible(NULL)
         } else {
             cat(crayonize("'guess_ref()' wasn't able to guess the citation/",
-                          "reference format from the file."),
+                          "reference format from 'file'."),
                 emojinize("disappointed", left_space = TRUE),
                 sep = "")
 

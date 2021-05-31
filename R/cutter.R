@@ -82,17 +82,17 @@
 #' @export
 #'
 #' @examples
-#' ## __ Cutting by index values __
+#' ## Cutting by index values
 #'
 #' cutter(seq(10), c(3, 9))
 #'
-#' ## __ Cutting between index values __
+#' ## Cutting between index values
 #'
 #' cutter(seq(10), c(3, 9), between = "left")
 #'
 #' cutter(seq(10), c(3, 9), between = "right")
 #'
-#' ## __ Removing start or end tips __
+#' ## Removing start or end tips
 #'
 #' cutter(seq(10), c(3, 9), rm_start = TRUE)
 #'
