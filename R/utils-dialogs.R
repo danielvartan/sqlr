@@ -110,29 +110,19 @@ crayonize <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {
 }
 
 emojinize <- function(aliases, alternative = "", left_space = FALSE,
-                      right_space = FALSE, print = FALSE) {
+                      right_space = FALSE) {
     checkmate::assert_string(aliases)
     checkmate::assert_string(alternative)
     checkmate::assert_flag(left_space)
     checkmate::assert_flag(right_space)
-    checkmate::assert_flag(print)
 
     if (require_namespace("emojifont", quietly = TRUE)) {
         out <- emojifont::emoji(aliases)
 
-        if (isTRUE(left_space)) {
-            out <- paste0(" ", out)
-        }
+        if (isTRUE(left_space)) out <- paste0(" ", out)
+        if (isTRUE(right_space)) out <- paste0(out, " ")
 
-        if (isTRUE(right_space)) {
-            out <- paste0(out, " ")
-        }
-
-        if (isTRUE(print)) {
-            cat(out)
-        } else {
-            out
-        }
+        out
     } else {
         alternative
     }
