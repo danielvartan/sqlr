@@ -1,30 +1,7 @@
-check_any_na <- function(x, name = deparse(substitute(x))) {
-    if (any(is.na(x))) {
-        paste0(single_quote_(name), " cannot have any missing values")
-    } else {
-        TRUE
-    }
-}
+test_length_one <- function(x) if (length(x) == 1) TRUE else FALSE
 
-assert_any_na <- checkmate::makeAssertionFunction(check_any_na)
-
-check_not_all_na <- function(x, name = deparse(substitute(x))) {
-    if (all(is.na(x))) {
-        paste0(single_quote_(name), " cannot have all values as missing")
-    } else {
-        TRUE
-    }
-}
-
-assert_not_all_na <- checkmate::makeAssertionFunction(check_not_all_na)
-
-check_length_one <- function(x, any.missing = TRUE,
-                             name = deparse(substitute(x))) {
-    checkmate::assert_flag(any.missing)
-
-    if (any(is.na(x)) && isFALSE(any.missing)) {
-        paste0(single_quote_(name), " cannot have missing values")
-    } else if (!(length(x) == 1)) {
+check_length_one <- function(x, name = deparse(substitute(x))) {
+    if (!(test_length_one(x))) {
         paste0(single_quote_(name), " must have length 1, not length ",
                length(x))
     } else {
@@ -34,9 +11,7 @@ check_length_one <- function(x, any.missing = TRUE,
 
 assert_length_one <- checkmate::makeAssertionFunction(check_length_one)
 
-test_has_length <- function(x) {
-    length(x) > 0
-}
+test_has_length <- function(x) if (length(x) >= 1) TRUE else FALSE
 
 check_has_length <- function(x, any.missing = TRUE,
                              name = deparse(substitute(x))) {
@@ -53,28 +28,25 @@ check_has_length <- function(x, any.missing = TRUE,
 
 assert_has_length <- checkmate::makeAssertionFunction(check_has_length)
 
-check_whole_number <- function(x, any.missing = TRUE, null.ok = FALSE,
-                             name = deparse(substitute(x))) {
+test_whole_number <- function(x, any.missing = TRUE, null.ok = FALSE,
+                              tol = .Machine$double.eps^0.5) {
     checkmate::assert_flag(any.missing)
     checkmate::assert_flag(null.ok)
+    checkmate::assert_number(tol)
 
     if (is.null(x) && isTRUE(null.ok)) {
         TRUE
     } else if (any(is.na(x)) && isFALSE(any.missing)) {
-        paste0(single_quote_(name), " cannot have missing values")
-    } else if (is.null(x) && isFALSE(null.ok)) {
-        paste0(single_quote_(name), " cannot be 'NULL'")
-    } else  if (!all(is_whole_number(x), na.rm = TRUE)) {
-        paste0(single_quote_(name), " must consist of whole numbers")
+        FALSE
+    } else if (!test_numeric_(x) || !identical(x, abs(x))) {
+        FALSE
     } else {
-        TRUE
+        all(abs(x - round(x)) < tol, na.rm = any.missing)
     }
 }
 
-assert_whole_number <- checkmate::makeAssertionFunction(check_whole_number)
-
-check_posixt <- function(x, any.missing = TRUE, null.ok = FALSE,
-                         name = deparse(substitute(x))) {
+check_whole_number <- function(x, any.missing = TRUE, null.ok = FALSE,
+                               name = deparse(substitute(x))) {
     checkmate::assert_flag(any.missing)
     checkmate::assert_flag(null.ok)
 
@@ -84,19 +56,22 @@ check_posixt <- function(x, any.missing = TRUE, null.ok = FALSE,
         paste0(single_quote_(name), " cannot have missing values")
     } else if (is.null(x) && isFALSE(null.ok)) {
         paste0(single_quote_(name), " cannot have 'NULL' values")
-    } else  if (!("POSIXt" %in% class(x))) {
-        paste0("Must be of type 'POSIXct' or 'POSIXlt', not ",
-               class_collapse(x))
+    } else  if (!test_whole_number(x)) {
+        paste0(single_quote_(name), " must consist of whole numbers")
     } else {
         TRUE
     }
 }
 
-assert_posixt <- checkmate::makeAssertionFunction(check_posixt)
+assert_whole_number <- checkmate::makeAssertionFunction(check_whole_number)
 
 assert_identical <- function(..., type = "value", any.missing = TRUE,
-                            null.ok = FALSE) {
-    checkmate::assert_list(list(...), min.len = 2)
+                             null.ok = FALSE) {
+
+    if (!checkmate::test_list(list(...), min.len = 2)) {
+        stop("'...' must have 2 or more elements.", call. = FALSE)
+    }
+
     checkmate::assert_choice(type, c("value", "length", "class"))
     checkmate::assert_flag(any.missing)
     checkmate::assert_flag(null.ok)
@@ -129,7 +104,7 @@ assert_identical <- function(..., type = "value", any.missing = TRUE,
     } else if (isFALSE(check)) {
         stop(error_message, call. = FALSE)
     } else {
-       invisible(TRUE)
+        invisible(TRUE)
     }
 }
 

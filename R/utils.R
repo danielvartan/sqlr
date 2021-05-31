@@ -79,44 +79,17 @@ close_round <- function(x, digits = 3) {
         TRUE ~ x)
 }
 
-swap <- function(x, y) {
-    a <- x
-    b <- y
-
-    x <- b
-    y <- a
-
-    list(x = x, y = y)
-}
-
-swap_if <- function(x, y, condition = "x > y") {
-    choices <- c("x == y", "x < y", "x <= y", "x > y", "x >= y")
-    checkmate::assert_choice(condition, choices)
-
-    condition <- sub("x", "a", condition)
-    condition <- sub("y", "b", condition)
-
-    a <- x
-    b <- y
-
-    x <- dplyr::if_else(eval(parse(text = condition)), b, a)
-    y <- dplyr::if_else(eval(parse(text = condition)), a, b)
-
-    list(x = x, y = y)
-}
-
-count_na <- function(x) {
-    length(which(is.na(x)))
-}
-
 clear_row_names <- function(x) {
     checkmate::assert_data_frame(x, min.rows = 1)
+
     rownames(x) <- NULL
+
     x
 }
 
 clear_names <- function(x) {
     names(x) <- NULL
+
     x
 }
 
@@ -129,35 +102,32 @@ change_name <- function(x, new_name) {
     x
 }
 
+count_na <- function(x) {
+    checkmate::assert_atomic(x)
+
+    length(which(is.na(x)))
+}
+
 escape_regex <- function(x) {
+    checkmate::assert_atomic(x)
+
     gsub("([.|()\\^{}+$*?]|\\[|\\])", "\\\\\\1", x)
 }
 
 get_names <- function(...) {
-    out <- lapply(substitute(list(...))[-1], deparse)
-    out <- vapply(out, unlist, character(1))
-    out <- noquote(out)
-    out <- gsub("\\\"","", out)
+    out <- lapply(substitute(list(...))[-1], deparse) %>%
+        vapply(unlist, character(1)) %>%
+        noquote()
 
-    out
+    gsub("\\\"","", out)
 }
 
 get_class <- function(x) {
-    foo <- function(x) {
-        class(x)[1]
-    }
-
-    if (is.list(x) || is.data.frame(x)) {
-        vapply(x, foo, character(1))
+    if (is.list(x)) {
+        vapply(x, function(x) class(x)[1], character(1))
     } else {
         class(x)[1]
     }
-}
-
-get_package_name <- function() {
-    require_pkg("rstudioapi")
-
-    basename(rstudioapi::getActiveProject())
 }
 
 fix_character <- function(x) {
@@ -172,9 +142,31 @@ fix_character <- function(x) {
     x
 }
 
+fix_character <- function(x) {
+    checkmate::assert_character(x)
+
+    x <- trimws(x)
+
+    for (i in c("", "NA")) {
+        x <- dplyr::na_if(x, i)
+    }
+
+    x
+}
+
+get_package_name <- function() {
+    require_pkg("rstudioapi")
+
+    basename(rstudioapi::getActiveProject())
+}
+
 rm_na <- function(x) x[which(!is.na(x))]
 
 rm_pattern <- function(x, pattern, ignore_case = TRUE) {
+    checkmate::assert_atomic(x)
+    checkmate::assert_string(pattern)
+    checkmate::assert_flag(ignore_case)
+
     x[!grepl(pattern, x, ignore.case = ignore_case)]
 }
 
