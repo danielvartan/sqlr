@@ -158,12 +158,7 @@ assert_namespace <- checkmate::makeAssertionFunction(check_namespace)
 test_data <- function(data, package) {
     checkmate::assert_string(data)
     checkmate::assert_string(package)
-
-    if (!require_namespace("utils", quietly = TRUE)) {
-        stop("This function requires the 'utils' package to run. ",
-             "You can install it by running: \n\n",
-             'install.packages("utils")', call. = FALSE)
-    }
+    require_pkg("utils")
 
     assert_namespace(package)
     shush(utils::data(list = data, package = package, envir = environment()))

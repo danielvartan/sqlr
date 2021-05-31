@@ -24,7 +24,6 @@
 #'   metadata of the review tables hosted on the platform.
 #'
 #' @family SQLR system functions
-#' @importFrom magrittr %>%
 #' @export
 #'
 #' @examples
@@ -35,14 +34,9 @@ write_metadata <- function(id, sheet = "Dataset") {
     checkmate::assert_string(id)
     checkmate::assert_string(sheet)
     assert_interactive()
+    require_pkg("googlesheets4")
 
     name <- where <- NULL # R CMD Check variable bindings fix
-
-    if (!require_namespace("googlesheets4", quietly = TRUE)) {
-        stop("This function requires the 'googlesheets4' ",
-             "package to run. You can install it by running: \n\n",
-             'install.packages("googlesheets4")', call. = FALSE)
-    }
 
     data <- googlesheets4::read_sheet(id, sheet, col_types = "c",
                                       na = c("", "NA"))
@@ -101,7 +95,6 @@ write_metadata <- function(id, sheet = "Dataset") {
 #'
 #' @family SQLR system functions
 #' @template param_a
-#' @importFrom magrittr %>%
 #' @export
 #'
 #' @examples
@@ -120,14 +113,7 @@ read_sheet <- function(name = NULL, package = NULL) {
                                 all.missing = FALSE, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
     assert_interactive()
-
-    if (!require_namespace("utils", quietly = TRUE) ||
-        !require_namespace("googlesheets4", quietly = TRUE)) {
-        stop("This function requires the 'utils' and 'googlesheets4' ",
-             "packages to run. You can install them by running: \n\n",
-             'install.packages("utils") \n',
-             'install.packages("googlesheets4")', call. = FALSE)
-    }
+    require_pkg("utils", "googlesheets4")
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
@@ -209,14 +195,7 @@ write_sheet <- function(name = NULL, package = NULL) {
                                 all.missing = FALSE, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
     assert_interactive()
-
-    if (!require_namespace("utils", quietly = TRUE) ||
-        !require_namespace("googlesheets4", quietly = TRUE)) {
-        stop("This function requires the 'utils' and 'googlesheets4' packages ",
-             'to run. You can install them by running: \n\n',
-             'install.packages("utils") \n',
-             'install.packages("googlesheets4")' , call. = FALSE)
-    }
+    require_pkg("utils", "googlesheets4")
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
@@ -302,14 +281,7 @@ sheet_nrow <- function(name, package = NULL, rm_header = TRUE) {
     checkmate::assert_string(name)
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_flag(rm_header)
-
-    if (!require_namespace("utils", quietly = TRUE) ||
-        !require_namespace("googlesheets4", quietly = TRUE)) {
-        stop("This function requires the 'utils' and 'googlesheets4' packages ",
-             'to run. You can install them by running: \n\n',
-             'install.packages("utils") \n',
-             'install.packages("googlesheets4")' , call. = FALSE)
-    }
+    require_pkg("utils", "googlesheets4")
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
@@ -376,14 +348,7 @@ range_write <- function(x, name, package = NULL, limit = 200000,
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_number(limit, lower = 5000)
     checkmate::assert_flag(quiet)
-
-    if (!require_namespace("utils", quietly = TRUE) ||
-        !require_namespace("googlesheets4", quietly = TRUE)) {
-        stop("This function requires the 'utils' and 'googlesheets4' packages ",
-             'to run. You can install them by running: \n\n',
-             'install.packages("utils") \n',
-             'install.packages("googlesheets4")' , call. = FALSE)
-    }
+    require_pkg("utils", "googlesheets4")
 
     sheets <- NULL # R CMD Check variable bindings fix
 

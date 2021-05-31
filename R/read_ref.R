@@ -131,11 +131,8 @@ read_ref <- function(file = file.choose(), lookup = NULL, sep = " | ",
 
     if (length(file) > 1 ||
         any(stringr::str_detect(file, "(?i).zip$"), na.rm = TRUE)) {
-        if (any(stringr::str_detect(file, ".zip$"), na.rm = TRUE) &&
-            !require_namespace("utils", quietly = TRUE)) {
-            stop("This function requires the 'utils' package ",
-                 'to unzip files. You can install it by running: \n\n',
-                 'install.packages("utils")', call. = FALSE)
+        if (any(stringr::str_detect(file, ".zip$"), na.rm = TRUE)) {
+            require_pkg("utils")
         }
 
         out <- dplyr::tibble()

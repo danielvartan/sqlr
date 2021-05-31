@@ -1,3 +1,4 @@
+library(checkmate)
 library(testthat)
 library(sqlr)
 
@@ -23,7 +24,7 @@ test_check("sqlr")
 # spelling::spell_check_package()
 # spelling::update_wordlist()
 # usethis::use_tidy_description()
-# usethis::use_coverage()
+# usethis::use_github_action("test-coverage-pak")
 # usethis::use_pkgdown_github_pages()
 # usethis::use_github_action_check_full()
 # usethis::use_github_action_check_standard()

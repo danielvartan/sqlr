@@ -213,3 +213,35 @@ test_that("fix_character() | general test", {
     # Error test
     expect_error(fix_character(1))
 })
+
+test_that("require_pkg() | general test", {
+    expect_null(require_pkg("base"))
+    expect_error(require_pkg("test"),
+                 "This function requires the 'test' package to run. ")
+    expect_error(require_pkg("test1", "test2"),
+                 "This function requires the 'test1' and 'test2' packages ")
+
+    # ## Don't forget to run devtools::load_all(".") and uncomment the variables
+    # ## before trying to run the tests interactively.
+    #
+    # require_namespace <- mctq:::require_namespace
+
+    mock <- function(.parent = parent.frame(), .env = topenv(.parent)) {
+        mockr::with_mock(
+            require_namespace = function(...) TRUE,
+            require_pkg("test"))
+    }
+
+    # mock()
+    expect_null(mock())
+})
+
+test_that("require_pkg() | error test", {
+    expect_error(require_pkg(1), "Assertion on 'X\\[\\[i\\]\\]' failed")
+    expect_error(require_pkg(".test"), "Assertion on 'X\\[\\[i\\]\\]' failed")
+    expect_error(require_pkg("test."), "Assertion on 'X\\[\\[i\\]\\]' failed")
+    expect_error(require_pkg("tes_t"), "Assertion on 'X\\[\\[i\\]\\]' failed")
+    expect_error(require_pkg("tést"), "Assertion on 'X\\[\\[i\\]\\]' failed")
+    expect_error(require_pkg("test", "test"),
+                 "'...' cannot have duplicated values.")
+})

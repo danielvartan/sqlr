@@ -18,30 +18,22 @@
 #'
 #' @family SQLR system functions
 #' @template param_a
-#' @importFrom magrittr %>%
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' keyword_set(1, "english")}
 keyword_set <- function(domain_id, language = NULL, package = NULL) {
-    keyword <- approved <- NULL # R CMD Check variable bindings fix
-
-    if (!require_namespace("utils", quietly = TRUE) ||
-        !require_namespace("magrittr", quietly = TRUE)) {
-        stop("This function requires the 'utils' and 'magrittr' packages ",
-             'to run. You can install them by running: \n\n',
-             'install.packages("utils") \n',
-             'install.packages("magrittr")' , call. = FALSE)
-    }
-
     checkmate::assert_integerish(domain_id)
     checkmate::assert_string(language, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
+    require_pkg("utils")
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
     assert_data("keyword", package, alert = "gipso_2")
+
+    keyword <- approved <- NULL # R CMD Check variable bindings fix
 
     utils::data("keyword", package = package, envir = environment())
     cols <- c("domain_id", "language", "keyword", "variation", "approved")
