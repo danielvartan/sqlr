@@ -36,6 +36,7 @@ reference:
 - title: Utilities
   contents:
   - cutter
+  - raw_data
 
 - title: SQLR system
 - subtitle: Keywords
@@ -69,7 +70,6 @@ reference:
 - subtitle: Utilities
   contents:
   - normalize_extdata
-  - raw_data
   - start_sqlr
 
 authors:

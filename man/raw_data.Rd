@@ -7,11 +7,11 @@
 raw_data(type = NULL, file = NULL, package = "sqlr")
 }
 \arguments{
-\item{type}{(optional) a string indicating the file type of the raw dataset
+\item{type}{(optional) a string indicating the file type of the raw data
 (default: \code{NULL}).}
 
 \item{file}{(optional) a \code{character} object indicating the file name(s) of
-the raw dataset.}
+the raw data (default: \code{NULL}).}
 
 \item{package}{(optional) a string indicating the package with the database
 data. If \code{NULL}, the function will try to use the name of the active

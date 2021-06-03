@@ -6,10 +6,10 @@
 #'
 #' `raw_data()` returns the raw data paths of the `sqlr` package.
 #'
-#' @param type (optional) a string indicating the file type of the raw dataset
+#' @param type (optional) a string indicating the file type of the raw data
 #'   (default: `NULL`).
 #' @param file (optional) a `character` object indicating the file name(s) of
-#'   the raw dataset.
+#'   the raw data (default: `NULL`).
 #' @param package (optional) a string indicating the package with the database
 #'   data. If `NULL`, the function will try to use the name of the active
 #'   project directory (requires the `rstudioapi` package) (default: `sqlr`).
