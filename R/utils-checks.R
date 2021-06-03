@@ -38,7 +38,7 @@ test_whole_number <- function(x, any.missing = TRUE, null.ok = FALSE,
         TRUE
     } else if (any(is.na(x)) && isFALSE(any.missing)) {
         FALSE
-    } else if (!test_numeric_(x) || !identical(x, abs(x))) {
+    } else if (!is.numeric(x) || !identical(x, abs(x))) {
         FALSE
     } else {
         all(abs(x - round(x)) < tol, na.rm = any.missing)
