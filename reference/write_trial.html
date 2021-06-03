@@ -179,10 +179,12 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>## __ Writing the Trial - DUP table __</span>
+<span class='co'>## Writing the Trial - DUP table</span>
+
 <span class='fu'>write_trial</span><span class='op'>(</span><span class='st'>"dup"</span><span class='op'>)</span>
 
-<span class='co'>## __ Checking the number of rows with the 'reference' table __</span>
+<span class='co'>## Checking the number of rows with the 'reference' table</span>
+
 <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>reference</span>, <span class='va'>criteria_id</span> <span class='op'>==</span> <span class='st'>"DUP"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
 <span class='fu'><a href='sheet_nrow.html'>sheet_nrow</a></span><span class='op'>(</span><span class='st'>"trial_nr1"</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>reference</span><span class='op'>)</span><span class='op'>}</span>
 </div></pre>
