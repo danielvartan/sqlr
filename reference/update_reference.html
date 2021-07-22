@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the number of rows from a review table hosted on Google Sheets — sheet_nrow • sqlr</title>
+<title>Update the reference table using a trial_* table — update_reference • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,12 @@
 
 
 
-<meta property="og:title" content="Get the number of rows from a review table hosted on Google Sheets — sheet_nrow" />
+<meta property="og:title" content="Update the reference table using a trial_* table — update_reference" />
 <meta property="og:description" content="
 CAUTION: This function must be used only with packages that follow the
 SQLR system.
-sheet_nrow() returns the number of rows of a review table hosted on Google
-Sheets.
+update_reference() updates the criteria_id, trial_id, and pdf columns
+of the reference table using the data available in a trial_* table.
 You must have a sheets data object with the sheets metadata before running
 this function. See ?write_metadata() to learn more." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
@@ -126,30 +126,29 @@ this function. See ?write_metadata() to learn more." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the number of rows from a review table hosted on Google Sheets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/utils-sheets.R'><code>R/utils-sheets.R</code></a></small>
-    <div class="hidden name"><code>sheet_nrow.Rd</code></div>
+    <h1>Update the <code>reference</code> table using a <code>trial_*</code> table</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/write_trial.R'><code>R/write_trial.R</code></a></small>
+    <div class="hidden name"><code>update_reference.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p><strong>CAUTION</strong>: This function must be used only with packages that follow the
 SQLR system.</p>
-<p><code>sheet_nrow()</code> returns the number of rows of a review table hosted on Google
-Sheets.</p>
+<p><code>update_reference()</code> updates the <code>criteria_id</code>, <code>trial_id</code>, and <code>pdf</code> columns
+of the <code>reference</code> table using the data available in a <code>trial_*</code> table.</p>
 <p>You must have a <code>sheets</code> data object with the sheets metadata before running
 this function. See <code>?write_metadata()</code> to learn more.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sheet_nrow</span><span class='op'>(</span><span class='va'>name</span>, package <span class='op'>=</span> <span class='cn'>NULL</span>, rm_header <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>update_reference</span><span class='op'>(</span><span class='va'>trial_id</span>, package <span class='op'>=</span> <span class='cn'>NULL</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p>A string indicating the name of the sheets that the
-function must evaluate.</p></td>
+      <th>trial_id</th>
+      <td><p>A string indicating the ID of the trial to be written.</p></td>
     </tr>
     <tr>
       <th>package</th>
@@ -158,10 +157,15 @@ data. If <code>NULL</code>, the function will try to use the name of the active
 project directory (requires the <code>rstudioapi</code> package) (default: <code>NULL</code>).</p></td>
     </tr>
     <tr>
-      <th>rm_header</th>
-      <td><p>(optional) A <code>logical</code> value indicating if the function
-must consider the header when computing the number of rows. This only works
-when the sheets have one line as header (default: <code>TRUE</code>).</p></td>
+      <th>write</th>
+      <td><p>(optional) a <code>logical</code> value indicating if the function must
+update the <code>reference</code> data table to the package and to the reference
+spreadsheet listed on the <code><a href='sheets.html'>sqlr::sheets</a></code> object (default: <code>TRUE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
+must be suppressed (default: <code>FALSE</code>).</p></td>
     </tr>
     </table>
 
@@ -173,8 +177,8 @@ when the sheets have one line as header (default: <code>TRUE</code>).</p></td>
 <code><a href='normalize_extdata.html'>normalize_extdata</a>()</code>,
 <code><a href='range_write.html'>range_write</a>()</code>,
 <code><a href='read_sheet.html'>read_sheet</a>()</code>,
+<code><a href='sheet_nrow.html'>sheet_nrow</a>()</code>,
 <code><a href='start_sqlr.html'>start_sqlr</a>()</code>,
-<code><a href='update_reference.html'>update_reference</a>()</code>,
 <code><a href='write_metadata.html'>write_metadata</a>()</code>,
 <code><a href='write_query.html'>write_query</a>()</code>,
 <code><a href='write_reference.html'>write_reference</a>()</code>,
@@ -183,7 +187,7 @@ when the sheets have one line as header (default: <code>TRUE</code>).</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>sheet_nrow</span><span class='op'>(</span><span class='va'>sheets</span><span class='op'>$</span><span class='va'>domain</span><span class='op'>$</span><span class='va'>name</span><span class='op'>)</span><span class='op'>}</span>
+<span class='fu'>update_reference</span><span class='op'>(</span><span class='st'>"NR1"</span><span class='op'>)</span><span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

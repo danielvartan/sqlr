@@ -91,10 +91,16 @@
     <loc>https://gipsousp.github.io/sqlr//reference/trial.html</loc>
   </url>
   <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/update_reference.html</loc>
+  </url>
+  <url>
     <loc>https://gipsousp.github.io/sqlr//reference/write_metadata.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/write_query.html</loc>
+  </url>
+  <url>
+    <loc>https://gipsousp.github.io/sqlr//reference/write_reference.html</loc>
   </url>
   <url>
     <loc>https://gipsousp.github.io/sqlr//reference/write_sheet.html</loc>

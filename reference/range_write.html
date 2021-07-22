@@ -141,7 +141,7 @@ this function. See ?write_metadata() to learn more." />
 SQLR system.</p>
 <p><code>range_write()</code> writes a <code>data.frame</code> object to a specific range of a review
 table hosted on Google Sheets.</p>
-<p>This function was created as workaround to <a href='https://rdrr.io/pkg/googlesheets4/man/range_write.html'>googlesheets4::range_write</a>
+<p>This function was created as workaround to <a href='https://googlesheets4.tidyverse.org/reference/range_write.html'>googlesheets4::range_write</a>
 writing limit. It bypass this limit by writing in batches.</p>
 <p>Please note that this function will always write in the <code>A1</code> range and will
 delete all but the 2 first rows of the worksheet before writing on it.</p>
@@ -192,8 +192,10 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
 <code><a href='read_sheet.html'>read_sheet</a>()</code>,
 <code><a href='sheet_nrow.html'>sheet_nrow</a>()</code>,
 <code><a href='start_sqlr.html'>start_sqlr</a>()</code>,
+<code><a href='update_reference.html'>update_reference</a>()</code>,
 <code><a href='write_metadata.html'>write_metadata</a>()</code>,
 <code><a href='write_query.html'>write_query</a>()</code>,
+<code><a href='write_reference.html'>write_reference</a>()</code>,
 <code><a href='write_sheet.html'>write_sheet</a>()</code>,
 <code><a href='write_trial.html'>write_trial</a>()</code></p></div>
 
