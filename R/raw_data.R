@@ -20,7 +20,8 @@
 #'   available.
 #' * If `type != NULL` and `file = NULL`, a `character` object with all file
 #' names available from type.
-#' * If `type != NULL` and `file != NULL`, a string with the file name path.
+#' * If `type != NULL` and `file != NULL`, a `character` with the file name(s)
+#' path.
 #'
 #' @family utility functions
 #' @export

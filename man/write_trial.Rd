@@ -25,8 +25,9 @@ SQLR system.
 \code{write_trial()} writes a \verb{trial_*} table of the Systematic Quantitative
 Literature Review (SQLR) system to a Google Spreadsheets.
 
-You must have a \code{sheets} data object with the sheets metadata before running
-this function. See \code{?write_metadata()} to learn more.
+You must have a \code{sheets} data object with the sheets metadata and updated
+\code{reference} table before running this function. See \code{?write_metadata()} and
+\code{?update_reference()} to learn more.
 }
 \examples{
 \dontrun{
@@ -36,7 +37,7 @@ write_trial("dup")
 
 ## Checking the number of rows with the 'reference' table
 
-nrow(dplyr::filter(reference, criteria_id == "DUP")) +
+nrow(dplyr::filter(reference, !is.na(criteria_id)) +
 sheet_nrow("trial_nr1") == nrow(reference)}
 }
 \seealso{
@@ -48,8 +49,10 @@ Other SQLR system functions:
 \code{\link{read_sheet}()},
 \code{\link{sheet_nrow}()},
 \code{\link{start_sqlr}()},
+\code{\link{update_reference}()},
 \code{\link{write_metadata}()},
 \code{\link{write_query}()},
+\code{\link{write_reference}()},
 \code{\link{write_sheet}()}
 }
 \concept{SQLR system functions}

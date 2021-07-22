@@ -23,7 +23,8 @@ project directory (requires the \code{rstudioapi} package) (default: \code{sqlr}
 available.
 \item If \code{type != NULL} and \code{file = NULL}, a \code{character} object with all file
 names available from type.
-\item If \code{type != NULL} and \code{file != NULL}, a string with the file name path.
+\item If \code{type != NULL} and \code{file != NULL}, a \code{character} with the file name(s)
+path.
 }
 }
 \description{

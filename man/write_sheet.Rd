@@ -48,8 +48,10 @@ Other SQLR system functions:
 \code{\link{read_sheet}()},
 \code{\link{sheet_nrow}()},
 \code{\link{start_sqlr}()},
+\code{\link{update_reference}()},
 \code{\link{write_metadata}()},
 \code{\link{write_query}()},
+\code{\link{write_reference}()},
 \code{\link{write_trial}()}
 }
 \concept{SQLR system functions}

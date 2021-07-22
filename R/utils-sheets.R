@@ -54,9 +54,10 @@ write_metadata <- function(id, sheet = "Dataset") {
                                        sheet = data$sheet[i])
     }
 
-    message("\n", "Run (in order):\n\n",
-            "devtools::document() [Ctrl + Shift  + D]\n",
-            "devtools::load_all() [Ctrl + Shift  + L]")
+    cli::cli_alert_info(paste0(
+        "{.strong {cli::col_red('Run (in order)')}}:\n\n",
+        "{.strong devtools::document() [Ctrl + Shift  + D]\n",
+        "devtools::load_all() [Ctrl + Shift  + L]}"))
 
     if(!(dir.exists("./data/"))) dir.create("./data/")
     file <- "./data/sheets.rda"
@@ -247,9 +248,10 @@ write_sheet <- function(name = NULL, package = NULL) {
              version = 2)
     }
 
-    message("\n", "Run (in order):\n\n",
-            "devtools::document() [Ctrl + Shift  + D]\n",
-            "devtools::load_all() [Ctrl + Shift  + L]")
+    cli::cli_alert_info(paste0(
+        "{.strong {cli::col_red('Run (in order)')}}:\n\n",
+        "{.strong devtools::document() [Ctrl + Shift  + D]\n",
+        "devtools::load_all() [Ctrl + Shift  + L]}"))
 
     invisible(NULL)
 }
@@ -355,7 +357,8 @@ range_write <- function(x, name, package = NULL, limit = 200000,
     checkmate::assert_flag(quiet)
     require_pkg("utils", "googlesheets4")
 
-    sheets <- NULL # R CMD Check variable bindings fix
+    # R CMD Check variable bindings fix
+    sheets <- where <- NULL
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
@@ -367,6 +370,15 @@ range_write <- function(x, name, package = NULL, limit = 200000,
         stop(single_quote_(name), " was not found in the 'sheets' table.",
              call. = FALSE)
     }
+
+    str_subset <- function(x) {
+        dplyr::case_when(
+            nchar(x) >= 50000 ~ stringr::str_sub(x, 1, 49999),
+            TRUE ~ x
+        )
+    }
+
+    x <- x %>% dplyr::mutate(dplyr::across(where(is.character), str_subset))
 
     shush(
         googlesheets4::sheet_resize(ss = sheets[[name]]$id,
