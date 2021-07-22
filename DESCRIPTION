@@ -31,6 +31,7 @@ Depends:
     R (>= 3.6)
 Imports:
     checkmate,
+    cli (>= 3.0.0),
     dplyr (>= 0.2),
     lifecycle,
     readr,
