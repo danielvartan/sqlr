@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update the reference table using a trial_* table — update_reference • sqlr</title>
+<title>Update the reference table using a trial table — update_reference • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,14 +46,14 @@
 
 
 
-<meta property="og:title" content="Update the reference table using a trial_* table — update_reference" />
+<meta property="og:title" content="Update the reference table using a trial table — update_reference" />
 <meta property="og:description" content="
 CAUTION: This function must be used only with packages that follow the
 SQLR system.
 update_reference() updates the criteria_id, trial_id, and pdf columns
-of the reference table using the data available in a trial_* table.
+of the reference table using the data available in a trial table.
 You must have a sheets data object with the sheets metadata before running
-this function. See ?write_metadata() to learn more." />
+this function. See write_metadata() to learn more." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
 
 
@@ -126,7 +126,7 @@ this function. See ?write_metadata() to learn more." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update the <code>reference</code> table using a <code>trial_*</code> table</h1>
+    <h1>Update the <code>reference</code> table using a trial table</h1>
     <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/write_trial.R'><code>R/write_trial.R</code></a></small>
     <div class="hidden name"><code>update_reference.Rd</code></div>
     </div>
@@ -136,9 +136,9 @@ this function. See ?write_metadata() to learn more." />
 <p><strong>CAUTION</strong>: This function must be used only with packages that follow the
 SQLR system.</p>
 <p><code>update_reference()</code> updates the <code>criteria_id</code>, <code>trial_id</code>, and <code>pdf</code> columns
-of the <code>reference</code> table using the data available in a <code>trial_*</code> table.</p>
+of the <code>reference</code> table using the data available in a trial table.</p>
 <p>You must have a <code>sheets</code> data object with the sheets metadata before running
-this function. See <code>?write_metadata()</code> to learn more.</p>
+this function. See <code><a href='write_metadata.html'>write_metadata()</a></code> to learn more.</p>
     </div>
 
     <pre class="usage"><span class='fu'>update_reference</span><span class='op'>(</span><span class='va'>trial_id</span>, package <span class='op'>=</span> <span class='cn'>NULL</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
@@ -159,8 +159,9 @@ project directory (requires the <code>rstudioapi</code> package) (default: <code
     <tr>
       <th>write</th>
       <td><p>(optional) a <code>logical</code> value indicating if the function must
-update the <code>reference</code> data table to the package and to the reference
-spreadsheet listed on the <code><a href='sheets.html'>sqlr::sheets</a></code> object (default: <code>TRUE</code>).</p></td>
+update the <code>reference</code> data table of the package and to write the new
+reference table to the reference spreadsheet listed on the <code><a href='sheets.html'>sqlr::sheets</a></code>
+object (default: <code>TRUE</code>).</p></td>
     </tr>
     <tr>
       <th>quiet</th>
@@ -200,7 +201,7 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://github.com/danielvartan'>Daniel Vartanian</a>, <a href='https://github.com/AnaAmeliaBeneditoSIlva'>Ana Amelia Benedito-Silva</a>, <a href='https://github.com/pedrazzo'>Mario Pedrazzoli</a>, <a href='http://each.usp.br/gipso'>Interdisciplinary Sleep Research Group (GIPSO)</a>, <a href='http://usp.br'>University of Sao Paulo (USP)</a>.</p>
+  <p>Developed by <a href='https://github.com/danielvartan'>Daniel Vartanian</a>, <a href='https://github.com/pedrazzo'>Mario Pedrazzoli</a>, <a href='http://each.usp.br/gipso'>Interdisciplinary Sleep Research Group (GIPSO)</a>, <a href='http://usp.br'>University of Sao Paulo (USP)</a>.</p>
 </div>
 
 <div class="pkgdown">
