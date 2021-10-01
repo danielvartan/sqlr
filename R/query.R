@@ -80,8 +80,8 @@
 #'
 #' ## Keyword tidying
 #'
-#' `query()` uses `tidy_keyword()` to tidy your keywords for output. See
-#' `tidy_keyword()` documentation to learn more about it.
+#' `query()` uses [tidy_keyword()] to tidy your keywords for output. See
+#' [tidy_keyword()] documentation to learn more about it.
 #'
 #' Depending on how you set up the `query()` arguments, it can generate empty
 #' sets (_e.g._ like when you use `min_chars = 100`). The function will produce

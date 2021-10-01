@@ -1,4 +1,4 @@
-#' Write the `trial_*` table to a Google Spreadsheets
+#' Write a trial table to a Google Spreadsheets
 #'
 #' @description
 #'
@@ -10,9 +10,9 @@
 #' `write_trial()` writes a `trial_*` table of the Systematic Quantitative
 #' Literature Review (SQLR) system to a Google Spreadsheets.
 #'
-#' You must have a `sheets` data object with the sheets metadata and updated
-#' `reference` table before running this function. See `?write_metadata()` and
-#' `?update_reference()` to learn more.
+#' You must have a `sheets` data object with the sheets metadata and an updated
+#' `reference` table before running this function. See [write_metadata()] and
+#' [update_reference()] to learn more.
 #'
 #' @param trial_id A string indicating the ID of the trial to be written.
 #'
@@ -111,7 +111,7 @@ write_trial <- function(trial_id, package = NULL, quiet = FALSE) {
     invisible(NULL)
 }
 
-#' Update the `reference` table using a `trial_*` table
+#' Update the `reference` table using a trial table
 #'
 #' @description
 #'
@@ -121,15 +121,16 @@ write_trial <- function(trial_id, package = NULL, quiet = FALSE) {
 #' SQLR system.
 #'
 #' `update_reference()` updates the `criteria_id`, `trial_id`, and `pdf` columns
-#' of the `reference` table using the data available in a `trial_*` table.
+#' of the `reference` table using the data available in a trial table.
 #'
 #' You must have a `sheets` data object with the sheets metadata before running
-#' this function. See `?write_metadata()` to learn more.
+#' this function. See [write_metadata()] to learn more.
 #'
 #' @param trial_id A string indicating the ID of the trial to be written.
 #' @param write (optional) a `logical` value indicating if the function must
-#'   update the `reference` data table to the package and to the reference
-#'   spreadsheet listed on the `sqlr::sheets` object (default: `TRUE`).
+#'   update the `reference` data table of the package and to write the new
+#'   reference table to the reference spreadsheet listed on the `sqlr::sheets`
+#'   object (default: `TRUE`).
 #'
 #' @family SQLR system functions
 #' @template param_a

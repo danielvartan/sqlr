@@ -40,7 +40,7 @@ Please note that this function will always write in the \code{A1} range and will
 delete all but the 2 first rows of the worksheet before writing on it.
 
 You must have a \code{sheets} data object with the sheets metadata before running
-this function. See \code{?write_metadata()} to learn more.
+this function. See \code{\link[=write_metadata]{write_metadata()}} to learn more.
 }
 \examples{
 \dontrun{

@@ -26,7 +26,7 @@ SQLR system.
 the package an to its Google Spreadsheets file.
 
 You must have a \code{sheets} data object with the sheets metadata before running
-this function. See \code{?write_metadata()} to learn more.
+this function. See \code{\link[=write_metadata]{write_metadata()}} to learn more.
 }
 \examples{
 \dontrun{

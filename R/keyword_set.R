@@ -33,10 +33,10 @@ keyword_set <- function(domain_id, language = NULL, package = NULL) {
     assert_namespace(package)
     assert_data("keyword", package, alert = "gipso_2")
 
-    keyword <- approved <- NULL # R CMD Check variable bindings fix
+    keyword <- approval <- NULL # R CMD Check variable bindings fix
 
     utils::data("keyword", package = package, envir = environment())
-    cols <- c("domain_id", "language", "keyword", "variation", "approved")
+    cols <- c("domain_id", "language", "keyword", "variation", "approval")
 
     checkmate::assert_data_frame(keyword, min.rows = 1)
     checkmate::assert_subset(cols, names(keyword))
@@ -52,7 +52,7 @@ keyword_set <- function(domain_id, language = NULL, package = NULL) {
     }
 
     keyword <- keyword %>%
-        dplyr::filter(approved == TRUE) %>%
+        dplyr::filter(approval == TRUE) %>%
         dplyr::mutate(
             keyword = dplyr::case_when(
                 !is.na(keyword) & !is.na(variation) ~

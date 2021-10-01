@@ -24,7 +24,7 @@ SQLR system.
 the data directory of an R package.
 
 You must have a \code{sheets} data object with the sheets metadata before running
-this function. See \code{?write_metadata()} to learn more.
+this function. See \code{\link[=write_metadata]{write_metadata()}} to learn more.
 
 \code{write_sheet()} don't rewrite the \code{sheets}, \code{reference} or \code{document} table.
 It also don't write non-entity tables.

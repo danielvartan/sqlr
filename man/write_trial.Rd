@@ -2,7 +2,7 @@
 % Please edit documentation in R/write_trial.R
 \name{write_trial}
 \alias{write_trial}
-\title{Write the \verb{trial_*} table to a Google Spreadsheets}
+\title{Write a trial table to a Google Spreadsheets}
 \usage{
 write_trial(trial_id, package = NULL, quiet = FALSE)
 }
@@ -25,9 +25,9 @@ SQLR system.
 \code{write_trial()} writes a \verb{trial_*} table of the Systematic Quantitative
 Literature Review (SQLR) system to a Google Spreadsheets.
 
-You must have a \code{sheets} data object with the sheets metadata and updated
-\code{reference} table before running this function. See \code{?write_metadata()} and
-\code{?update_reference()} to learn more.
+You must have a \code{sheets} data object with the sheets metadata and an updated
+\code{reference} table before running this function. See \code{\link[=write_metadata]{write_metadata()}} and
+\code{\link[=update_reference]{update_reference()}} to learn more.
 }
 \examples{
 \dontrun{

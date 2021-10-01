@@ -140,8 +140,8 @@ Other operators (\emph{e.g.}, \code{SAME}, \code{NEAR}, \code{W/n}, \code{PRE/n}
 To go around this, you can call \code{query()} several times and glue the results.
 \subsection{Keyword tidying}{
 
-\code{query()} uses \code{tidy_keyword()} to tidy your keywords for output. See
-\code{tidy_keyword()} documentation to learn more about it.
+\code{query()} uses \code{\link[=tidy_keyword]{tidy_keyword()}} to tidy your keywords for output. See
+\code{\link[=tidy_keyword]{tidy_keyword()}} documentation to learn more about it.
 
 Depending on how you set up the \code{query()} arguments, it can generate empty
 sets (\emph{e.g.} like when you use \code{min_chars = 100}). The function will produce

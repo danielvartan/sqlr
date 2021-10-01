@@ -63,25 +63,29 @@ printer <- function(..., print = TRUE, clipboard = TRUE, abort = FALSE) {
 
     if (isTRUE(abort)) return(invisible(NULL))
 
-    if (isTRUE(clipboard) && !require_namespace("utils", quietly = TRUE)) {
-        stop("You need to have the 'utils' package installed ",
-             "to copy to the clipboard. You can install it by running: \n \n",
-             'install.packages("utils") \n', call. = FALSE)
-    }
-
-    log <- crayonize(..., combined_styles = c("bold", "red"))
-    alert <- crayonize("[COPIED TO CLIPBOARD]", combined_styles = c("silver"))
+    styler <- function(x) cli::col_red(x) %>% cli::style_bold()
+    log <- unlist(list(...)) %>%
+        vapply(styler, character(1), USE.NAMES = FALSE)
 
     if (isTRUE(print)) cat(log, sep = "\n\n")
-
-    if (isTRUE(clipboard)) {
-        utils::writeClipboard(as.character(
-            unlist(list(...), use.names = FALSE)))
-
-        cat("\n", alert, sep = "")
-    }
+    if (isTRUE(clipboard)) clipboard(..., space_above = TRUE, quiet = FALSE)
 
     invisible(NULL)
+}
+
+clipboard <- function(..., space_above = FALSE, quiet = FALSE) {
+    assert_has_length(list(...))
+    checkmate::assert_flag(space_above)
+    checkmate::assert_flag(quiet)
+    require_pkg("utils")
+
+    utils::writeClipboard(as.character(
+        unlist(list(...), use.names = FALSE)))
+
+    if (isFALSE(quiet)) {
+        if(isTRUE(space_above)) cat("\n")
+        cli::cli_inform("{cli::col_silver('[Copied to clipboard]')}")
+    }
 }
 
 crayonize <- function(..., combined_styles = c("bold", "red"), abort = FALSE) {

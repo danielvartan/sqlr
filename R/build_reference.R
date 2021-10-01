@@ -8,7 +8,7 @@
 #' the Systematic Quantitative Literature Review (SQLR) system to an R package.
 #'
 #' You must have a `sheets` data object with the sheets metadata before running
-#' this function. See `?write_metadata()` to learn more.
+#' this function. See [write_metadata()] to learn more.
 #'
 #' @param write (optional) a `logical` value indicating if the function must
 #'   write a `reference.rda` file to `"./data/"` and also write to the reference

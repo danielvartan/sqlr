@@ -11,7 +11,7 @@
 #' the package an to its Google Spreadsheets file.
 #'
 #' You must have a `sheets` data object with the sheets metadata before running
-#' this function. See `?write_metadata()` to learn more.
+#' this function. See [write_metadata()] to learn more.
 #'
 #' @param data The `data.frame` object to write.
 #'

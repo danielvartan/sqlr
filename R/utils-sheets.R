@@ -79,7 +79,7 @@ write_metadata <- function(id, sheet = "Dataset") {
 #' `read_sheet()` reads and returns the review tables hosted on Google Sheets.
 #'
 #' You must have a `sheets` data object with the sheets metadata before running
-#' this function. See `?write_metadata()` to learn more.
+#' this function. See [write_metadata()] to learn more.
 #'
 #' @param name (optional) A `character` object indicating the name or names of
 #'   the sheets that the function must return (default: `NULL`).
@@ -175,7 +175,7 @@ read_sheet <- function(name = NULL, package = NULL) {
 #' the data directory of an R package.
 #'
 #' You must have a `sheets` data object with the sheets metadata before running
-#' this function. See `?write_metadata()` to learn more.
+#' this function. See [write_metadata()] to learn more.
 #'
 #' `write_sheet()` don't rewrite the `sheets`, `reference` or `document` table.
 #' It also don't write non-entity tables.
@@ -269,7 +269,7 @@ write_sheet <- function(name = NULL, package = NULL) {
 #' Sheets.
 #'
 #' You must have a `sheets` data object with the sheets metadata before running
-#' this function. See `?write_metadata()` to learn more.
+#' this function. See [write_metadata()] to learn more.
 #'
 #' @param name A string indicating the name of the sheets that the
 #'   function must evaluate.
@@ -330,7 +330,7 @@ sheet_nrow <- function(name, package = NULL, rm_header = TRUE) {
 #' delete all but the 2 first rows of the worksheet before writing on it.
 #'
 #' You must have a `sheets` data object with the sheets metadata before running
-#' this function. See `?write_metadata()` to learn more.
+#' this function. See [write_metadata()] to learn more.
 #'
 #' @param x A `data.frame` object with at least 1 row.
 #' @param name A string indicating the name of the sheets that the

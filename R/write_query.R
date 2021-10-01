@@ -28,7 +28,7 @@ write_query <- function(range = NULL, package = NULL) {
 
     # R CMD Check variable bindings fix
     sheets <- provider <- language <- domain_set <- NULL
-    constraint_set <- query <- approved <- constraint <- constraint_id <- NULL
+    constraint_set <- query <- approval <- constraint <- constraint_id <- NULL
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
@@ -45,7 +45,7 @@ write_query <- function(range = NULL, package = NULL) {
     }
 
     search <- search %>%
-        dplyr::select(provider:query, approved) %>%
+        dplyr::select(provider:query, approval) %>%
         dplyr::mutate(
             provider = dplyr::case_when(
                 tolower(provider) == "apa psycnet" ~ "APA",

@@ -45,6 +45,8 @@ reference:
 - subtitle: References/Citations
   contents:
   - build_reference
+  - update_reference
+  - write_reference
   - write_trial
 - subtitle: Google Sheets
   contents:

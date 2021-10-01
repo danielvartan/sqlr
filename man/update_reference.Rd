@@ -2,7 +2,7 @@
 % Please edit documentation in R/write_trial.R
 \name{update_reference}
 \alias{update_reference}
-\title{Update the \code{reference} table using a \verb{trial_*} table}
+\title{Update the \code{reference} table using a trial table}
 \usage{
 update_reference(trial_id, package = NULL, write = TRUE, quiet = FALSE)
 }
@@ -14,8 +14,9 @@ data. If \code{NULL}, the function will try to use the name of the active
 project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
 
 \item{write}{(optional) a \code{logical} value indicating if the function must
-update the \code{reference} data table to the package and to the reference
-spreadsheet listed on the \code{sqlr::sheets} object (default: \code{TRUE}).}
+update the \code{reference} data table of the package and to write the new
+reference table to the reference spreadsheet listed on the \code{sqlr::sheets}
+object (default: \code{TRUE}).}
 
 \item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
 must be suppressed (default: \code{FALSE}).}
@@ -27,10 +28,10 @@ must be suppressed (default: \code{FALSE}).}
 SQLR system.
 
 \code{update_reference()} updates the \code{criteria_id}, \code{trial_id}, and \code{pdf} columns
-of the \code{reference} table using the data available in a \verb{trial_*} table.
+of the \code{reference} table using the data available in a trial table.
 
 You must have a \code{sheets} data object with the sheets metadata before running
-this function. See \code{?write_metadata()} to learn more.
+this function. See \code{\link[=write_metadata]{write_metadata()}} to learn more.
 }
 \examples{
 \dontrun{
