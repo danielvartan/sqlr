@@ -57,6 +57,7 @@ Other SQLR system functions:
 \code{\link{keyword_set}()},
 \code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
+\code{\link{selection_stats}()},
 \code{\link{sheet_nrow}()},
 \code{\link{start_sqlr}()},
 \code{\link{update_reference}()},

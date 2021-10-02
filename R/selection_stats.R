@@ -1,3 +1,33 @@
+#' Print statistics about the selection process
+#'
+#' @description
+#'
+#' `r lifecycle::badge("experimental")`
+#'
+#' __CAUTION__: This function must be used only with packages that follow the
+#' SQLR system.
+#'
+#' `selection_stats()` prints statistics about a trial or the selection process
+#' as a whole.
+#'
+#' The trial statistics are computed by downloading the trial table (requires an
+#' internet connection). The full statistics are computed using the `reference`
+#' data of a SQLR package, hence, the data of the package must be up-to-date.
+#'
+#' @param trial_id (optional) a string indicating the ID of the trial. This
+#'   argument must be set only when the function must print a trial statistics
+#'   (default: `NULL`).
+#' @param clipboard (optional) a `logical` value indicating if the function must
+#'   copy a Markdown version of the statistics to the clipboard. (default:
+#'   `TRUE`).
+#'
+#' @family SQLR system functions
+#' @template param_a
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' selection_stats()}
 selection_stats <- function(trial_id = NULL, package = NULL, clipboard = TRUE) {
     checkmate::assert_string(trial_id, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)

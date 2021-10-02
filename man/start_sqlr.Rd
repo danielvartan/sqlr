@@ -29,6 +29,7 @@ Other SQLR system functions:
 \code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
+\code{\link{selection_stats}()},
 \code{\link{sheet_nrow}()},
 \code{\link{update_reference}()},
 \code{\link{write_metadata}()},
