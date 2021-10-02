@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write a trial table to a Google Spreadsheets — write_trial • sqlr</title>
+<title>Print statistics about the selection process — selection_stats • sqlr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,15 +46,15 @@
 
 
 
-<meta property="og:title" content="Write a trial table to a Google Spreadsheets — write_trial" />
+<meta property="og:title" content="Print statistics about the selection process — selection_stats" />
 <meta property="og:description" content="
 CAUTION: This function must be used only with packages that follow the
 SQLR system.
-write_trial() writes a trial_* table of the Systematic Quantitative
-Literature Review (SQLR) system to a Google Spreadsheets.
-You must have a sheets data object with the sheets metadata and an updated
-reference table before running this function. See write_metadata() and
-update_reference() to learn more." />
+selection_stats() prints statistics about a trial or the selection process
+as a whole.
+The trial statistics are computed by downloading the trial table (requires an
+internet connection). The full statistics are computed using the reference
+data of a SQLR package, hence, the data of the package must be up-to-date." />
 <meta property="og:image" content="https://gipsousp.github.io/sqlr/logo.png" />
 
 
@@ -127,30 +127,32 @@ update_reference() to learn more." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Write a trial table to a Google Spreadsheets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/write_trial.R'><code>R/write_trial.R</code></a></small>
-    <div class="hidden name"><code>write_trial.Rd</code></div>
+    <h1>Print statistics about the selection process</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/selection_stats.R'><code>R/selection_stats.R</code></a></small>
+    <div class="hidden name"><code>selection_stats.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p><strong>CAUTION</strong>: This function must be used only with packages that follow the
 SQLR system.</p>
-<p><code>write_trial()</code> writes a <code>trial_*</code> table of the Systematic Quantitative
-Literature Review (SQLR) system to a Google Spreadsheets.</p>
-<p>You must have a <code>sheets</code> data object with the sheets metadata and an updated
-<code>reference</code> table before running this function. See <code><a href='write_metadata.html'>write_metadata()</a></code> and
-<code><a href='update_reference.html'>update_reference()</a></code> to learn more.</p>
+<p><code>selection_stats()</code> prints statistics about a trial or the selection process
+as a whole.</p>
+<p>The trial statistics are computed by downloading the trial table (requires an
+internet connection). The full statistics are computed using the <code>reference</code>
+data of a SQLR package, hence, the data of the package must be up-to-date.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_trial</span><span class='op'>(</span><span class='va'>trial_id</span>, package <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>selection_stats</span><span class='op'>(</span>trial_id <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='cn'>NULL</span>, clipboard <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>trial_id</th>
-      <td><p>A string indicating the ID of the trial to be written.</p></td>
+      <td><p>(optional) a string indicating the ID of the trial. This
+argument must be set only when the function must print a trial statistics
+(default: <code>NULL</code>).</p></td>
     </tr>
     <tr>
       <th>package</th>
@@ -159,9 +161,10 @@ data. If <code>NULL</code>, the function will try to use the name of the active
 project directory (requires the <code>rstudioapi</code> package) (default: <code>NULL</code>).</p></td>
     </tr>
     <tr>
-      <th>quiet</th>
-      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
-must be suppressed (default: <code>FALSE</code>).</p></td>
+      <th>clipboard</th>
+      <td><p>(optional) a <code>logical</code> value indicating if the function must
+copy a Markdown version of the statistics to the clipboard. (default:
+<code>TRUE</code>).</p></td>
     </tr>
     </table>
 
@@ -173,17 +176,19 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
 <code><a href='normalize_extdata.html'>normalize_extdata</a>()</code>,
 <code><a href='range_write.html'>range_write</a>()</code>,
 <code><a href='read_sheet.html'>read_sheet</a>()</code>,
-<code><a href='selection_stats.html'>selection_stats</a>()</code>,
 <code><a href='sheet_nrow.html'>sheet_nrow</a>()</code>,
 <code><a href='start_sqlr.html'>start_sqlr</a>()</code>,
 <code><a href='update_reference.html'>update_reference</a>()</code>,
 <code><a href='write_metadata.html'>write_metadata</a>()</code>,
 <code><a href='write_query.html'>write_query</a>()</code>,
 <code><a href='write_reference.html'>write_reference</a>()</code>,
-<code><a href='write_sheet.html'>write_sheet</a>()</code></p></div>
+<code><a href='write_sheet.html'>write_sheet</a>()</code>,
+<code><a href='write_trial.html'>write_trial</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>selection_stats</span><span class='op'>(</span><span class='op'>)</span><span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
