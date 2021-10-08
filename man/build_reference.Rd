@@ -4,7 +4,7 @@
 \alias{build_reference}
 \title{Build and write the \code{reference} table to a SQLR package}
 \usage{
-build_reference(package = NULL, write = TRUE, quiet = FALSE)
+build_reference(package = NULL, write = TRUE)
 }
 \arguments{
 \item{package}{(optional) a string indicating the package with the database
@@ -14,9 +14,6 @@ project directory (requires the \code{rstudioapi} package) (default: \code{NULL}
 \item{write}{(optional) a \code{logical} value indicating if the function must
 write a \code{reference.rda} file to \code{"./data/"} and also write to the reference
 spreadsheet listed on the \code{sqlr::sheets} object (default: \code{TRUE}).}
-
-\item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
-must be suppressed (default: \code{FALSE}).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

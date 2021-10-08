@@ -16,16 +16,14 @@
 #'
 #' @family SQLR system functions
 #' @template param_a
-#' @template param_b
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' build_reference()}
-build_reference <- function(package = NULL, write = TRUE, quiet = FALSE) {
+build_reference <- function(package = NULL, write = TRUE) {
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_flag(write)
-    checkmate::assert_flag(quiet)
     require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
@@ -49,27 +47,24 @@ build_reference <- function(package = NULL, write = TRUE, quiet = FALSE) {
         googlesheets4::gs4_auth()
     }
 
-    message <- paste0("\n",
-                      crayonize("This may take a while. Please be patient."),
-                      emojinize("hourglass_flowing_sand", left_space = TRUE),
-                      "\n\n")
-    if (isFALSE(quiet)) cat(message)
+    cli::cat_line()
+    cli::cli_alert_info(paste0(
+        "{.strong This may take a while. Please be patient.} \u23F3"
+        ))
+    cli::cat_line()
 
-    out <- read_ref_extdata(package = package, quiet = quiet) %>%
-        tidy_reference(quiet = quiet) %>%
-        identify_ref_duplicates(quiet = quiet) %>%
-        assign_ref_ids(package = package, quiet = quiet)
+    out <- read_ref_extdata(package = package) %>%
+        tidy_reference() %>%
+        identify_ref_duplicates() %>%
+        assign_ref_ids(package = package)
 
-    if (isTRUE(write)) {
-        out %>% write_reference(package = package, quiet = quiet)
-    }
+    if (isTRUE(write)) out %>% write_reference(package = package)
 
     invisible(out)
 }
 
-read_ref_extdata <- function(package = NULL, quiet = FALSE) {
+read_ref_extdata <- function(package = NULL) {
     checkmate::assert_string(package, null.ok = TRUE)
-    checkmate::assert_flag(quiet)
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
@@ -81,8 +76,7 @@ read_ref_extdata <- function(package = NULL, quiet = FALSE) {
         stop("The 'reference' folder is empty.", call. = FALSE)
     }
 
-    alert("** Reading and parsing reference/citation files **",
-          combined_styles = c("silver"), abort = quiet)
+    cli::cli_alert_info("Reading and parsing reference/citation files.")
 
     out <- dplyr::tibble()
 
@@ -99,15 +93,13 @@ read_ref_extdata <- function(package = NULL, quiet = FALSE) {
     invisible(out)
 }
 
-tidy_reference <- function(x, quiet = FALSE) {
+tidy_reference <- function(x) {
     checkmate::assert_data_frame(x, min.rows = 1)
-    checkmate::assert_flag(quiet)
 
     # R CMD Check variable bindings fix
     type <- work_type <- doi <- pmid <- year <- NULL
 
-    alert("** Tidying the references/citations **",
-          combined_styles = c("silver"), abort = quiet)
+    cli::cli_alert_info("Tidying the references/citations.")
 
     x <- x %>% dplyr::mutate(dplyr::across(.fns = stringr::str_squish))
 
@@ -188,15 +180,13 @@ tidy_reference <- function(x, quiet = FALSE) {
     x
 }
 
-identify_ref_duplicates <- function(x, quiet = FALSE) {
+identify_ref_duplicates <- function(x) {
     checkmate::assert_data_frame(x, min.rows = 1)
-    checkmate::assert_flag(quiet)
 
     # R CMD Check variable bindings fix
     criteria_id <- trial_id <- NULL
 
-    alert("** Identifying and marking duplications **",
-          combined_styles = c("silver"), abort = quiet)
+    cli::cli_alert_info("Identifying and marking duplications.")
 
     x <- x %>%
         dplyr::mutate(criteria_id = as.character(NA),
@@ -204,7 +194,7 @@ identify_ref_duplicates <- function(x, quiet = FALSE) {
         dplyr::relocate(criteria_id, trial_id) %>%
         dplyr::arrange(dplyr::desc(length)) %>%
         dplyr::mutate(criteria_id = dplyr::case_when(
-            duplicated(doi, incomparables = NA) ~ "DUP",
+            duplicated(tolower(doi), incomparables = NA) ~ "DUP",
             duplicated(pmid, incomparables = NA) ~ "DUP",
             TRUE ~ as.character(NA))) %>%
         dplyr::mutate(trial_id = criteria_id)
@@ -212,10 +202,9 @@ identify_ref_duplicates <- function(x, quiet = FALSE) {
     x
 }
 
-assign_ref_ids <- function(x, package = NULL, quiet = FALSE) {
+assign_ref_ids <- function(x, package = NULL) {
     checkmate::assert_data_frame(x, min.rows = 1)
     checkmate::assert_string(package, null.ok = TRUE)
-    checkmate::assert_flag(quiet)
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
@@ -234,8 +223,7 @@ assign_ref_ids <- function(x, package = NULL, quiet = FALSE) {
     assert_data("search", package)
     utils::data("search", package = package, envir = environment())
 
-    alert("** Assigning IDs and finalizing the dataset **",
-          combined_styles = c("silver"), abort = quiet)
+    cli::cli_alert_info("Assigning IDs and finalizing the dataset.")
 
     lookup_builder <- function(provider, id, filter = NULL) {
         checkmate::assert_character(provider)
