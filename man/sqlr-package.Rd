@@ -8,8 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-A complete and consistent toolkit for Systematic Quantitative
-    Literature Reviews.
+A complete and consistent toolkit for Systematic Quantitative Literature Reviews.
 }
 \seealso{
 Useful links:

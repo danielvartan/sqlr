@@ -83,7 +83,7 @@ clipboard <- function(..., space_above = FALSE, quiet = FALSE) {
         unlist(list(...), use.names = FALSE)))
 
     if (isFALSE(quiet)) {
-        if(isTRUE(space_above)) cat("\n")
+        if(isTRUE(space_above)) cli::cat_line()
         cli::cli_inform("{cli::col_silver('[Copied to clipboard]')}")
     }
 }
