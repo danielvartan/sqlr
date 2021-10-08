@@ -193,14 +193,6 @@ return_duplications <- function(x, rm_na = TRUE) {
     }
 }
 
-package_startup_message <- function(..., domain = NULL, appendLF = TRUE) {
-    if (is_interactive()) {
-        packageStartupMessage(..., domain = domain, appendLF = appendLF)
-    }
-
-    invisible(NULL)
-}
-
 require_pkg <- function(...) {
     out <- list(...)
 
