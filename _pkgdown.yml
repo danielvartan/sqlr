@@ -1,9 +1,9 @@
-url: https://gipsousp.github.io/sqlr/
+url: https://gipso.github.io/sqlr/
 
 template:
   params:
     bootswatch: cosmo
-    ganalytics: G-QJBJ92ZW9L
+    ganalytics: G-S5BWLRNJSY
     mathjax: true
 
 navbar:
@@ -80,8 +80,6 @@ reference:
 authors:
   Daniel Vartanian:
     href: https://github.com/danielvartan
-  Ana Amelia Benedito-Silva:
-    href: https://github.com/AnaAmeliaBeneditoSIlva
   Mario Pedrazzoli:
     href: https://github.com/pedrazzo
   Interdisciplinary Sleep Research Group (GIPSO):

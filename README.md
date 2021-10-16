@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sqlr <a href='https://gipsousp.github.io/sqlr'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# sqlr <a href='https://gipso.github.io/sqlr'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -11,13 +11,12 @@ been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/gipsousp/sqlr/workflows/R-CMD-check/badge.svg)](https://github.com/gipsousp/sqlr/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/gipsousp/sqlr/branch/master/graph/badge.svg)](https://codecov.io/gh/gipsousp/sqlr?branch=master)
+[![R-CMD-check](https://github.com/gipso/sqlr/workflows/R-CMD-check/badge.svg)](https://github.com/gipso/sqlr/actions)
+[![codecov](https://codecov.io/gh/gipso/sqlr/branch/main/graph/badge.svg)](https://codecov.io/gh/gipso/sqlr)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-green)](https://choosealicense.com/licenses/mit/)
 [![Contributor
-Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://gipsousp.github.io/mctq/CODE_OF_CONDUCT.html)
+Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://gipso.github.io/mctq/CODE_OF_CONDUCT.html)
 <!-- badges: end -->
 
 ## Overview
@@ -30,8 +29,8 @@ in [2014](https://doi.org/10.1080/07294360.2013.841651). The aim of
 early-career researchers with evidence synthesis while also helping with
 research reproducibility.
 
-Learn more about systematic quantitative literature reviews at
-<http://bit.ly/2OMxvcD>.
+Learn more about Systematic Quantitative Literature Reviews (SQLR)
+[here](https://www.griffith.edu.au/griffith-sciences/school-environment-science/research/systematic-quantitative-literature-review).
 
 ## Prerequisites
 
@@ -49,14 +48,14 @@ R](https://www.coursera.org/specializations/data-science-foundations-r)
 
 `sqlr` is still at the
 [experimental](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-stage of development. That means that people can use the package and
-provide feedback, but it comes with no promises for long term stability.
+stage of development. That means people can use the package and provide
+feedback, but it comes with no promises for long term stability.
 
 You can install `sqlr` from GitHub with:
 
 ``` r
-# install.packages("sqlr")
-devtools::install_github("gipsousp/sqlr", dependencies = TRUE)
+# install.packages("remotes")
+remotes::install_github("gipso/sqlr")
 ```
 
 ## Citation
@@ -68,19 +67,19 @@ can find the `sqlr` citation below.
 ``` r
 citation("sqlr")
 #> 
-#> To cite sqlr in publications use:
+#> To cite {sqlr} in publications use:
 #> 
-#>   Vartanian, D., Benedito-Silva, A. A., Pedrazzoli, M. (2021). sqlr: An
-#>   R package for systematic quantitative literature reviews. Retrieved
-#>   from https://gipsousp.github.io/sqlr/ .
+#>   Vartanian, D., Pedrazzoli, M. (2021). {sqlr}: An R package for
+#>   systematic quantitative literature reviews. Retrieved from
+#>   https://gipso.github.io/sqlr/.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Unpublished{,
-#>     title = {sqlr: An R package for systematic quantitative literature reviews},
-#>     author = {Daniel Vartanian and Ana Amelia Benedito-Silva and Mario Pedrazzoli},
+#>     title = {{sqlr}: An R package for systematic quantitativeliterature reviews},
+#>     author = {Daniel Vartanian and Mario Pedrazzoli},
 #>     year = {2021},
-#>     url = {https://gipsousp.github.io/sqlr/},
+#>     url = {https://gipso.github.io/sqlr/},
 #>     note = {Lifecycle: experimental},
 #>   }
 ```
@@ -89,8 +88,8 @@ citation("sqlr")
 
 `sqlr` is a community project, everyone is welcome to contribute. Take a
 moment to review our [Guidelines for
-Contributing](https://gipsousp.github.io/sqlr/CONTRIBUTING.html).
+Contributing](https://gipso.github.io/sqlr/CONTRIBUTING.html).
 
 Please note that `sqlr` is released with a [Contributor Code of
-Conduct](https://gipsousp.github.io/sqlr/CODE_OF_CONDUCT.html). By
+Conduct](https://gipso.github.io/sqlr/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.

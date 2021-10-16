@@ -17,7 +17,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
+  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
   "author": [
     {
       "@type": "Person",
@@ -25,13 +25,6 @@
       "familyName": "Vartanian",
       "email": "danvartan@gmail.com",
       "@id": "https://orcid.org/0000-0001-7782-759X"
-    },
-    {
-      "@type": "Person",
-      "givenName": "Ana Amelia",
-      "familyName": "Benedito-Silva",
-      "email": "aamelia@usp.br",
-      "@id": "https://orcid.org/0000-0003-4976-2623"
     },
     {
       "@type": "Person",
@@ -113,18 +106,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "googlesheets4",
-      "name": "googlesheets4",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=googlesheets4"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "grDevices",
       "name": "grDevices"
     },
@@ -139,6 +120,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "mockr",
+      "name": "mockr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=mockr"
     },
     {
       "@type": "SoftwareApplication",
@@ -206,6 +199,7 @@
       "@type": "SoftwareApplication",
       "identifier": "checkmate",
       "name": "checkmate",
+      "version": ">= 2.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -216,8 +210,22 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "version": ">= 3.0.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
+      "version": ">= 1.0.7",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -228,8 +236,21 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "googlesheets4",
+      "name": "googlesheets4",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=googlesheets4"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "lifecycle",
       "name": "lifecycle",
+      "version": ">= 1.0.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -237,18 +258,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=lifecycle"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "magrittr",
-      "name": "magrittr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=magrittr"
     },
     {
       "@type": "SoftwareApplication",
@@ -299,15 +308,16 @@
       "sameAs": "https://CRAN.R-project.org/package=stringr"
     }
   ],
-  "readme": "https://github.com/gipsousp/sqlr/blob/master/README.md",
-  "fileSize": "51222.314KB",
-  "contIntegration": "https://codecov.io/gh/gipsousp/sqlr?branch=master",
+  "readme": "https://github.com/gipso/sqlr/blob/main/README.md",
+  "fileSize": "50707.497KB",
+  "contIntegration": ["https://github.com/gipso/sqlr/actions", "https://codecov.io/gh/gipso/sqlr"],
   "developmentStatus": ["https://www.repostatus.org/#wip", "https://lifecycle.r-lib.org/articles/stages.html#experimental"],
   "keywords": [
     "r-package",
     "sleep",
     "chronobiology",
-    "systematic-review"
+    "systematic-review",
+    "evidence-synthesis"
   ],
   "citation": [
     {
@@ -321,17 +331,12 @@
         },
         {
           "@type": "Person",
-          "givenName": ["Ana", "Amelia"],
-          "familyName": "Benedito-Silva"
-        },
-        {
-          "@type": "Person",
           "givenName": "Mario",
           "familyName": "Pedrazzoli"
         }
       ],
-      "name": "sqlr: An R package for systematic quantitative literature reviews",
-      "url": "https://gipsousp.github.io/sqlr/",
+      "name": "{sqlr}: An R package for systematic quantitativeliterature reviews",
+      "url": "https://gipso.github.io/sqlr/",
       "description": "Lifecycle: experimental"
     }
   ],
