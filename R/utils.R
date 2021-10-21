@@ -12,6 +12,18 @@ backtick_ <- function(x) paste0("`", x, "`")
 single_underline_ <- function(x) paste0("_", x, "_")
 double_underline_ <- function(x) paste0("__", x, "__")
 
+find_path <- function(dir, package = encryptrpak:::get_package_name()) {
+    root <- system.file(package = package)
+
+    if (!stringr::str_detect(root, "inst/?$") &&
+        any(stringr::str_detect("^inst$", list.files(root)), na.rm = TRUE)) {
+
+        system.file(paste0("inst/", dir), package = package)
+    } else {
+        system.file(dir, package = package)
+    }
+}
+
 enclosure <- function(x, type = "double quote") {
     choices <- c("single quote", "double quote", "round bracket",
                  "curly bracket", "square bracket", "single underline",

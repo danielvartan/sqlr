@@ -31,44 +31,28 @@
 #' raw_data()
 #' }
 raw_data <- function(type = NULL, file = NULL, package = "sqlr") {
-    index <- list(
-        reference = list(name = "Reference",
-                         path = "extdata/reference"),
-        search_history = list(name = "Search history",
-                              path = "extdata/search_history")
-    )
+    choices <- c("reference", "search_history")
 
     checkmate::assert_character(file, min.len = 1, null.ok = TRUE)
-    checkmate::assert_choice(type, names(index), null.ok = TRUE)
+    checkmate::assert_choice(type, choices, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
 
     if (is.null(package)) package <- get_package_name()
     assert_namespace(package)
 
-    root <- system.file(package = package)
-    extdata <- "extdata"
-
-    if (!stringr::str_detect(root, "inst/?$") &&
-        any(stringr::str_detect("inst", list.files(root)), na.rm = TRUE)) {
-        append_inst <- function(x) {
-            x$path <- paste0("inst/", x$path)
-
-            x
-        }
-
-        index <- lapply(index, append_inst)
-        extdata <- "inst/extdata"
-    }
-
     if (is.null(file) && is.null(type)) {
-        list.files(system.file(extdata, package = package))
+        list.files(find_path("extdata", package))
     } else if (is.null(file) && !is.null(type)) {
-        list.files(system.file(index[[type]]$path, package = package))
+        list.files(file.path(find_path("extdata", package), type))
     } else if (!is.null(file) && !is.null(type)) {
-        system.file(index[[type]]$path, file, package = package,
-                    mustWork = TRUE)
+        out <- file.path(find_path("extdata", package), type, file)
+        checkmate::assert_file_exists(out)
+        out
     } else if (!is.null(file) & is.null(type)) {
-        stop("When 'file' is assigned, the 'type' argument cannot be 'NULL'",
-             call. = FALSE)
+        cli::cli_abort(paste0(
+            "When {cli::col_blue('file')} is assigned the ",
+            "{cli::col_red('type')} argument cannot be ",
+            "{cli::col_silver('NULL')}."
+        ))
     }
 }
