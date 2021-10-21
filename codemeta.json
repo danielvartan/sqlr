@@ -309,8 +309,8 @@
     }
   ],
   "readme": "https://github.com/gipso/sqlr/blob/main/README.md",
-  "fileSize": "50707.497KB",
-  "contIntegration": ["https://github.com/gipso/sqlr/actions", "https://codecov.io/gh/gipso/sqlr"],
+  "fileSize": "50707.424KB",
+  "contIntegration": ["https://github.com/gipso/sqlr/actions", "https://codecov.io/gh/gipso/sqlr?branch=main"],
   "developmentStatus": ["https://www.repostatus.org/#wip", "https://lifecycle.r-lib.org/articles/stages.html#experimental"],
   "keywords": [
     "r-package",

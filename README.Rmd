@@ -22,7 +22,7 @@ library(sqlr)
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/gipso/sqlr/workflows/R-CMD-check/badge.svg)](https://github.com/gipso/sqlr/actions)
-[![codecov](https://codecov.io/gh/gipso/sqlr/branch/main/graph/badge.svg)](https://codecov.io/gh/gipso/sqlr)
+[![Codecov test coverage](https://codecov.io/gh/gipso/sqlr/branch/main/graph/badge.svg)](https://codecov.io/gh/gipso/sqlr?branch=main)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://choosealicense.com/licenses/mit/)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://gipso.github.io/mctq/CODE_OF_CONDUCT.html)
 <!-- badges: end -->
@@ -35,9 +35,9 @@ Learn more about Systematic Quantitative Literature Reviews (SQLR) [here](https:
 
 ## Prerequisites
 
-You only need to have some familiarity with the [R programming language](https://www.r-project.org/) to use the `sqlr` main functions.
+You only need to have some familiarity with the [R programming language](https://www.r-project.org/) to use `sqlr` main functions.
 
-In case you don't feel comfortable with R, we strongly recommend checking Hadley Wickham and Garrett Grolemund free and online book [R for data Science](https://r4ds.had.co.nz/) and the Coursera course from John Hopkins University [Data Science: Foundations using R](https://www.coursera.org/specializations/data-science-foundations-r) (free for audit students).
+In case you don't feel comfortable with R, we strongly recommend checking Hadley Wickham and Garrett Grolemund's free and online book [R for data Science](https://r4ds.had.co.nz/) and the Coursera course from John Hopkins University [Data Science: Foundations using R](https://www.coursera.org/specializations/data-science-foundations-r) (free for audit students).
 
 ## Installation
 

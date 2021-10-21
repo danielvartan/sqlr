@@ -12,7 +12,8 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/gipso/sqlr/workflows/R-CMD-check/badge.svg)](https://github.com/gipso/sqlr/actions)
-[![codecov](https://codecov.io/gh/gipso/sqlr/branch/main/graph/badge.svg)](https://codecov.io/gh/gipso/sqlr)
+[![Codecov test
+coverage](https://codecov.io/gh/gipso/sqlr/branch/main/graph/badge.svg)](https://codecov.io/gh/gipso/sqlr?branch=main)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-green)](https://choosealicense.com/licenses/mit/)
 [![Contributor
@@ -35,10 +36,10 @@ Learn more about Systematic Quantitative Literature Reviews (SQLR)
 ## Prerequisites
 
 You only need to have some familiarity with the [R programming
-language](https://www.r-project.org/) to use the `sqlr` main functions.
+language](https://www.r-project.org/) to use `sqlr` main functions.
 
 In case you don’t feel comfortable with R, we strongly recommend
-checking Hadley Wickham and Garrett Grolemund free and online book [R
+checking Hadley Wickham and Garrett Grolemund’s free and online book [R
 for data Science](https://r4ds.had.co.nz/) and the Coursera course from
 John Hopkins University [Data Science: Foundations using
 R](https://www.coursera.org/specializations/data-science-foundations-r)
