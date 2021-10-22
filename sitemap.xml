@@ -10,9 +10,6 @@
     <loc>https://gipso.github.io/sqlr//reference/constraint.html</loc>
   </url>
   <url>
-    <loc>https://gipso.github.io/sqlr//reference/count_ref.html</loc>
-  </url>
-  <url>
     <loc>https://gipso.github.io/sqlr//reference/criteria.html</loc>
   </url>
   <url>
@@ -25,19 +22,10 @@
     <loc>https://gipso.github.io/sqlr//reference/domain.html</loc>
   </url>
   <url>
-    <loc>https://gipso.github.io/sqlr//reference/guess_ref.html</loc>
-  </url>
-  <url>
     <loc>https://gipso.github.io/sqlr//reference/keyword.html</loc>
   </url>
   <url>
     <loc>https://gipso.github.io/sqlr//reference/keyword_set.html</loc>
-  </url>
-  <url>
-    <loc>https://gipso.github.io/sqlr//reference/provider_tags.html</loc>
-  </url>
-  <url>
-    <loc>https://gipso.github.io/sqlr//reference/query.html</loc>
   </url>
   <url>
     <loc>https://gipso.github.io/sqlr//reference/range_write.html</loc>
@@ -46,19 +34,10 @@
     <loc>https://gipso.github.io/sqlr//reference/raw_data.html</loc>
   </url>
   <url>
-    <loc>https://gipso.github.io/sqlr//reference/read_ref.html</loc>
-  </url>
-  <url>
     <loc>https://gipso.github.io/sqlr//reference/read_sheet.html</loc>
   </url>
   <url>
     <loc>https://gipso.github.io/sqlr//reference/reference.html</loc>
-  </url>
-  <url>
-    <loc>https://gipso.github.io/sqlr//reference/ris_tags.html</loc>
-  </url>
-  <url>
-    <loc>https://gipso.github.io/sqlr//reference/ris_types.html</loc>
   </url>
   <url>
     <loc>https://gipso.github.io/sqlr//reference/search.html</loc>
@@ -80,9 +59,6 @@
   </url>
   <url>
     <loc>https://gipso.github.io/sqlr//reference/start_sqlr.html</loc>
-  </url>
-  <url>
-    <loc>https://gipso.github.io/sqlr//reference/tidy_keyword.html</loc>
   </url>
   <url>
     <loc>https://gipso.github.io/sqlr//reference/trial.html</loc>

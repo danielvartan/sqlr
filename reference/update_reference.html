@@ -141,12 +141,7 @@ of the <code>reference</code> table using the data available in a trial table.</
 this function. See <code><a href='write_metadata.html'>write_metadata()</a></code> to learn more.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_reference</span><span class='op'>(</span>
-  <span class='va'>trial_id</span>,
-  package <span class='op'>=</span> <span class='fu'>gutils</span><span class='fu'>:::</span><span class='fu'>get_package_name</span><span class='op'>(</span><span class='op'>)</span>,
-  write <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>update_reference</span><span class='op'>(</span><span class='va'>trial_id</span>, package <span class='op'>=</span> <span class='fu'>gutils</span><span class='fu'>:::</span><span class='fu'>get_package_name</span><span class='op'>(</span><span class='op'>)</span>, write <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,27 +163,13 @@ update the <code>reference</code> data table of the package and to write the new
 reference table to the reference spreadsheet listed on the <code><a href='sheets.html'>sqlr::sheets</a></code>
 object (default: <code>TRUE</code>).</p></td>
     </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
-must be suppressed (default: <code>FALSE</code>).</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other SQLR system functions: 
+    <div class='dont-index'><p>Other reference/citation functions: 
 <code><a href='build_reference.html'>build_reference</a>()</code>,
-<code><a href='keyword_set.html'>keyword_set</a>()</code>,
-<code><a href='range_write.html'>range_write</a>()</code>,
-<code><a href='read_sheet.html'>read_sheet</a>()</code>,
-<code><a href='selection_stats.html'>selection_stats</a>()</code>,
-<code><a href='sheet_nrow.html'>sheet_nrow</a>()</code>,
-<code><a href='start_sqlr.html'>start_sqlr</a>()</code>,
-<code><a href='write_metadata.html'>write_metadata</a>()</code>,
-<code><a href='write_query.html'>write_query</a>()</code>,
 <code><a href='write_reference.html'>write_reference</a>()</code>,
-<code><a href='write_sheet.html'>write_sheet</a>()</code>,
 <code><a href='write_trial.html'>write_trial</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
