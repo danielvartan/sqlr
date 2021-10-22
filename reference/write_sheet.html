@@ -110,7 +110,7 @@ It also don't write non-entity tables." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/gipsousp/sqlr/">
+  <a href="https://github.com/gipso/sqlr/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -129,7 +129,7 @@ It also don't write non-entity tables." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Write the review tables hosted on Google Sheets to the package</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/utils-sheets.R'><code>R/utils-sheets.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/gipso/sqlr/blob/master/R/utils-sheets.R'><code>R/utils-sheets.R</code></a></small>
     <div class="hidden name"><code>write_sheet.Rd</code></div>
     </div>
 
@@ -145,7 +145,7 @@ this function. See <code><a href='write_metadata.html'>write_metadata()</a></cod
 It also don't write non-entity tables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_sheet</span><span class='op'>(</span>name <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>write_sheet</span><span class='op'>(</span>name <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='fu'>gutils</span><span class='fu'>:::</span><span class='fu'>get_package_name</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,8 +158,8 @@ the sheets that the function must write (default: <code>NULL</code>).</p></td>
     <tr>
       <th>package</th>
       <td><p>(optional) a string indicating the package with the database
-data. If <code>NULL</code>, the function will try to use the name of the active
-project directory (requires the <code>rstudioapi</code> package) (default: <code>NULL</code>).</p></td>
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the <code>rstudioapi</code> package).</p></td>
     </tr>
     </table>
 
@@ -168,7 +168,6 @@ project directory (requires the <code>rstudioapi</code> package) (default: <code
     <div class='dont-index'><p>Other SQLR system functions: 
 <code><a href='build_reference.html'>build_reference</a>()</code>,
 <code><a href='keyword_set.html'>keyword_set</a>()</code>,
-<code><a href='normalize_extdata.html'>normalize_extdata</a>()</code>,
 <code><a href='range_write.html'>range_write</a>()</code>,
 <code><a href='read_sheet.html'>read_sheet</a>()</code>,
 <code><a href='selection_stats.html'>selection_stats</a>()</code>,

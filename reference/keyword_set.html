@@ -105,7 +105,7 @@ keyword_set() returns a keyword set from the keyword dataset." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/gipsousp/sqlr/">
+  <a href="https://github.com/gipso/sqlr/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -124,7 +124,7 @@ keyword_set() returns a keyword set from the keyword dataset." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Group keywords from the <code>keyword</code> dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/keyword_set.R'><code>R/keyword_set.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/gipso/sqlr/blob/master/R/keyword_set.R'><code>R/keyword_set.R</code></a></small>
     <div class="hidden name"><code>keyword_set.Rd</code></div>
     </div>
 
@@ -135,7 +135,7 @@ SQLR system.</p>
 <p><code>keyword_set()</code> returns a keyword set from the <code>keyword</code> dataset.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>keyword_set</span><span class='op'>(</span><span class='va'>domain_id</span>, language <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>keyword_set</span><span class='op'>(</span><span class='va'>domain_id</span>, language <span class='op'>=</span> <span class='cn'>NULL</span>, package <span class='op'>=</span> <span class='fu'>gutils</span><span class='fu'>:::</span><span class='fu'>get_package_name</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,8 +153,8 @@ the keywords (case insensitive).</p></td>
     <tr>
       <th>package</th>
       <td><p>(optional) a string indicating the package with the database
-data. If <code>NULL</code>, the function will try to use the name of the active
-project directory (requires the <code>rstudioapi</code> package) (default: <code>NULL</code>).</p></td>
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the <code>rstudioapi</code> package).</p></td>
     </tr>
     </table>
 
@@ -165,7 +165,6 @@ project directory (requires the <code>rstudioapi</code> package) (default: <code
 
     <div class='dont-index'><p>Other SQLR system functions: 
 <code><a href='build_reference.html'>build_reference</a>()</code>,
-<code><a href='normalize_extdata.html'>normalize_extdata</a>()</code>,
 <code><a href='range_write.html'>range_write</a>()</code>,
 <code><a href='read_sheet.html'>read_sheet</a>()</code>,
 <code><a href='selection_stats.html'>selection_stats</a>()</code>,

@@ -108,7 +108,7 @@ this function. See write_metadata() to learn more." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/gipsousp/sqlr/">
+  <a href="https://github.com/gipso/sqlr/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -127,7 +127,7 @@ this function. See write_metadata() to learn more." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Write the <code>reference</code> table to the package and to Google Spreadsheets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gipsousp/sqlr/blob/master/R/write_reference.R'><code>R/write_reference.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/gipso/sqlr/blob/master/R/write_reference.R'><code>R/write_reference.R</code></a></small>
     <div class="hidden name"><code>write_reference.Rd</code></div>
     </div>
 
@@ -141,7 +141,7 @@ the package an to its Google Spreadsheets file.</p>
 this function. See <code><a href='write_metadata.html'>write_metadata()</a></code> to learn more.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_reference</span><span class='op'>(</span><span class='va'>data</span>, package <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>write_reference</span><span class='op'>(</span><span class='va'>data</span>, package <span class='op'>=</span> <span class='fu'>gutils</span><span class='fu'>:::</span><span class='fu'>get_package_name</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,13 +153,8 @@ this function. See <code><a href='write_metadata.html'>write_metadata()</a></cod
     <tr>
       <th>package</th>
       <td><p>(optional) a string indicating the package with the database
-data. If <code>NULL</code>, the function will try to use the name of the active
-project directory (requires the <code>rstudioapi</code> package) (default: <code>NULL</code>).</p></td>
-    </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p>(optional) a <code>logical</code> value indicating if warnings or messages
-must be suppressed (default: <code>FALSE</code>).</p></td>
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the <code>rstudioapi</code> package).</p></td>
     </tr>
     </table>
 
@@ -168,7 +163,6 @@ must be suppressed (default: <code>FALSE</code>).</p></td>
     <div class='dont-index'><p>Other SQLR system functions: 
 <code><a href='build_reference.html'>build_reference</a>()</code>,
 <code><a href='keyword_set.html'>keyword_set</a>()</code>,
-<code><a href='normalize_extdata.html'>normalize_extdata</a>()</code>,
 <code><a href='range_write.html'>range_write</a>()</code>,
 <code><a href='read_sheet.html'>read_sheet</a>()</code>,
 <code><a href='selection_stats.html'>selection_stats</a>()</code>,
