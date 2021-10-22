@@ -4,13 +4,7 @@
 \alias{range_write}
 \title{Write a \code{data.frame} object to a review table hosted on Google Sheets}
 \usage{
-range_write(
-  x,
-  name,
-  package = gutils:::get_package_name(),
-  limit = 2e+05,
-  quiet = FALSE
-)
+range_write(x, name, package = gutils:::get_package_name(), limit = 2e+05)
 }
 \arguments{
 \item{x}{A \code{data.frame} object with at least 1 row.}
@@ -26,9 +20,6 @@ project directory (requires the \code{rstudioapi} package).}
 each batch. Example: a limit of \code{200000} will write a \code{data.frame} with
 \code{10000} rows and \code{50} columns in 3 batches, because \code{10000 * 50 = 500000}
 (over the limit) and \code{ceiling(500000 / 200000) = 3} (default: \code{200000}).}
-
-\item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
-must be suppressed (default: \code{FALSE}).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -53,18 +44,11 @@ this function. See \code{\link[=write_metadata]{write_metadata()}} to learn more
 range_write(reference, "reference")}
 }
 \seealso{
-Other SQLR system functions: 
-\code{\link{build_reference}()},
-\code{\link{keyword_set}()},
+Other Google Sheets functions: 
 \code{\link{read_sheet}()},
-\code{\link{selection_stats}()},
 \code{\link{sheet_nrow}()},
-\code{\link{start_sqlr}()},
-\code{\link{update_reference}()},
 \code{\link{write_metadata}()},
 \code{\link{write_query}()},
-\code{\link{write_reference}()},
-\code{\link{write_sheet}()},
-\code{\link{write_trial}()}
+\code{\link{write_sheet}()}
 }
-\concept{SQLR system functions}
+\concept{Google Sheets functions}

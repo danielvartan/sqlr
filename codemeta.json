@@ -7,9 +7,12 @@
   "identifier": "sqlr",
   "description": "A complete and consistent toolkit for Systematic Quantitative\n    Literature Reviews.",
   "name": "sqlr: An R Package for Systematic Quantitative Literature Reviews",
-  "codeRepository": "https://github.com/gipsousp/sqlr/",
-  "relatedLink": "https://gipsousp.github.io/sqlr/",
-  "issueTracker": "https://github.com/gipsousp/sqlr/issues/",
+  "codeRepository": "https://github.com/gipso/sqlr/",
+  "relatedLink": [
+    "https://gipsousp.github.io/sqlr/",
+    "https://gipso.github.io/sqlr/"
+  ],
+  "issueTracker": "https://github.com/gipso/sqlr/issues/",
   "license": "https://spdx.org/licenses/MIT",
   "version": "0.0.0.9000",
   "programmingLanguage": {
@@ -82,35 +85,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "crayon",
-      "name": "crayon",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=crayon"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "emojifont",
-      "name": "emojifont",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=emojifont"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "grDevices",
-      "name": "grDevices"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "knitr",
       "name": "knitr",
       "provider": {
@@ -144,18 +118,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "rstudioapi",
-      "name": "rstudioapi",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rstudioapi"
     },
     {
       "@type": "SoftwareApplication",
@@ -193,7 +155,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.6"
+      "version": ">= 4.0"
     },
     {
       "@type": "SoftwareApplication",
@@ -238,6 +200,7 @@
       "@type": "SoftwareApplication",
       "identifier": "googlesheets4",
       "name": "googlesheets4",
+      "version": ">= 1.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -245,6 +208,12 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=googlesheets4"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "gutils",
+      "name": "gutils",
+      "sameAs": "https://github.com/gipso/gutils"
     },
     {
       "@type": "SoftwareApplication",
@@ -261,20 +230,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "readr",
-      "name": "readr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=readr"
+      "identifier": "refstudio",
+      "name": "refstudio",
+      "sameAs": "https://github.com/gipso/refstudio"
     },
     {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
+      "version": ">= 0.4.11",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -285,20 +249,9 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "tidyr",
-      "name": "tidyr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=tidyr"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
+      "version": ">= 1.4.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -309,7 +262,7 @@
     }
   ],
   "readme": "https://github.com/gipso/sqlr/blob/main/README.md",
-  "fileSize": "50707.424KB",
+  "fileSize": "50597.586KB",
   "contIntegration": ["https://github.com/gipso/sqlr/actions", "https://codecov.io/gh/gipso/sqlr?branch=main"],
   "developmentStatus": ["https://www.repostatus.org/#wip", "https://lifecycle.r-lib.org/articles/stages.html#experimental"],
   "keywords": [
@@ -335,10 +288,10 @@
           "familyName": "Pedrazzoli"
         }
       ],
-      "name": "{sqlr}: An R package for systematic quantitativeliterature reviews",
+      "name": "{sqlr}: An R package for systematic quantitative literature reviews",
       "url": "https://gipso.github.io/sqlr/",
       "description": "Lifecycle: experimental"
     }
   ],
-  "releaseNotes": "https://github.com/gipsousp/sqlr/blob/master/NEWS.md"
+  "releaseNotes": "https://github.com/gipso/sqlr/blob/master/NEWS.md"
 }

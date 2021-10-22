@@ -4,7 +4,7 @@
 \alias{write_trial}
 \title{Write a trial table to a Google Spreadsheets}
 \usage{
-write_trial(trial_id, package = gutils:::get_package_name(), quiet = FALSE)
+write_trial(trial_id, package = gutils:::get_package_name())
 }
 \arguments{
 \item{trial_id}{A string indicating the ID of the trial to be written.}
@@ -12,9 +12,6 @@ write_trial(trial_id, package = gutils:::get_package_name(), quiet = FALSE)
 \item{package}{(optional) a string indicating the package with the database
 data. If not assigned, the function will try to use the name of the active
 project directory (requires the \code{rstudioapi} package).}
-
-\item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
-must be suppressed (default: \code{FALSE}).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -41,18 +38,9 @@ nrow(dplyr::filter(reference, !is.na(criteria_id)) +
 sheet_nrow("trial_nr1") == nrow(reference)}
 }
 \seealso{
-Other SQLR system functions: 
+Other reference/citation functions: 
 \code{\link{build_reference}()},
-\code{\link{keyword_set}()},
-\code{\link{range_write}()},
-\code{\link{read_sheet}()},
-\code{\link{selection_stats}()},
-\code{\link{sheet_nrow}()},
-\code{\link{start_sqlr}()},
 \code{\link{update_reference}()},
-\code{\link{write_metadata}()},
-\code{\link{write_query}()},
-\code{\link{write_reference}()},
-\code{\link{write_sheet}()}
+\code{\link{write_reference}()}
 }
-\concept{SQLR system functions}
+\concept{reference/citation functions}

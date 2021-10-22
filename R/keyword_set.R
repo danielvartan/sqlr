@@ -16,7 +16,7 @@
 #'
 #' @return A `character` object with a keyword set.
 #'
-#' @family SQLR system functions
+#' @family keyword functions
 #' @template param_a
 #' @export
 #'

@@ -4,12 +4,7 @@
 \alias{update_reference}
 \title{Update the \code{reference} table using a trial table}
 \usage{
-update_reference(
-  trial_id,
-  package = gutils:::get_package_name(),
-  write = TRUE,
-  quiet = FALSE
-)
+update_reference(trial_id, package = gutils:::get_package_name(), write = TRUE)
 }
 \arguments{
 \item{trial_id}{A string indicating the ID of the trial to be written.}
@@ -22,9 +17,6 @@ project directory (requires the \code{rstudioapi} package).}
 update the \code{reference} data table of the package and to write the new
 reference table to the reference spreadsheet listed on the \code{sqlr::sheets}
 object (default: \code{TRUE}).}
-
-\item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
-must be suppressed (default: \code{FALSE}).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -43,18 +35,9 @@ this function. See \code{\link[=write_metadata]{write_metadata()}} to learn more
 update_reference("NR1")}
 }
 \seealso{
-Other SQLR system functions: 
+Other reference/citation functions: 
 \code{\link{build_reference}()},
-\code{\link{keyword_set}()},
-\code{\link{range_write}()},
-\code{\link{read_sheet}()},
-\code{\link{selection_stats}()},
-\code{\link{sheet_nrow}()},
-\code{\link{start_sqlr}()},
-\code{\link{write_metadata}()},
-\code{\link{write_query}()},
 \code{\link{write_reference}()},
-\code{\link{write_sheet}()},
 \code{\link{write_trial}()}
 }
-\concept{SQLR system functions}
+\concept{reference/citation functions}

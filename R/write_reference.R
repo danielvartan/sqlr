@@ -15,7 +15,7 @@
 #'
 #' @param data The `data.frame` object to write.
 #'
-#' @family SQLR system functions
+#' @family reference/citation functions
 #' @template param_a
 #' @export
 #'

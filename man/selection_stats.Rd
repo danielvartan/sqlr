@@ -40,19 +40,4 @@ data of a SQLR package, hence, the data of the package must be up-to-date.
 \dontrun{
 selection_stats()}
 }
-\seealso{
-Other SQLR system functions: 
-\code{\link{build_reference}()},
-\code{\link{keyword_set}()},
-\code{\link{range_write}()},
-\code{\link{read_sheet}()},
-\code{\link{sheet_nrow}()},
-\code{\link{start_sqlr}()},
-\code{\link{update_reference}()},
-\code{\link{write_metadata}()},
-\code{\link{write_query}()},
-\code{\link{write_reference}()},
-\code{\link{write_sheet}()},
-\code{\link{write_trial}()}
-}
-\concept{SQLR system functions}
+\concept{selection functions}

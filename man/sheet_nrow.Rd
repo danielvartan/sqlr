@@ -35,18 +35,11 @@ this function. See \code{\link[=write_metadata]{write_metadata()}} to learn more
 sheet_nrow(sheets$domain$name)}
 }
 \seealso{
-Other SQLR system functions: 
-\code{\link{build_reference}()},
-\code{\link{keyword_set}()},
+Other Google Sheets functions: 
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
-\code{\link{selection_stats}()},
-\code{\link{start_sqlr}()},
-\code{\link{update_reference}()},
 \code{\link{write_metadata}()},
 \code{\link{write_query}()},
-\code{\link{write_reference}()},
-\code{\link{write_sheet}()},
-\code{\link{write_trial}()}
+\code{\link{write_sheet}()}
 }
-\concept{SQLR system functions}
+\concept{Google Sheets functions}

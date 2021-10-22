@@ -32,13 +32,11 @@ Imports:
     googlesheets4 (>= 1.0.0),
     gutils,
     lifecycle (>= 1.0.1),
-    readr (>= 2.0.2),
+    refstudio,
     rlang (>= 0.4.11),
-    tidyr (>= 1.1.4),
     stringr (>= 1.4.0)
 Suggests:
     covr,
-    grDevices,
     knitr,
     mockr,
     rmarkdown,
@@ -46,7 +44,8 @@ Suggests:
     testthat (>= 3.0.0),
     utils
 Remotes: 
-    github::gipso/gutils
+    github::gipso/gutils,
+    github::gipso/refstudio
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3

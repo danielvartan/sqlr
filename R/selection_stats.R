@@ -21,7 +21,7 @@
 #'   copy a Markdown version of the statistics to the clipboard. (default:
 #'   `TRUE`).
 #'
-#' @family SQLR system functions
+#' @family selection functions
 #' @template param_a
 #' @export
 #'

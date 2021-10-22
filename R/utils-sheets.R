@@ -23,7 +23,7 @@
 #' @return An invisible `list` object containing lists with the Google Sheets
 #'   metadata of the review tables hosted on the platform.
 #'
-#' @family SQLR system functions
+#' @family Google Sheets functions
 #' @export
 #'
 #' @examples
@@ -94,7 +94,7 @@ write_metadata <- function(id, sheet = "Dataset") {
 #' * If `name` have length == 1, an invisible `tibble` object of the sheet/table
 #' indicated in `name`.
 #'
-#' @family SQLR system functions
+#' @family Google Sheets functions
 #' @template param_a
 #' @export
 #'
@@ -179,7 +179,7 @@ read_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
 #' @param name (optional) A `character` object indicating the name or names of
 #'   the sheets that the function must write (default: `NULL`).
 #'
-#' @family SQLR system functions
+#' @family Google Sheets functions
 #' @template param_a
 #' @export
 #'
@@ -269,7 +269,7 @@ write_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
 #' must consider the header when computing the number of rows. This only works
 #' when the sheets have one line as header (default: `TRUE`).
 #'
-#' @family SQLR system functions
+#' @family Google Sheets functions
 #' @template param_a
 #' @export
 #'
@@ -334,21 +334,19 @@ sheet_nrow <- function(name,
 #'   `10000` rows and `50` columns in 3 batches, because `10000 * 50 = 500000`
 #'   (over the limit) and `ceiling(500000 / 200000) = 3` (default: `200000`).
 #'
-#' @family SQLR system functions
+#' @family Google Sheets functions
 #' @template param_a
-#' @template param_b
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' range_write(reference, "reference")}
 range_write <- function(x, name, package = gutils:::get_package_name(),
-                        limit = 200000, quiet = FALSE) {
+                        limit = 200000) {
     checkmate::assert_data_frame(x, min.rows = 1)
     checkmate::assert_string(name)
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_number(limit, lower = 5000)
-    checkmate::assert_flag(quiet)
     gutils:::require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
@@ -375,37 +373,28 @@ range_write <- function(x, name, package = gutils:::get_package_name(),
 
     x <- x %>% dplyr::mutate(dplyr::across(where(is.character), str_subset))
 
-    gutils:::shush(
-        googlesheets4::sheet_resize(ss = sheets[[name]]$id,
-                                    sheet = sheets[[name]]$sheet,
-                                    nrow = 2,
-                                    ncol = NULL,
-                                    exact = TRUE),
-        quiet = quiet
-    )
+    googlesheets4::sheet_resize(ss = sheets[[name]]$id,
+                                sheet = sheets[[name]]$sheet,
+                                nrow = 2,
+                                ncol = NULL,
+                                exact = TRUE)
 
     if (limit >= prod(dim(x))) {
-        gutils:::shush(
-            googlesheets4::range_write(ss = sheets[[name]]$id,
-                                       data = x,
-                                       sheet = sheets[[name]]$sheet,
-                                       range = "A1",
-                                       col_names = TRUE,
-                                       reformat = FALSE),
-            quiet = quiet
-        )
+        googlesheets4::range_write(ss = sheets[[name]]$id,
+                                   data = x,
+                                   sheet = sheets[[name]]$sheet,
+                                   range = "A1",
+                                   col_names = TRUE,
+                                   reformat = FALSE)
     } else {
         batch <- limit / ncol(x)
 
-        gutils:::shush(
-            googlesheets4::range_write(ss = sheets[[name]]$id,
-                                       data = x[seq(batch),],
-                                       sheet = sheets[[name]]$sheet,
-                                       range = "A1",
-                                       col_names = TRUE,
-                                       reformat = FALSE),
-            quiet = quiet
-        )
+        googlesheets4::range_write(ss = sheets[[name]]$id,
+                                   data = x[seq(batch),],
+                                   sheet = sheets[[name]]$sheet,
+                                   range = "A1",
+                                   col_names = TRUE,
+                                   reformat = FALSE)
 
         rows <- sheet_nrow(name, package, rm_header = TRUE)
 
@@ -418,12 +407,9 @@ range_write <- function(x, name, package = gutils:::get_package_name(),
                 to <- from + batch - 1
             }
 
-            gutils:::shush(
-                googlesheets4::sheet_append(ss = sheets[[name]]$id,
-                                            data = x[seq(from, to),],
-                                            sheet = sheets[[name]]$sheet),
-                quiet = quiet
-            )
+            googlesheets4::sheet_append(ss = sheets[[name]]$id,
+                                        data = x[seq(from, to),],
+                                        sheet = sheets[[name]]$sheet)
 
             rows <- sheet_nrow(name, package, rm_header = TRUE)
         }

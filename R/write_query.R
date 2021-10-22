@@ -14,7 +14,7 @@
 #'   target rectangle where the function must write the output. See the `range`
 #'   argument from `googlesheets4::range_write()` to learn more.
 #'
-#' @family SQLR system functions
+#' @family Google Sheets functions
 #' @template param_a
 #' @export
 #'
@@ -67,14 +67,16 @@ write_query <- function(range = NULL, package = gutils:::get_package_name()) {
             }
 
             out <- out %>% append(
-                query(domain_set(search$domain_set[i],
-                                 search$language[i],
-                                 package),
-                      provider = search$provider[i],
-                      constraint = constraint_set(search$constraint_set[i],
-                                                  package),
-                      delimiter = ",", print = FALSE, clipboard = FALSE,
-                      enclosure = enclosure)
+                refstudio::query(
+                    domain_set(search$domain_set[i],
+                               search$language[i],
+                               package),
+                    provider = search$provider[i],
+                    constraint = constraint_set(search$constraint_set[i],
+                                                package),
+                    delimiter = ",", print = FALSE, clipboard = FALSE,
+                    enclosure = enclosure
+                )
             )
         }
     }
@@ -122,7 +124,7 @@ domain_set <- function(x, language, package = NULL) {
     for (i in seq_along(x)) {
         if (x[i] %in% domains) {
             set <- keyword_set(as.numeric(x[i]), language, package)
-            tidy <- tidy_keyword(set)
+            tidy <- refstudio::tidy_keyword(set)
 
             if (!(length(set) == length(tidy))) {
                 cli::cli_abort(paste0(

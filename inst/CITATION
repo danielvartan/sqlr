@@ -3,7 +3,7 @@ citHeader("To cite {sqlr} in publications use:")
 citEntry(
   entry       = "Unpublished",
   title       = paste0("{sqlr}:", " ",
-                       "An R package for systematic quantitative",
+                       "An R package for systematic quantitative", " ",
                        "literature reviews"),
   author      = personList(as.person("Daniel Vartanian"),
                            as.person("Mario Pedrazzoli")),

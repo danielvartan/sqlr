@@ -30,18 +30,9 @@ this function. See \code{\link[=write_metadata]{write_metadata()}} to learn more
 write_reference(data.frame(a = 1, b = 1))}
 }
 \seealso{
-Other SQLR system functions: 
+Other reference/citation functions: 
 \code{\link{build_reference}()},
-\code{\link{keyword_set}()},
-\code{\link{range_write}()},
-\code{\link{read_sheet}()},
-\code{\link{selection_stats}()},
-\code{\link{sheet_nrow}()},
-\code{\link{start_sqlr}()},
 \code{\link{update_reference}()},
-\code{\link{write_metadata}()},
-\code{\link{write_query}()},
-\code{\link{write_sheet}()},
 \code{\link{write_trial}()}
 }
-\concept{SQLR system functions}
+\concept{reference/citation functions}

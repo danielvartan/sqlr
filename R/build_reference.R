@@ -14,7 +14,7 @@
 #'   write a `reference.rda` file to `"./data/"` and also write to the reference
 #'   spreadsheet listed on the `sqlr::sheets` object (default: `TRUE`).
 #'
-#' @family SQLR system functions
+#' @family reference/citation functions
 #' @template param_a
 #' @export
 #'
@@ -84,7 +84,7 @@ read_ref_extdata <- function(package = gutils:::get_package_name()) {
         lookup <- stringr::str_replace(lookup, "^web-of-science$", "wos")
 
         i <- gutils::raw_data_2("reference", i, package = package)
-        data <- read_ref(i, lookup = lookup, quiet = TRUE)
+        data <- gutils:::shush(refstudio::read_ref(i, lookup = lookup))
         out <- dplyr::bind_rows(out, data)
     }
 
@@ -102,7 +102,7 @@ tidy_reference <- function(x) {
     x <- x %>% dplyr::mutate(dplyr::across(.fns = stringr::str_squish))
 
     if (all(c("type", "work_type") %in% names(x), na.rm = TRUE)) {
-        for (i in sqlr::ris_types) {
+        for (i in refstudio::ris_types) {
             x <- x %>% dplyr::mutate(
                 type = dplyr::if_else(
                     is.na(type) & !is.na(work_type) &

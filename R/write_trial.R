@@ -16,9 +16,8 @@
 #'
 #' @param trial_id A string indicating the ID of the trial to be written.
 #'
-#' @family SQLR system functions
+#' @family reference/citation functions
 #' @template param_a
-#' @template param_b
 #' @export
 #'
 #' @examples
@@ -31,13 +30,11 @@
 #'
 #' nrow(dplyr::filter(reference, !is.na(criteria_id)) +
 #' sheet_nrow("trial_nr1") == nrow(reference)}
-write_trial <- function(trial_id, package = gutils:::get_package_name(),
-                        quiet = FALSE) {
+write_trial <- function(trial_id, package = gutils:::get_package_name()) {
     pattern <- "^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$"
 
     checkmate::assert_string(trial_id, pattern = pattern)
     checkmate::assert_string(package, null.ok = TRUE)
-    checkmate::assert_flag(quiet)
     gutils:::assert_interactive()
     gutils:::require_pkg("utils", "googlesheets4")
     gutils:::assert_namespace(package)
@@ -105,7 +102,7 @@ write_trial <- function(trial_id, package = gutils:::get_package_name(),
             "dataset ended with no rows after the cleaning process."))
     }
 
-    range_write(reference, name = trial_name, package = package, quiet = quiet)
+    range_write(reference, name = trial_name, package = package)
 
     invisible(NULL)
 }
@@ -131,21 +128,19 @@ write_trial <- function(trial_id, package = gutils:::get_package_name(),
 #'   reference table to the reference spreadsheet listed on the `sqlr::sheets`
 #'   object (default: `TRUE`).
 #'
-#' @family SQLR system functions
+#' @family reference/citation functions
 #' @template param_a
-#' @template param_b
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' update_reference("NR1")}
 update_reference <- function(trial_id, package = gutils:::get_package_name(),
-                             write = TRUE, quiet = FALSE) {
+                             write = TRUE) {
     pattern <- "^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$"
 
     checkmate::assert_string(trial_id, pattern = pattern)
     checkmate::assert_string(package, null.ok = TRUE)
-    checkmate::assert_flag(quiet)
     gutils:::assert_interactive()
     gutils:::require_pkg("utils", "googlesheets4")
     gutils:::assert_namespace(package)

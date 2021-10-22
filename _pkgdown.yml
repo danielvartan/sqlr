@@ -19,39 +19,20 @@ navbar:
 reference:
 - title: Keywords
   contents:
-  - query
-  - tidy_keyword
+  - keyword_set
 
 - title: References/Citations
-  contents:
-  - count_ref
-  - guess_ref
-  - read_ref
-
-- title: Data
-  contents:
-  - provider_tags
-  - ris_tags
-  - ris_types
-
-- title: Utilities
-  contents:
-  - raw_data
-
-- title: SQLR system
-- subtitle: Keywords
-  contents:
-  - keyword_set
-- subtitle: References/Citations
   contents:
   - build_reference
   - update_reference
   - write_reference
   - write_trial
-- subtitle: Selection process
+
+- title: Selection process
   contents:
   - selection_stats
-- subtitle: Google Sheets
+
+- title: Google Sheets
   contents:
   - range_write
   - read_sheet
@@ -59,7 +40,8 @@ reference:
   - write_metadata
   - write_query
   - write_sheet
-- subtitle: Data
+
+- title: Data
   contents:
   - sheets
   - domain
@@ -72,8 +54,10 @@ reference:
   - critical_appraisal
   - reference
   - document
-- subtitle: Utilities
+
+- title: Utilities
   contents:
+  - raw_data
   - start_sqlr
 
 authors:
