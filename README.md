@@ -71,7 +71,7 @@ citation("sqlr")
 #> To cite {sqlr} in publications use:
 #> 
 #>   Vartanian, D., Pedrazzoli, M. (2021). {sqlr}: An R package for
-#>   systematic quantitative literature reviews. Retrieved from
+#>   systematic quantitative literature reviews.
 #>   https://gipso.github.io/sqlr/.
 #> 
 #> A BibTeX entry for LaTeX users is
