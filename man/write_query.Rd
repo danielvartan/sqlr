@@ -4,7 +4,7 @@
 \alias{write_query}
 \title{Write queries in the \code{search} dataset}
 \usage{
-write_query(range = NULL, package = NULL)
+write_query(range = NULL, package = gutils:::get_package_name())
 }
 \arguments{
 \item{range}{(optional) a string indicating the cell range or start of the
@@ -12,8 +12,8 @@ target rectangle where the function must write the output. See the \code{range}
 argument from \code{googlesheets4::range_write()} to learn more.}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -32,7 +32,6 @@ write_query()}
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
 \code{\link{selection_stats}()},

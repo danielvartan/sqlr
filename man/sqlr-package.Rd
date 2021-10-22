@@ -13,9 +13,9 @@ A complete and consistent toolkit for Systematic Quantitative Literature Reviews
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://gipsousp.github.io/sqlr/}
-  \item \url{https://github.com/gipsousp/sqlr/}
-  \item Report bugs at \url{https://github.com/gipsousp/sqlr/issues/}
+  \item \url{https://gipso.github.io/sqlr/}
+  \item \url{https://github.com/gipso/sqlr/}
+  \item Report bugs at \url{https://github.com/gipso/sqlr/issues/}
 }
 
 }

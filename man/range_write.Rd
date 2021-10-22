@@ -4,7 +4,13 @@
 \alias{range_write}
 \title{Write a \code{data.frame} object to a review table hosted on Google Sheets}
 \usage{
-range_write(x, name, package = NULL, limit = 2e+05, quiet = FALSE)
+range_write(
+  x,
+  name,
+  package = gutils:::get_package_name(),
+  limit = 2e+05,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{x}{A \code{data.frame} object with at least 1 row.}
@@ -13,8 +19,8 @@ range_write(x, name, package = NULL, limit = 2e+05, quiet = FALSE)
 function must write.}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 
 \item{limit}{(optional) a number with the limit amount of data to write for
 each batch. Example: a limit of \code{200000} will write a \code{data.frame} with
@@ -50,7 +56,6 @@ range_write(reference, "reference")}
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{read_sheet}()},
 \code{\link{selection_stats}()},
 \code{\link{sheet_nrow}()},

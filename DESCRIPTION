@@ -20,32 +20,33 @@ Maintainer: Daniel Vartanian <danvartan@gmail.com>
 Description: A complete and consistent toolkit for Systematic Quantitative
     Literature Reviews.
 License: MIT + file LICENSE
-URL: https://gipsousp.github.io/sqlr/, https://github.com/gipsousp/sqlr/
-BugReports: https://github.com/gipsousp/sqlr/issues/
+URL: https://gipso.github.io/sqlr/, 
+    https://github.com/gipso/sqlr/
+BugReports: https://github.com/gipso/sqlr/issues/
 Depends:
-    R (>= 3.6)
+    R (>= 4.0)
 Imports:
     checkmate (>= 2.0.0),
     cli (>= 3.0.1),
     dplyr (>= 1.0.7),
-    googlesheets4,
+    googlesheets4 (>= 1.0.0),
+    gutils,
     lifecycle (>= 1.0.1),
-    readr,
-    rlang,
-    tidyr,
-    stringr
+    readr (>= 2.0.2),
+    rlang (>= 0.4.11),
+    tidyr (>= 1.1.4),
+    stringr (>= 1.4.0)
 Suggests:
     covr,
-    crayon,
-    emojifont,
     grDevices,
     knitr,
     mockr,
     rmarkdown,
-    rstudioapi,
     spelling,
     testthat (>= 3.0.0),
     utils
+Remotes: 
+    github::gipso/gutils
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3

@@ -23,15 +23,15 @@
 #' @examples
 #' \dontrun{
 #' keyword_set(1, "english")}
-keyword_set <- function(domain_id, language = NULL, package = NULL) {
+keyword_set <- function(domain_id, language = NULL,
+                        package = gutils:::get_package_name()) {
     checkmate::assert_integerish(domain_id)
     checkmate::assert_string(language, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
-    require_pkg("utils")
+    gutils:::require_pkg("utils")
 
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-    assert_data("keyword", package, alert = "gipso_2")
+    gutils:::assert_namespace(package)
+    gutils:::assert_data("keyword", package, alert = "gipso_2")
 
     keyword <- approval <- NULL # R CMD Check variable bindings fix
 

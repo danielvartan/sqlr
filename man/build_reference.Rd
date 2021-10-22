@@ -4,12 +4,12 @@
 \alias{build_reference}
 \title{Build and write the \code{reference} table to a SQLR package}
 \usage{
-build_reference(package = NULL, write = TRUE)
+build_reference(package = gutils:::get_package_name(), write = TRUE)
 }
 \arguments{
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 
 \item{write}{(optional) a \code{logical} value indicating if the function must
 write a \code{reference.rda} file to \code{"./data/"} and also write to the reference
@@ -31,7 +31,6 @@ build_reference()}
 \seealso{
 Other SQLR system functions: 
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
 \code{\link{selection_stats}()},

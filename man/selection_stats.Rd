@@ -4,7 +4,11 @@
 \alias{selection_stats}
 \title{Print statistics about the selection process}
 \usage{
-selection_stats(trial_id = NULL, package = NULL, clipboard = TRUE)
+selection_stats(
+  trial_id = NULL,
+  package = gutils:::get_package_name(),
+  clipboard = TRUE
+)
 }
 \arguments{
 \item{trial_id}{(optional) a string indicating the ID of the trial. This
@@ -12,8 +16,8 @@ argument must be set only when the function must print a trial statistics
 (default: \code{NULL}).}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 
 \item{clipboard}{(optional) a \code{logical} value indicating if the function must
 copy a Markdown version of the statistics to the clipboard. (default:
@@ -40,7 +44,6 @@ selection_stats()}
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
 \code{\link{sheet_nrow}()},

@@ -4,15 +4,15 @@
 \alias{sheet_nrow}
 \title{Get the number of rows from a review table hosted on Google Sheets}
 \usage{
-sheet_nrow(name, package = NULL, rm_header = TRUE)
+sheet_nrow(name, package = gutils:::get_package_name(), rm_header = TRUE)
 }
 \arguments{
 \item{name}{A string indicating the name of the sheets that the
 function must evaluate.}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 
 \item{rm_header}{(optional) A \code{logical} value indicating if the function
 must consider the header when computing the number of rows. This only works
@@ -38,7 +38,6 @@ sheet_nrow(sheets$domain$name)}
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
 \code{\link{selection_stats}()},

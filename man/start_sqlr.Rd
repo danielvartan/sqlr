@@ -4,7 +4,7 @@
 \alias{start_sqlr}
 \title{Start settings for SQLR R package templates}
 \usage{
-start_sqlr(id, sheet = "Dataset", package = NULL)
+start_sqlr(id, sheet = "Dataset", package = gutils:::get_package_name())
 }
 \arguments{
 \item{id}{A string with the Google Sheets ID from the 'Sheets' table.}
@@ -13,8 +13,8 @@ start_sqlr(id, sheet = "Dataset", package = NULL)
 sheets data can be found on the 'Sheets spreadsheet (default: \code{"Dataset"}).}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -26,7 +26,6 @@ Literature Reviews R packages.
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
 \code{\link{selection_stats}()},

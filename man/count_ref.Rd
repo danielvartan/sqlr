@@ -31,9 +31,9 @@ the ZIP file in the \code{file} argument.
 }
 \examples{
 \dontrun{
-citations <- raw_data("citation")
-file <- citations[grep("_apa_", citations)]
-file <- raw_data("citation", file)
+references <- raw_data("reference")
+file <- references[grep("_apa_", references)]
+file <- raw_data("reference", file)
 
 count_ref(file)}
 }

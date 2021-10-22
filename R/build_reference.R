@@ -21,17 +21,17 @@
 #' @examples
 #' \dontrun{
 #' build_reference()}
-build_reference <- function(package = NULL, write = TRUE) {
+build_reference <- function(package = gutils:::get_package_name(),
+                            write = TRUE) {
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_flag(write)
-    require_pkg("utils", "googlesheets4")
+    gutils:::require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
     sheets <- NULL
 
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-    assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_namespace(package)
+    gutils:::assert_data("sheets", package, alert = "gipso_1")
 
     utils::data("sheets", package = package, envir = environment())
     choices <- c("source", "search")
@@ -49,7 +49,7 @@ build_reference <- function(package = NULL, write = TRUE) {
 
     cli::cat_line()
     cli::cli_alert_info(paste0(
-        "{.strong This may take a while. Please be patient.} \u23F3"
+        "{.strong This may take a while. Please be patient.} \U00023F3"
         ))
     cli::cat_line()
 
@@ -63,14 +63,12 @@ build_reference <- function(package = NULL, write = TRUE) {
     invisible(out)
 }
 
-read_ref_extdata <- function(package = NULL) {
+read_ref_extdata <- function(package = gutils:::get_package_name()) {
     checkmate::assert_string(package, null.ok = TRUE)
+    gutils:::assert_namespace(package)
 
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-
-    normalize_extdata(package)
-    files <- raw_data("reference", package = package)
+    gutils::normalize_extdata(package)
+    files <- gutils::raw_data_2("reference", package = package)
 
     if (length(files) == 0) {
         stop("The 'reference' folder is empty.", call. = FALSE)
@@ -85,7 +83,7 @@ read_ref_extdata <- function(package = NULL) {
         lookup <- stringr::str_extract(i, pattern)
         lookup <- stringr::str_replace(lookup, "^web-of-science$", "wos")
 
-        i <- raw_data("reference", i, package = package)
+        i <- gutils::raw_data_2("reference", i, package = package)
         data <- read_ref(i, lookup = lookup, quiet = TRUE)
         out <- dplyr::bind_rows(out, data)
     }
@@ -202,36 +200,34 @@ identify_ref_duplicates <- function(x) {
     x
 }
 
-assign_ref_ids <- function(x, package = NULL) {
+assign_ref_ids <- function(x, package = gutils:::get_package_name()) {
     checkmate::assert_data_frame(x, min.rows = 1)
     checkmate::assert_string(package, null.ok = TRUE)
-
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
+    gutils:::assert_namespace(package)
 
     # R CMD Check variable bindings fix
     sheets <- source <- search <- provider <- year <- title <- NULL
     reference_id <- criteria_id <- trial_id <- source_id <- search_id <- NULL
     pdf <- NULL
 
-    assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package, alert = "gipso_1")
     utils::data("sheets", package = package, envir = environment())
 
-    assert_data("source", package)
+    gutils:::assert_data("source", package)
     utils::data("source", package = package, envir = environment())
 
-    assert_data("search", package)
+    gutils:::assert_data("search", package)
     utils::data("search", package = package, envir = environment())
 
     cli::cli_alert_info("Assigning IDs and finalizing the dataset.")
 
     lookup_builder <- function(provider, id, filter = NULL) {
         checkmate::assert_character(provider)
-        assert_identical(provider, id, type = "length", any.missing = FALSE,
-                         null.ok = FALSE)
+        gutils:::assert_identical(provider, id, type = "length",
+                                  any.missing = FALSE, null.ok = FALSE)
         checkmate::assert_logical(filter, min.len = 1, null.ok = TRUE)
 
-        id <- shush(as.integer(id))
+        id <- gutils:::shush(as.integer(id))
 
         if (!is.null(filter)) {
             provider <- provider[filter]

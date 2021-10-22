@@ -16,7 +16,7 @@ citEntry(
                        "{sqlr}:", " ",
                        "An R package for systematic quantitative", " ",
                        "literature reviews", ". ",
-                       "Retrieved from https://gipso.github.io/",
+                       "https://gipso.github.io/",
                        "sqlr/", "."),
   note        = "Lifecycle: experimental"
 )

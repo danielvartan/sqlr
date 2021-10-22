@@ -98,9 +98,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' citations <- raw_data("citation")
-#' file <- citations[grep("_apa_", citations)]
-#' file <- raw_data("citation", file)
+#' references <- raw_data("reference")
+#' file <- references[grep("_apa_", references)]
+#' file <- raw_data("reference", file)
 #'
 #' read_ref(file, "apa")}
 read_ref <- function(file = file.choose(), lookup = NULL, sep = " | ",
@@ -124,19 +124,21 @@ read_ref <- function(file = file.choose(), lookup = NULL, sep = " | ",
         checkmate::assert_names(names(lookup), must.include = choices)
     }
 
-    message <- paste0("\n",
-                      crayonize("This may take a while. Please be patient."),
-                      emojinize("hourglass_flowing_sand", left_space = TRUE),
-                      "\n\n")
-
     if (length(file) > 1 ||
         any(stringr::str_detect(file, "(?i).zip$"), na.rm = TRUE)) {
         if (any(stringr::str_detect(file, ".zip$"), na.rm = TRUE)) {
-            require_pkg("utils")
+            gutils:::require_pkg("utils")
         }
 
         out <- dplyr::tibble()
-        if (isFALSE(quiet)) cat(message)
+
+        if (isFALSE(quiet)) {
+            cli::cat_line()
+            cli::cli_alert_info(paste0(
+                "{.strong This may take a while. Please be patient.} \U00023F3"
+            ))
+            cli::cat_line()
+        }
 
         for (i in file) {
             if (stringr::str_detect(i, "(?i).zip$")) {
@@ -154,10 +156,18 @@ read_ref <- function(file = file.choose(), lookup = NULL, sep = " | ",
     data <- guess_ref(file, return_data = TRUE, quiet = TRUE)
 
     if (is.null(data)) {
-        stop("No reference/citation was identified in ", single_quote_(file),
-             ".", call. = FALSE)
+        cli::cli_abort(paste0(
+            "No reference/citation was identified in ",
+            "{cli::col_red(file)}."
+        ))
     } else if (data$count > 100) {
-        if (isFALSE(quiet)) cat(message)
+        if (isFALSE(quiet)) {
+            cli::cat_line()
+            cli::cli_alert_info(paste0(
+                "{.strong This may take a while. Please be patient.} \U00023F3"
+            ))
+            cli::cat_line()
+        }
     }
 
     out <- chopp_ref(data) %>%
@@ -174,7 +184,7 @@ read_ref <- function(file = file.choose(), lookup = NULL, sep = " | ",
 chopp_ref <- function(data) {
     checkmate::assert_list(data)
 
-    out <- cutter(data$data, data$index, between = data$between) %>%
+    out <- gutils::cutter(data$data, data$index, between = data$between) %>%
         lapply(function(x) x[!stringr::str_detect(x, "^\\s*$")]) %>%
         lapply(function(x) x[!stringr::str_detect(x, "^ER$|^ER |^ER-")])
 
@@ -196,7 +206,7 @@ remove_ref_header <- function(x) {
     first_tag <- which(stringr::str_detect(x[[1]], pattern_tag) == TRUE)[1]
 
     if (!first_tag == 1) {
-        x[[1]] <- unlist(cutter(x[[1]], first_tag, between = "left",
+        x[[1]] <- unlist(gutils::cutter(x[[1]], first_tag, between = "left",
                                 rm_start = TRUE))
     }
 
@@ -212,7 +222,7 @@ join_ref_solo_lines <- function(x) {
 
     if (any(!tag_detect)) {
         x <- x %>%
-            cutter(index = tagged_elements, between = "left") %>%
+            gutils::cutter(index = tagged_elements, between = "left") %>%
             lapply(function(i) paste(trimws(i), collapse = " ")) %>%
             unlist()
     }
@@ -228,8 +238,8 @@ join_ref_tag_values <- function(x, sep) {
     pattern_data <- "(?<=-).*"
     tags <- stringr::str_extract(x, pattern_tag)
 
-    if (any(duplicated(rm_na(tags)), na.rm = TRUE)) {
-        duplicated_tags <- unique(tags[duplicated(tags)]) %>% rm_na()
+    if (any(duplicated(gutils:::rm_na(tags)), na.rm = TRUE)) {
+        duplicated_tags <- unique(tags[duplicated(tags)]) %>% gutils:::rm_na()
 
         for (i in duplicated_tags) {
             pattern <- paste0("^", i, "\\s", "|", "^", i, "-")
@@ -367,21 +377,23 @@ clean_lookup_table <- function(lookup) {
 
     for (i in c("tag", "order", "name")) {
         if (any(is.na(lookup[[i]]))) {
-            alert("The lookup table has 'NA' values in the ",
-                  single_quote_(i), " column ", "(row(s) ",
-                  paste_collapse(which(is.na(lookup[[i]])), sep = ", ",
-                                 last = " and "),
-                  "). This row(s) were removed.",
-                  type = "warning")
+            cli::cli_alert_info(paste0(
+                "The lookup table has {.strong {cli::col_red('NA')}} ",
+                "values in the {.strong {cli::col_blue(i)}} column ",
+                "{cli::qty(length(which(is.na(lookup[[i]]))))}(row{?s} ",
+                "{as.character(which(is.na(lookup[[i]])))}). ",
+                "{?This/These} row{?s} were removed."
+            ))
 
             lookup <- lookup[-which(is.na(lookup[[i]])), ]
         }
     }
 
     if (nrow(lookup) == 0) {
-        stop("No rows remained in the lookup table after the cleaning ",
-             "process. Check the function documentation to learn more.",
-             call. = FALSE)
+        cli::cli_abort(paste0(
+            "No rows remained in the lookup table after the cleaning ",
+            "process. Check the function documentation to learn more."
+        ))
     }
 
     lookup <- lookup[!duplicated(lookup$tag), ]
@@ -399,7 +411,7 @@ join_ref_col_values <- function(x, lookup, sep) {
 
     if (any(duplicated(lookup$name), na.rm = TRUE)) {
         duplicate_names <- unique(lookup$name[duplicated(lookup$name)]) %>%
-            rm_na()
+            gutils:::rm_na()
 
         for (i in duplicate_names) {
             tags <- lookup$tag[which(lookup$name == i)]

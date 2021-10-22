@@ -4,7 +4,7 @@
 \alias{raw_data}
 \title{Get paths to \code{sqlr} raw data}
 \usage{
-raw_data(type = NULL, file = NULL, package = "sqlr")
+raw_data(type = NULL, file = NULL)
 }
 \arguments{
 \item{type}{(optional) a string indicating the file type of the raw data
@@ -12,10 +12,6 @@ raw_data(type = NULL, file = NULL, package = "sqlr")
 
 \item{file}{(optional) a \code{character} object indicating the file name(s) of
 the raw data (default: \code{NULL}).}
-
-\item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{sqlr}).}
 }
 \value{
 \itemize{
@@ -36,9 +32,5 @@ path.
 \dontrun{
 raw_data()
 }
-}
-\seealso{
-Other utility functions: 
-\code{\link{cutter}()}
 }
 \concept{utility functions}

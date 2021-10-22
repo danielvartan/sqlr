@@ -54,17 +54,17 @@ references/citations. If the cut point is located at the end of the
 references/citations, the \code{between} value (see below) will be set to
 \code{"right"}, else, it will be set to \verb{"left}.
 \item \code{between}: a \code{"left"} or \code{"right"} value that can be used with the
-\code{cutter()} function. See the documentation for the mentioned function to
-learn more.
+\code{\link[gutils:cutter]{cutter()}} function. See the documentation for the
+mentioned function to learn more.
 }
 }
 }
 \examples{
 \dontrun{
 if (require_namespace("utils", quietly = TRUE)) {
-    citations <- raw_data("citation")
-    file <- citations[grep("_apa_", citations)]
-    file <- raw_data("citation", file)
+    references <- raw_data("reference")
+    file <- references[grep("_apa_", references)]
+    file <- raw_data("reference", file)
     file <- zip_files <- utils::unzip(file, exdir = tempdir())[1]
 
     guess_ref(file)

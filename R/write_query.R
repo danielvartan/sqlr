@@ -21,19 +21,18 @@
 #' @examples
 #' \dontrun{
 #' write_query()}
-write_query <- function(range = NULL, package = NULL) {
+write_query <- function(range = NULL, package = gutils:::get_package_name()) {
     checkmate::assert_string(range, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
-    require_pkg("utils", "googlesheets4")
+    gutils:::require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
     sheets <- provider <- language <- domain_set <- NULL
     constraint_set <- query <- approval <- constraint <- constraint_id <- NULL
 
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-    assert_data("sheets", package, alert = "gipso_1")
-    assert_data("search", package, alert = "gipso_2")
+    gutils:::assert_namespace(package)
+    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("search", package, alert = "gipso_2")
 
     utils::data("sheets", package = package, envir = environment())
     utils::data("search", package = package, envir = environment())
@@ -126,9 +125,11 @@ domain_set <- function(x, language, package = NULL) {
             tidy <- tidy_keyword(set)
 
             if (!(length(set) == length(tidy))) {
-                stop("Some keywords from the domain ", single_quote_(x[i]),
-                     " and language ", single_quote_(language),
-                     " are missing after the keyword tidying process.")
+                cli::cli_abort(paste0(
+                    "Some keywords from the domain {cli::col_red(x[i])} ",
+                    "and language {cli::col_blue(language)} ",
+                    "are missing after the keyword tidying process."
+                ))
             }
 
             out <- out %>% append(keyword_set(as.numeric(x[i]), language,
@@ -141,7 +142,7 @@ domain_set <- function(x, language, package = NULL) {
     paste0(out, collapse = ",")
 }
 
-constraint_set <- function(x, package = NULL) {
+constraint_set <- function(x, package = gutils:::get_package_name()) {
     checkmate::assert_string(x)
     checkmate::assert_string(package, null.ok = TRUE)
 
@@ -164,9 +165,8 @@ constraint_set <- function(x, package = NULL) {
              call. = FALSE)
     }
 
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-    assert_data("constraint", package, alert = "gipso_2")
+    gutils:::assert_namespace(package)
+    gutils:::assert_data("constraint", package, alert = "gipso_2")
 
     utils::data("constraint", package = package, envir = environment())
 

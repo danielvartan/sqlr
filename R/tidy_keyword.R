@@ -100,10 +100,12 @@ tidy_keyword <- function(..., min_chars = 1, delimiter = ",",
     invalid <- grepl("'", unlist(out, use.names = FALSE), perl = TRUE)
 
     if (any(invalid) && isFALSE(quiet)) {
-        warning(inline_collapse(out[invalid]), " have invalid values. ",
-                "If 'na_rm = FALSE' those values will be transformed to ",
-                "'NA'. Else, they will be removed from the output.",
-                call. = FALSE)
+        cli::cli_alert_warning(paste0(
+            "{.strong {out[invalid]}} have invalid values. ",
+            "If {.strong {cli::col_red('na_rm = FALSE')}} those values ",
+            "will be transformed to {.strong {cli::col_red('NA')}}. ",
+            "Else, they will be removed from the output."
+        ))
     }
 
     out <- out %>%
@@ -127,7 +129,7 @@ tidy_keyword <- function(..., min_chars = 1, delimiter = ",",
     out <- dplyr::if_else(
         is.na(out) | grepl("^[a-zA-Z0-9]+$", out, perl = TRUE) |
             grepl(modifiers, out, perl = TRUE),
-        out, enclosure(out, enclosure))
+        out, gutils:::enclosure(out, enclosure))
 
     out
 }

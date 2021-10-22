@@ -4,17 +4,14 @@
 \alias{write_reference}
 \title{Write the \code{reference} table to the package and to Google Spreadsheets}
 \usage{
-write_reference(data, package = NULL, quiet = FALSE)
+write_reference(data, package = gutils:::get_package_name())
 }
 \arguments{
 \item{data}{The \code{data.frame} object to write.}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
-
-\item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
-must be suppressed (default: \code{FALSE}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -36,7 +33,6 @@ write_reference(data.frame(a = 1, b = 1))}
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
 \code{\link{selection_stats}()},

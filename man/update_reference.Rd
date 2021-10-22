@@ -4,14 +4,19 @@
 \alias{update_reference}
 \title{Update the \code{reference} table using a trial table}
 \usage{
-update_reference(trial_id, package = NULL, write = TRUE, quiet = FALSE)
+update_reference(
+  trial_id,
+  package = gutils:::get_package_name(),
+  write = TRUE,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{trial_id}{A string indicating the ID of the trial to be written.}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 
 \item{write}{(optional) a \code{logical} value indicating if the function must
 update the \code{reference} data table of the package and to write the new
@@ -41,7 +46,6 @@ update_reference("NR1")}
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
 \code{\link{selection_stats}()},

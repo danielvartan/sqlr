@@ -33,8 +33,8 @@
 write_metadata <- function(id, sheet = "Dataset") {
     checkmate::assert_string(id)
     checkmate::assert_string(sheet)
-    assert_interactive()
-    require_pkg("googlesheets4")
+    gutils:::assert_interactive()
+    gutils:::require_pkg("googlesheets4")
 
     name <- where <- NULL # R CMD Check variable bindings fix
 
@@ -112,16 +112,14 @@ write_metadata <- function(id, sheet = "Dataset") {
 #'
 #' read_sheet(names(sheets)[2])
 #' }
-read_sheet <- function(name = NULL, package = NULL) {
+read_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
     checkmate::assert_character(name, any.missing = FALSE,
                                 all.missing = FALSE, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
-    assert_interactive()
-    require_pkg("utils", "googlesheets4")
-
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-    assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_interactive()
+    gutils:::require_pkg("utils", "googlesheets4")
+    gutils:::assert_namespace(package)
+    gutils:::assert_data("sheets", package, alert = "gipso_1")
 
     sheets <- NULL # R CMD Check variable bindings fix
 
@@ -132,11 +130,9 @@ read_sheet <- function(name = NULL, package = NULL) {
         sheets <- sheets[name]
     } else {
         filter <- function(x) {
-            out <- tolower(x$type) == "entity" &&
-                !tolower(x$name) %in% c("reference", "document")
-            out <- rm_na(out)
-
-            out
+            (tolower(x$type) == "entity" &&
+                !tolower(x$name) %in% c("reference", "document")) %>%
+                gutils:::rm_na()
         }
 
         sheets <- sheets[vapply(sheets, filter, logical(1))]
@@ -196,27 +192,23 @@ read_sheet <- function(name = NULL, package = NULL) {
 #' ## To write one or more specific sheets
 #'
 #' write_sheet(sheets$domain$name)}
-write_sheet <- function(name = NULL, package = NULL) {
+write_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
     checkmate::assert_character(name, any.missing = FALSE,
                                 all.missing = FALSE, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
-    assert_interactive()
-    require_pkg("utils", "googlesheets4")
-
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-    assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_interactive()
+    gutils:::require_pkg("utils", "googlesheets4")
+    gutils:::assert_namespace(package)
+    gutils:::assert_data("sheets", package, alert = "gipso_1")
 
     sheets <- NULL # R CMD Check variable bindings fix
 
     utils::data("sheets", package = package, envir = environment())
 
     filter <- function(x) {
-        out <- tolower(x$type) == "entity" &&
-            !tolower(x$name) %in% c("reference", "document")
-        out <- rm_na(out)
-
-        out
+        (tolower(x$type) == "entity" &&
+            !tolower(x$name) %in% c("reference", "document")) %>%
+            gutils:::rm_na()
     }
 
     sheets <- sheets[vapply(sheets, filter, logical(1))]
@@ -284,23 +276,25 @@ write_sheet <- function(name = NULL, package = NULL) {
 #' @examples
 #' \dontrun{
 #' sheet_nrow(sheets$domain$name)}
-sheet_nrow <- function(name, package = NULL, rm_header = TRUE) {
+sheet_nrow <- function(name,
+                       package = gutils:::get_package_name(),
+                       rm_header = TRUE) {
     checkmate::assert_string(name)
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_flag(rm_header)
-    require_pkg("utils", "googlesheets4")
-
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-    assert_data("sheets", package, alert = "gipso_1")
+    gutils:::require_pkg("utils", "googlesheets4")
+    gutils:::assert_namespace(package)
+    gutils:::assert_data("sheets", package, alert = "gipso_1")
 
     sheets <- NULL # R CMD Check variable bindings fix
 
     utils::data("sheets", package = package, envir = environment())
 
     if (!name %in% names(sheets)) {
-        stop(single_quote_(name), " was not found in the 'sheets' table.",
-             call. = FALSE)
+        cli::cli_abort(paste0(
+            "{.strong {cli::col_red(name)}} was not found in the ",
+            "{cli::col_blue('sheets')} table."
+        ))
     }
 
     properties <- googlesheets4::sheet_properties(sheets[[name]]$id)
@@ -348,27 +342,28 @@ sheet_nrow <- function(name, package = NULL, rm_header = TRUE) {
 #' @examples
 #' \dontrun{
 #' range_write(reference, "reference")}
-range_write <- function(x, name, package = NULL, limit = 200000,
-                        quiet = FALSE) {
+range_write <- function(x, name, package = gutils:::get_package_name(),
+                        limit = 200000, quiet = FALSE) {
     checkmate::assert_data_frame(x, min.rows = 1)
     checkmate::assert_string(name)
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_number(limit, lower = 5000)
     checkmate::assert_flag(quiet)
-    require_pkg("utils", "googlesheets4")
+    gutils:::require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
     sheets <- where <- NULL
 
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-    assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_namespace(package)
+    gutils:::assert_data("sheets", package, alert = "gipso_1")
 
     utils::data("sheets", package = package, envir = environment())
 
     if (!name %in% names(sheets)) {
-        stop(single_quote_(name), " was not found in the 'sheets' table.",
-             call. = FALSE)
+        cli::cli_abort(paste0(
+            "{.strong {cli::col_red(name)}} was not found in the ",
+            "{cli::col_blue('sheets')} table."
+        ))
     }
 
     str_subset <- function(x) {
@@ -380,7 +375,7 @@ range_write <- function(x, name, package = NULL, limit = 200000,
 
     x <- x %>% dplyr::mutate(dplyr::across(where(is.character), str_subset))
 
-    shush(
+    gutils:::shush(
         googlesheets4::sheet_resize(ss = sheets[[name]]$id,
                                     sheet = sheets[[name]]$sheet,
                                     nrow = 2,
@@ -390,7 +385,7 @@ range_write <- function(x, name, package = NULL, limit = 200000,
     )
 
     if (limit >= prod(dim(x))) {
-        shush(
+        gutils:::shush(
             googlesheets4::range_write(ss = sheets[[name]]$id,
                                        data = x,
                                        sheet = sheets[[name]]$sheet,
@@ -402,7 +397,7 @@ range_write <- function(x, name, package = NULL, limit = 200000,
     } else {
         batch <- limit / ncol(x)
 
-        shush(
+        gutils:::shush(
             googlesheets4::range_write(ss = sheets[[name]]$id,
                                        data = x[seq(batch),],
                                        sheet = sheets[[name]]$sheet,
@@ -423,7 +418,7 @@ range_write <- function(x, name, package = NULL, limit = 200000,
                 to <- from + batch - 1
             }
 
-            shush(
+            gutils:::shush(
                 googlesheets4::sheet_append(ss = sheets[[name]]$id,
                                             data = x[seq(from, to),],
                                             sheet = sheets[[name]]$sheet),
@@ -439,8 +434,13 @@ range_write <- function(x, name, package = NULL, limit = 200000,
                  call. = FALSE)
         }
 
-        alert("\nYou may need to format the appended rows. Currently ",
-              "'googlesheets4' provides no real support for formatting.\n")
+        cli::cat_line()
+        cli::cli_alert_info(paste0(
+            "You may need to format the appended rows. Currently ",
+            "{.strong {cli::col_blue('googlesheets4')}} provides no real ",
+            "support for formatting."
+        ))
+        cli::cat_line()
     }
 
     invisible(NULL)

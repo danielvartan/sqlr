@@ -14,14 +14,15 @@
 #' @family SQLR system functions
 #' @template param_a
 #' @export
-start_sqlr <- function(id, sheet = "Dataset", package = NULL) {
+start_sqlr <- function(id, sheet = "Dataset",
+                       package = gutils:::get_package_name() ) {
     checkmate::assert_string(id)
     checkmate::assert_string(sheet)
-    checkmate::assert_string(package, null.ok = TRUE)
+    checkmate::assert_string(package)
 
-    shush(normalize_extdata())
-    shush(write_metadata(id, sheet))
-    shush(write_sheet(package = package))
+    gutils:::shush(gutils::normalize_extdata(package = package))
+    gutils:::shush(write_metadata(id, sheet))
+    gutils:::shush(write_sheet(package = package))
 
     message("\n", "Run (in order):\n\n",
             "devtools::document()\n",

@@ -4,14 +4,14 @@
 \alias{write_trial}
 \title{Write a trial table to a Google Spreadsheets}
 \usage{
-write_trial(trial_id, package = NULL, quiet = FALSE)
+write_trial(trial_id, package = gutils:::get_package_name(), quiet = FALSE)
 }
 \arguments{
 \item{trial_id}{A string indicating the ID of the trial to be written.}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 
 \item{quiet}{(optional) a \code{logical} value indicating if warnings or messages
 must be suppressed (default: \code{FALSE}).}
@@ -44,7 +44,6 @@ sheet_nrow("trial_nr1") == nrow(reference)}
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
 \code{\link{selection_stats}()},

@@ -29,8 +29,8 @@
 #' references/citations, the `between` value (see below) will be set to
 #' `"right"`, else, it will be set to `"left`.
 #' * `between`: a `"left"` or `"right"` value that can be used with the
-#' `cutter()` function. See the documentation for the mentioned function to
-#' learn more.
+#' [`cutter()`][gutils::cutter()] function. See the documentation for the
+#' mentioned function to learn more.
 #'
 #' @param file (optional) a string indicating a reference/citation file. If not
 #'   assigned, a dialog window will be open enabling the user to search and
@@ -54,9 +54,9 @@
 #' @examples
 #' \dontrun{
 #' if (require_namespace("utils", quietly = TRUE)) {
-#'     citations <- raw_data("citation")
-#'     file <- citations[grep("_apa_", citations)]
-#'     file <- raw_data("citation", file)
+#'     references <- raw_data("reference")
+#'     file <- references[grep("_apa_", references)]
+#'     file <- raw_data("reference", file)
 #'     file <- zip_files <- utils::unzip(file, exdir = tempdir())[1]
 #'
 #'     guess_ref(file)
@@ -84,10 +84,11 @@ guess_ref <- function(file = file.choose(), return_data = FALSE,
         if (isTRUE(quiet)) {
             invisible(NULL)
         } else {
-            cat(crayonize("'guess_ref()' wasn't able to guess the citation/",
-                          "reference format from 'file'."),
-                emojinize("disappointed", left_space = TRUE),
-                sep = "")
+            cli::cli_alert_danger(paste0(
+                "{.strong guess_ref()} wasn't able to guess the citation/",
+                "reference format from {.strong {cli::col_blue('file')}}. ",
+                "\U0001F61E"
+            ))
 
             invisible(NULL)
         }

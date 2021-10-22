@@ -17,21 +17,17 @@
 #'
 #' @family SQLR system functions
 #' @template param_a
-#' @template param_b
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' write_reference(data.frame(a = 1, b = 1))}
-write_reference <- function(data, package = NULL, quiet = FALSE) {
+write_reference <- function(data, package = gutils:::get_package_name()) {
     checkmate::assert_data_frame(data, min.rows = 1)
     checkmate::assert_string(package, null.ok = TRUE)
-    checkmate::assert_flag(quiet)
+    gutils:::assert_namespace(package)
 
-    if (is.null(package)) package <- get_package_name()
-    assert_namespace(package)
-
-    assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package, alert = "gipso_1")
     utils::data("sheets", package = package, envir = environment())
     checkmate::assert_subset("reference", names(sheets))
 
@@ -42,17 +38,21 @@ write_reference <- function(data, package = NULL, quiet = FALSE) {
     file <- paste0("./data/", "reference", ".rda")
     reference <- data
 
-    shush(cli::cli_alert("Writing the 'reference' table to the package."),
-          quiet = quiet)
+    cli::cli_alert_info(paste0(
+        "Writing the {.strong {cli::col_blue('reference')}} table to ",
+        "the package."
+        ))
 
     save(reference, file = file, envir = environment(), compress = "bzip2",
          version = 2)
     rm(reference)
 
-    shush(cli::cli_alert(
-        "Writing the 'reference' table to Google Spreadsheets."), quiet = quiet)
+    cli::cli_alert_info(paste0(
+        "Writing the {.strong {cli::col_blue('reference')}} table to ",
+        "Google Spreadsheets."
+    ))
 
-    range_write(data, name = "reference", package = package, quiet = quiet)
+    range_write(data, name = "reference", package = package)
 
     cli::cli_alert_info(paste0(
         "{.strong {cli::col_red('Run (in order)')}}:\n\n",

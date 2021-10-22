@@ -2,10 +2,8 @@
 
 export(build_reference)
 export(count_ref)
-export(cutter)
 export(guess_ref)
 export(keyword_set)
-export(normalize_extdata)
 export(query)
 export(range_write)
 export(raw_data)

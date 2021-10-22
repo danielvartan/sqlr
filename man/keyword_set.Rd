@@ -4,7 +4,7 @@
 \alias{keyword_set}
 \title{Group keywords from the \code{keyword} dataset}
 \usage{
-keyword_set(domain_id, language = NULL, package = NULL)
+keyword_set(domain_id, language = NULL, package = gutils:::get_package_name())
 }
 \arguments{
 \item{domain_id}{An \code{integer} or \code{numeric} value indicating the domain ID to
@@ -14,8 +14,8 @@ return.}
 the keywords (case insensitive).}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 }
 \value{
 A \code{character} object with a keyword set.
@@ -35,7 +35,6 @@ keyword_set(1, "english")}
 \seealso{
 Other SQLR system functions: 
 \code{\link{build_reference}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{read_sheet}()},
 \code{\link{selection_stats}()},

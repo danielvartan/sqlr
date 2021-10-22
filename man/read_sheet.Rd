@@ -4,15 +4,15 @@
 \alias{read_sheet}
 \title{Read the review tables hosted on Google Sheets}
 \usage{
-read_sheet(name = NULL, package = NULL)
+read_sheet(name = NULL, package = gutils:::get_package_name())
 }
 \arguments{
 \item{name}{(optional) A \code{character} object indicating the name or names of
 the sheets that the function must return (default: \code{NULL}).}
 
 \item{package}{(optional) a string indicating the package with the database
-data. If \code{NULL}, the function will try to use the name of the active
-project directory (requires the \code{rstudioapi} package) (default: \code{NULL}).}
+data. If not assigned, the function will try to use the name of the active
+project directory (requires the \code{rstudioapi} package).}
 }
 \value{
 \itemize{
@@ -55,7 +55,6 @@ read_sheet(names(sheets)[2])
 Other SQLR system functions: 
 \code{\link{build_reference}()},
 \code{\link{keyword_set}()},
-\code{\link{normalize_extdata}()},
 \code{\link{range_write}()},
 \code{\link{selection_stats}()},
 \code{\link{sheet_nrow}()},

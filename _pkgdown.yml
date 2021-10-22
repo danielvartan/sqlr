@@ -5,6 +5,7 @@ template:
     bootswatch: cosmo
     ganalytics: G-S5BWLRNJSY
     mathjax: true
+    noindex: false
 
 navbar:
   structure:
@@ -35,7 +36,6 @@ reference:
 
 - title: Utilities
   contents:
-  - cutter
   - raw_data
 
 - title: SQLR system
@@ -74,7 +74,6 @@ reference:
   - document
 - subtitle: Utilities
   contents:
-  - normalize_extdata
   - start_sqlr
 
 authors:
