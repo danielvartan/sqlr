@@ -31,7 +31,7 @@ keyword_set <- function(domain_id, language = NULL,
     gutils:::require_pkg("utils")
 
     gutils:::assert_namespace(package)
-    gutils:::assert_data("keyword", package, alert = "gipso_2")
+    gutils:::assert_data("keyword", package)
 
     keyword <- approval <- NULL # R CMD Check variable bindings fix
 

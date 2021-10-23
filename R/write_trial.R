@@ -42,7 +42,7 @@ write_trial <- function(trial_id, package = gutils:::get_package_name()) {
     # R CMD Check variable bindings fix
     sheets <- reference <- trial <- criteria_id <- where <- NULL
 
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
 
     gutils:::assert_data("trial", package)
@@ -149,10 +149,10 @@ update_reference <- function(trial_id, package = gutils:::get_package_name(),
     sheets <- reference <- trial <- NULL
     reference_id <- criteria_id <- pdf <- NULL
 
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
 
-    gutils:::assert_data("reference", package, alert = "gipso_1")
+    gutils:::assert_data("reference", package)
     utils::data("reference", package = package, envir = environment())
 
     gutils:::assert_data("trial", package)

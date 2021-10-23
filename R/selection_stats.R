@@ -40,11 +40,11 @@ selection_stats <- function(trial_id = NULL,
     # R CMD Check variable bindings fix
     sheets <- reference <- criteria <- trial <- NULL
 
-    gutils:::assert_data("criteria", package, alert = "gipso_1")
+    gutils:::assert_data("criteria", package)
     utils::data("criteria", package = package, envir = environment())
 
     if (!is.null(trial_id)) {
-        gutils:::assert_data("sheets", package, alert = "gipso_1")
+        gutils:::assert_data("sheets", package)
         utils::data("sheets", package = package, envir = environment())
 
         choices <- names(sheets) %>%
@@ -67,10 +67,10 @@ selection_stats <- function(trial_id = NULL,
                                            match = criteria$criteria_id),
                              collapse = "\n"))
     } else {
-        gutils:::assert_data("reference", package, alert = "gipso_1")
+        gutils:::assert_data("reference", package)
         utils::data("reference", package = package, envir = environment())
 
-        gutils:::assert_data("trial", package, alert = "gipso_1")
+        gutils:::assert_data("trial", package)
         utils::data("trial", package = package, envir = environment())
 
         out <- character()

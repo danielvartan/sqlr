@@ -27,7 +27,7 @@ write_reference <- function(data, package = gutils:::get_package_name()) {
     checkmate::assert_string(package, null.ok = TRUE)
     gutils:::assert_namespace(package)
 
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
     checkmate::assert_subset("reference", names(sheets))
 

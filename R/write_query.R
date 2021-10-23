@@ -31,8 +31,8 @@ write_query <- function(range = NULL, package = gutils:::get_package_name()) {
     constraint_set <- query <- approval <- constraint <- constraint_id <- NULL
 
     gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
-    gutils:::assert_data("search", package, alert = "gipso_2")
+    gutils:::assert_data("sheets", package)
+    gutils:::assert_data("search", package)
 
     utils::data("sheets", package = package, envir = environment())
     utils::data("search", package = package, envir = environment())
@@ -168,7 +168,7 @@ constraint_set <- function(x, package = gutils:::get_package_name()) {
     }
 
     gutils:::assert_namespace(package)
-    gutils:::assert_data("constraint", package, alert = "gipso_2")
+    gutils:::assert_data("constraint", package)
 
     utils::data("constraint", package = package, envir = environment())
 

@@ -119,7 +119,7 @@ read_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
     gutils:::assert_interactive()
     gutils:::require_pkg("utils", "googlesheets4")
     gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package)
 
     sheets <- NULL # R CMD Check variable bindings fix
 
@@ -199,7 +199,7 @@ write_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
     gutils:::assert_interactive()
     gutils:::require_pkg("utils", "googlesheets4")
     gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package)
 
     sheets <- NULL # R CMD Check variable bindings fix
 
@@ -284,7 +284,7 @@ sheet_nrow <- function(name,
     checkmate::assert_flag(rm_header)
     gutils:::require_pkg("utils", "googlesheets4")
     gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package)
 
     sheets <- NULL # R CMD Check variable bindings fix
 
@@ -353,7 +353,7 @@ range_write <- function(x, name, package = gutils:::get_package_name(),
     sheets <- where <- NULL
 
     gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package)
 
     utils::data("sheets", package = package, envir = environment())
 

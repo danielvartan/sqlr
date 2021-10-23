@@ -31,7 +31,7 @@ build_reference <- function(package = gutils:::get_package_name(),
     sheets <- NULL
 
     gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package)
 
     utils::data("sheets", package = package, envir = environment())
     choices <- c("source", "search")
@@ -210,7 +210,7 @@ assign_ref_ids <- function(x, package = gutils:::get_package_name()) {
     reference_id <- criteria_id <- trial_id <- source_id <- search_id <- NULL
     pdf <- NULL
 
-    gutils:::assert_data("sheets", package, alert = "gipso_1")
+    gutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
 
     gutils:::assert_data("source", package)
