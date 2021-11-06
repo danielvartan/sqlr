@@ -54,6 +54,7 @@ write_reference <- function(data, package = gutils:::get_package_name()) {
 
     range_write(data, name = "reference", package = package)
 
+    cli::cat_line()
     cli::cli_alert_info(paste0(
         "{.strong {cli::col_red('Run (in order)')}}:\n\n",
         "{.strong devtools::document() [Ctrl + Shift  + D]\n",

@@ -1,0 +1,42 @@
+# -----------------------------------------------------------
+# CITATION file created with {cffr} R package, v0.1.0
+# See also: https://docs.ropensci.org/cffr/
+# -----------------------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "sqlr" in publications use:'
+type: software
+license: MIT
+title: 'sqlr: An R Package for Systematic Quantitative Literature Reviews'
+version: 0.0.0.9000
+abstract: A complete and consistent toolkit for Systematic Quantitative Literature
+  Reviews.
+authors:
+- family-names: Vartanian
+  given-names: Daniel
+  email: danvartan@gmail.com
+  orcid: https://orcid.org/0000-0001-7782-759X
+- family-names: Pedrazzoli
+  given-names: Mario
+  email: pedrazzo@usp.br
+  orcid: https://orcid.org/0000-0002-5257-591X
+preferred-citation:
+  type: unpublished
+  title: 'sqlr: An R package for systematic quantitative literature reviews'
+  authors:
+  - family-names: Vartanian
+    given-names: Daniel
+  - family-names: Pedrazzoli
+    given-names: Mario
+  year: '2021'
+  url: https://gipso.github.io/sqlr/
+repository-code: https://github.com/gipso/sqlr/issues/
+url: https://gipso.github.io/sqlr/
+contact:
+- family-names: Vartanian
+  given-names: Daniel
+  email: danvartan@gmail.com
+  orcid: https://orcid.org/0000-0001-7782-759X
+identifiers:
+- type: url
+  value: https://github.com/gipso/sqlr/

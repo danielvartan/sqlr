@@ -419,14 +419,6 @@ range_write <- function(x, name, package = gutils:::get_package_name(),
                  "the number of lines in the 'x'. Check the function code.",
                  call. = FALSE)
         }
-
-        cli::cat_line()
-        cli::cli_alert_info(paste0(
-            "You may need to format the appended rows. Currently ",
-            "{.strong {cli::col_blue('googlesheets4')}} provides no real ",
-            "support for formatting."
-        ))
-        cli::cat_line()
     }
 
     invisible(NULL)

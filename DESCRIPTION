@@ -1,10 +1,10 @@
 Package: sqlr
-Title: An R Package for Systematic Quantitative Literature Reviews
+Title: A System for Systematic Quantitative Literature Reviews
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Daniel",
              family = "Vartanian",
-             role = c("aut", "cre", "cph"),
+             role = c("aut", "cph", "cre"),
              email = "danvartan@gmail.com",
              comment = c(ORCID = "0000-0001-7782-759X")),
       person(given = "Mario",
@@ -16,18 +16,15 @@ Authors@R:
              role = c("fnd", "cph")),
       person(given = "University of Sao Paulo (USP)",
              role = c("fnd")))
-Maintainer: Daniel Vartanian <danvartan@gmail.com>
-Description: A complete and consistent toolkit for Systematic Quantitative
-    Literature Reviews.
+Description: A complete system for Systematic Quantitative Literature Reviews.
 License: MIT + file LICENSE
-URL: https://gipso.github.io/sqlr/, 
-    https://github.com/gipso/sqlr/
+URL: https://gipso.github.io/sqlr/, https://github.com/gipso/sqlr/
 BugReports: https://github.com/gipso/sqlr/issues/
 Depends:
     R (>= 4.0)
 Imports:
     checkmate (>= 2.0.0),
-    cli (>= 3.0.1),
+    cli (>= 3.1.0),
     dplyr (>= 1.0.7),
     googlesheets4 (>= 1.0.0),
     gutils,
@@ -36,13 +33,13 @@ Imports:
     rlang (>= 0.4.11),
     stringr (>= 1.4.0)
 Suggests:
-    covr,
-    knitr,
-    mockr,
-    rmarkdown,
-    spelling,
+    covr (>= 3.5.1),
+    knitr (>= 1.36),
+    mockr (>= 0.1),
+    rmarkdown (>= 2.11),
+    spelling (>= 2.2),
     testthat (>= 3.0.0),
-    utils
+    utils (>= 4.0.0)
 Remotes: 
     github::gipso/gutils,
     github::gipso/refstudio
