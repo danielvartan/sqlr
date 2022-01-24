@@ -189,13 +189,13 @@ update_reference <- function(trial_id, package = gutils:::get_package_name(),
                             is.na(criteria_id.y) ~
                             as.character(NA),
                         TRUE ~ dplyr::coalesce(
-                            !!as.symbol(paste0(i, ".x")),
-                            !!as.symbol(paste0(i, ".y")))))
+                            !!as.symbol(paste0(i, ".y")),
+                            !!as.symbol(paste0(i, ".x")))))
         } else {
             out <- out %>%
                 dplyr::mutate(!!as.symbol(paste0(i, ".x")) :=
-                                  dplyr::coalesce(!!as.symbol(paste0(i, ".x")),
-                                                  !!as.symbol(paste0(i, ".y"))))
+                                  dplyr::coalesce(!!as.symbol(paste0(i, ".y")),
+                                                  !!as.symbol(paste0(i, ".x"))))
         }
 
         out <- out %>%
