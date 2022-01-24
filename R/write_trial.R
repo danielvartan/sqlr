@@ -68,7 +68,7 @@ write_trial <- function(trial_id, package = gutils:::get_package_name()) {
         trial_x <- toupper(trial$trial_id[trial_index - 1])
 
         cli::cli_abort(paste0(
-            "The {cli::col_red(trial_x)} trial_id, i.e. the trial_id ",
+            "The {cli::col_red(trial_x)} trial_id, i.e., the trial_id ",
             "that comes before {cli::col_red(trial_id)} is not ",
             "approved in the {cli::col_grey('trial')} table. ",
             "This trial must be approved and the ",
@@ -82,7 +82,7 @@ write_trial <- function(trial_id, package = gutils:::get_package_name()) {
     cols <- c("reference_id", "criteria_id", "trial_id", "pdf", "type",
               "doi", "pmid", "author", "year", "title", "abstract", "keyword",
               "journal", "place_published", "volume", "issue", "start_page",
-              "end_page")
+              "end_page", "publisher", "standard_number", "length")
 
     reference <- reference %>%
         dplyr::select(
