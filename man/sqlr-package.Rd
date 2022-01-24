@@ -4,11 +4,11 @@
 \name{sqlr-package}
 \alias{sqlr}
 \alias{sqlr-package}
-\title{sqlr: An R Package for Systematic Quantitative Literature Reviews}
+\title{sqlr: A System for Systematic Quantitative Literature Reviews}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-A complete and consistent toolkit for Systematic Quantitative Literature Reviews.
+A complete system for Systematic Quantitative Literature Reviews.
 }
 \seealso{
 Useful links:
