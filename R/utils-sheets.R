@@ -140,9 +140,13 @@ read_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
     }
 
     if (any(vapply(sheets, function(x) is.na(x$id), logical(1)))) {
-        stop("At least one sheet in 'name' doesn't have an ID value in ",
-             "the 'sheets' table. You may need to run 'write_metadata()' ",
-             "before running 'read_sheet().", call. = FALSE)
+        cli::cli_abort(paste0(
+            "At least one sheet in {.strong {cli::col_red('name')}} ",
+            "doesn't have an ID value in the ",
+            "{.strong {cli::col_blue('sheets')}}  table. ",
+            "You may need to run {.strong write_metadata()} ",
+            "before running {.strong read_sheet()}."
+        ))
     }
 
     for (i in sheets) {
@@ -215,10 +219,15 @@ write_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
 
     if (!is.null(name)) {
         if (!all(name %in% names(sheets), na.rm = TRUE)) {
-            stop("At least one of the names in 'names' was not found in the ",
-                 "'sheets' metadata or it indicates the 'reference', ",
-                 "'document', or non-entity tables (that cannot be written).",
-                 call. = FALSE)
+            cli::cli_abort(paste0(
+                "At least one of the names in ",
+                "{.strong {cli::col_red('name')}} ",
+                "was not found in the ",
+                "{.strong {cli::col_blue('sheets')}}  table ",
+                "or it indicates the {.strong reference}, ",
+                "{.strong document}, or non-entity tables ",
+                "(that cannot be written)."
+            ))
         }
 
         if (length(name) == 1) {
@@ -415,9 +424,12 @@ range_write <- function(x, name, package = gutils:::get_package_name(),
         }
 
         if (rows != nrow(x)) {
-            stop("Critical error: The number of rows written does not match ",
-                 "the number of lines in the 'x'. Check the function code.",
-                 call. = FALSE)
+            cli::cli_abort(paste0(
+                "{.strong {cli::col_red('Critical error')}}: ",
+                "The number of rows written does not match ",
+                "the number of lines in {.strong x}. ",
+                "Check the function code."
+            ))
         }
     }
 
