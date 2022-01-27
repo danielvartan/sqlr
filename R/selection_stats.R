@@ -117,6 +117,13 @@ selection_stats <- function(trial_id = NULL,
 }
 
 stats_builder <- function(x, match = NULL, print = TRUE) {
+    if (checkmate::test_atomic_vector(x, all.missing = TRUE, min.len = 1)) {
+        out <- "No statistics are avaliable yet."
+        cli::cli_alert_warning("{out}")
+
+        return(out)
+    }
+
     checkmate::assert_atomic_vector(x, all.missing = FALSE, min.len = 1)
     checkmate::assert_flag(print)
 
