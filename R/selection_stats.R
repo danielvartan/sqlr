@@ -117,28 +117,27 @@ selection_stats <- function(trial_id = NULL,
 }
 
 stats_builder <- function(x, match = NULL, print = TRUE) {
-    if (checkmate::test_atomic_vector(x, all.missing = TRUE, min.len = 1)) {
+    checkmate::assert_atomic_vector(x, min.len = 1)
+    checkmate::assert_class(match, class(x), null.ok = TRUE)
+    checkmate::assert_flag(print)
+
+    if (all(is.na(x))) {
         out <- "No statistics are avaliable yet."
         cli::cli_alert_warning("{out}")
 
         return(out)
     }
 
-    checkmate::assert_atomic_vector(x, all.missing = FALSE, min.len = 1)
-    checkmate::assert_flag(print)
-
     out <- character()
     n_total <- length(x)
+    unique <- gutils:::rm_na(unique(x))
 
     text <- c(
         "references were tagged with the ID",
         "references were tagged",
         "references were not tagged")
 
-    if (!is.null(match)) {
-        unique <- gutils:::rm_na(unique(x))
-        unique <- unique[order(match(unique, match))]
-    }
+    if (!is.null(match)) unique <- unique[order(match(unique, match))]
 
     for (i in unique) {
         i_total <- length(which(x == i))
