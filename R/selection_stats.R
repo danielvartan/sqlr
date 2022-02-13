@@ -28,11 +28,11 @@
 #' @examples
 #' \dontrun{
 #' selection_stats()}
-selection_stats <- function(trial_id = NULL,
-                            package = gutils:::get_package_name(),
+selection_stats <- function(package = gutils:::get_package_name(),
+                            trial_id = NULL,
                             clipboard = TRUE) {
-    checkmate::assert_string(trial_id, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
+    checkmate::assert_string(trial_id, null.ok = TRUE)
     checkmate::assert_flag(clipboard)
     gutils:::assert_interactive()
     gutils:::assert_namespace(package)
@@ -116,9 +116,10 @@ selection_stats <- function(trial_id = NULL,
     invisible(NULL)
 }
 
-stats_builder <- function(x, match = NULL, print = TRUE) {
+stats_builder <- function(x, match = NULL, last = TRUE, print = TRUE) {
     checkmate::assert_atomic_vector(x, min.len = 1)
     checkmate::assert_class(match, class(x), null.ok = TRUE)
+    checkmate::assert_flag(last)
     checkmate::assert_flag(print)
 
     if (all(is.na(x))) {
@@ -131,6 +132,21 @@ stats_builder <- function(x, match = NULL, print = TRUE) {
     out <- character()
     n_total <- length(x)
     unique <- gutils:::rm_na(unique(x))
+
+    if (isTRUE(last)) {
+        last_index <- max(which(!is.na(x)))
+        last_percentage <- ((last_index / n_total) * 100)
+
+        cli::cli_alert_info(paste0(
+            "{.strong {cli::col_red(pretty_num(last_index))}}", " / ",
+            "{.strong {pretty_num(n_total)}}", " (",
+            "{.strong {cli::col_red(paste0(pretty_per(last_percentage)),
+                '%')}}",
+            ") ", "references were analysed (last tag)",
+            ".")
+        )
+        cli::cat_line()
+    }
 
     text <- c(
         "references were tagged with the ID",
