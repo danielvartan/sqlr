@@ -71,22 +71,22 @@ data of a SQLR package, hence, the data of the package must be up-to-date.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">selection_stats</span><span class="op">(</span>
-  trial_id <span class="op">=</span> <span class="cn">NULL</span>,
   package <span class="op">=</span> <span class="fu">gutils</span><span class="fu">:::</span><span class="fu">get_package_name</span><span class="op">(</span><span class="op">)</span>,
+  trial_id <span class="op">=</span> <span class="cn">NULL</span>,
   clipboard <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>trial_id</dt>
-<dd><p>(optional) a string indicating the ID of the trial. This
-argument must be set only when the function must print a trial statistics
-(default: <code>NULL</code>).</p></dd>
-<dt>package</dt>
+    <dl><dt>package</dt>
 <dd><p>(optional) a string indicating the package with the database
 data. If not assigned, the function will try to use the name of the active
 project directory (requires the <code>rstudioapi</code> package).</p></dd>
+<dt>trial_id</dt>
+<dd><p>(optional) a string indicating the ID of the trial. This
+argument must be set only when the function must print a trial statistics
+(default: <code>NULL</code>).</p></dd>
 <dt>clipboard</dt>
 <dd><p>(optional) a <code>logical</code> value indicating if the function must
 copy a Markdown version of the statistics to the clipboard. (default:
