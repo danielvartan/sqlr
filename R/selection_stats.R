@@ -142,7 +142,7 @@ stats_builder <- function(x, match = NULL, last = TRUE, print = TRUE) {
             "{.strong {pretty_num(n_total)}}", " (",
             "{.strong {cli::col_red(paste0(pretty_per(last_percentage)),
                 '%')}}",
-            ") ", "references were analysed (last tag)",
+            ") ", "last tag index (from top to bottom)",
             ".")
         )
         cli::cat_line()
