@@ -1,13 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sqlr <a href='https://gipso.github.io/sqlr'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# sqlr
 
 <!-- badges: start -->
 
-![CRAN status](https://www.r-pkg.org/badges/version/sqlr) [![Project
-Status: WIP – Initial development is in progress, but there has not yet
-been a stable, usable release suitable for the
+[![Project Status: WIP – Initial development is in progress, but there
+has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -37,12 +36,7 @@ Learn more about Systematic Quantitative Literature Reviews (SQLR)
 
 ## Installation
 
-`sqlr` is still at the
-[experimental](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-stage of development. That means people can use the package and provide
-feedback, but it comes with no promises for long term stability.
-
-You can install `sqlr` from GitHub with:
+You can install the development version from GitHub with:
 
 ``` r
 # install.packages("remotes")
@@ -60,9 +54,9 @@ citation("sqlr")
 #> 
 #> To cite {sqlr} in publications use:
 #> 
-#>   Vartanian, D., Pedrazzoli, M. (2021). {sqlr}: An R package for
+#>   Vartanian, D., & Pedrazzoli, M. (2021). {sqlr}: An R package for
 #>   systematic quantitative literature reviews.
-#>   https://gipso.github.io/sqlr/.
+#>   https://gipso.github.io/sqlr/
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -77,8 +71,8 @@ citation("sqlr")
 
 ## Contributing
 
-`sqlr` is a community project, everyone is welcome to contribute. Take a
-moment to review our [Guidelines for
+We welcome contributions, including bug reports. Take a moment to review
+our [Guidelines for
 Contributing](https://gipso.github.io/sqlr/CONTRIBUTING.html).
 
 Please note that `sqlr` is released with a [Contributor Code of
