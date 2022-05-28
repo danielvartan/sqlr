@@ -26,6 +26,7 @@ write_reference <- function(data, package = gutils:::get_package_name()) {
     checkmate::assert_data_frame(data, min.rows = 1)
     checkmate::assert_string(package, null.ok = TRUE)
     gutils:::assert_namespace(package)
+    gutils:::assert_interactive()
 
     gutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
@@ -34,7 +35,9 @@ write_reference <- function(data, package = gutils:::get_package_name()) {
     # R CMD Check variable bindings fix
     sheets <- where <- doi <- pmid <- year <- NULL
 
-    if(!(dir.exists("./data/"))) dir.create("./data/")
+    googlesheets4::gs4_auth()
+
+    if (!(dir.exists("./data/"))) dir.create("./data/")
     file <- paste0("./data/", "reference", ".rda")
     reference <- data
 

@@ -24,11 +24,14 @@
 write_query <- function(range = NULL, package = gutils:::get_package_name()) {
     checkmate::assert_string(range, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
+    gutils:::assert_interactive()
     gutils:::require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
     sheets <- provider <- language <- domain_set <- NULL
     constraint_set <- query <- approval <- constraint <- constraint_id <- NULL
+
+    googlesheets4::gs4_auth()
 
     gutils:::assert_namespace(package)
     gutils:::assert_data("sheets", package)

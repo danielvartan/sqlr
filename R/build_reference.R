@@ -38,12 +38,9 @@ build_reference <- function(package = gutils:::get_package_name(),
     checkmate::assert_subset(choices, names(sheets))
 
     if (isTRUE(write)) {
-        if (!is_interactive()) {
-            stop("You must be in a interactive R session to write the ",
-                 "'reference' table.", call. = FALSE)
-        }
-
+        gutils:::assert_interactive()
         checkmate::assert_subset("reference", names(sheets))
+
         googlesheets4::gs4_auth()
     }
 

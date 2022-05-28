@@ -42,6 +42,8 @@ write_trial <- function(trial_id, package = gutils:::get_package_name()) {
     # R CMD Check variable bindings fix
     sheets <- reference <- trial <- criteria_id <- where <- NULL
 
+    googlesheets4::gs4_auth()
+
     gutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
 
@@ -141,7 +143,6 @@ update_reference <- function(trial_id, package = gutils:::get_package_name(),
 
     checkmate::assert_string(trial_id, pattern = pattern)
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::assert_interactive()
     gutils:::require_pkg("utils", "googlesheets4")
     gutils:::assert_namespace(package)
 
@@ -157,6 +158,12 @@ update_reference <- function(trial_id, package = gutils:::get_package_name(),
 
     gutils:::assert_data("trial", package)
     utils::data("trial", package = package, envir = environment())
+
+    if (isTRUE(write)) {
+        gutils:::assert_interactive()
+
+        googlesheets4::gs4_auth()
+    }
 
     trial_name <- paste0("trial_", tolower(trial_id))
 

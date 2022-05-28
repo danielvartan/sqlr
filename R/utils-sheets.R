@@ -38,6 +38,8 @@ write_metadata <- function(id, sheet = "Dataset") {
 
     name <- where <- NULL # R CMD Check variable bindings fix
 
+    googlesheets4::gs4_deauth()
+
     data <- googlesheets4::read_sheet(id, sheet, col_types = "c",
                                       na = c("", "NA"))
 
@@ -148,6 +150,8 @@ read_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
             "before running {.strong read_sheet()}."
         ))
     }
+
+    googlesheets4::gs4_deauth()
 
     for (i in sheets) {
         data <- googlesheets4::read_sheet(i$id, i$sheet, na = c("", "NA"))
