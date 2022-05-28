@@ -1,8 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-02-19T02:10Z
+last_built: 2022-05-28T22:44Z
 urls:
   reference: https://gipso.github.io/sqlr/reference
   article: https://gipso.github.io/sqlr/articles
