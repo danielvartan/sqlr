@@ -17,8 +17,6 @@ coverage](https://codecov.io/gh/gipso/sqlr/branch/main/graph/badge.svg)](https:/
 MIT](https://img.shields.io/badge/license-MIT-green)](https://choosealicense.com/licenses/mit/)
 [![Contributor
 Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://gipso.github.io/sqlr/CODE_OF_CONDUCT.html)
-[![Buy Me A Coffee donate
-button](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg)](https://ko-fi.com/danielvartan)
 <!-- badges: end -->
 
 ## Overview
@@ -54,7 +52,7 @@ citation("sqlr")
 #> 
 #> To cite {sqlr} in publications use:
 #> 
-#>   Vartanian, D., & Pedrazzoli, M. (2021). {sqlr}: An R package for
+#>   Vartanian, D., & Pedrazzoli, M. (2022). {sqlr}: An R package for
 #>   systematic quantitative literature reviews.
 #>   https://gipso.github.io/sqlr/
 #> 
@@ -63,7 +61,7 @@ citation("sqlr")
 #>   @Unpublished{,
 #>     title = {{sqlr}: An R package for systematic quantitative literature reviews},
 #>     author = {Daniel Vartanian and Mario Pedrazzoli},
-#>     year = {2021},
+#>     year = {2022},
 #>     url = {https://gipso.github.io/sqlr/},
 #>     note = {Lifecycle: experimental},
 #>   }
@@ -78,24 +76,3 @@ Contributing](https://gipso.github.io/sqlr/CONTRIBUTING.html).
 Please note that `sqlr` is released with a [Contributor Code of
 Conduct](https://gipso.github.io/sqlr/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.
-
-## Support `sqlr`
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/danielvartan)
-
-Working with science in Brazil is a daily challenge. There are few
-funding opportunities available and their value is not enough to live
-on. Added to this, every day Brazilian science suffers from deep cuts in
-funding, which requires researchers to always look for other sources of
-income.
-
-If this package helps you in any way or you simply want to support the
-author’s work, please consider donating or even creating a membership
-subscription (if you can!). Your support will help with the author’s
-scientific pursuit and with the package maintenance.
-
-To make a donation click on the [Ko-fi](https://ko-fi.com/danielvartan)
-button above. Please indicate the `sqlr` package in your donation
-message.
-
-Thank you!
