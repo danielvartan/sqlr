@@ -26,8 +26,8 @@ to process Systematic Quantitative Literature Reviews (SQLR), a method
 of systematic reviews presented by Catherine Pickering and Jason Byrne
 in [2014](https://doi.org/10.1080/07294360.2013.841651). The aim of
 `sqlr` is to facilitate the work of PhD candidates and other
-early-career researchers with evidence synthesis while also helping with
-research reproducibility.
+early-career researchers with evidence synthesis and help with research
+reproducibility.
 
 Learn more about Systematic Quantitative Literature Reviews (SQLR)
 [here](https://www.griffith.edu.au/griffith-sciences/school-environment-science/research/systematic-quantitative-literature-review).

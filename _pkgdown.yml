@@ -3,7 +3,6 @@ url: https://gipso.github.io/sqlr/
 template:
   params:
     bootswatch: cosmo
-    ganalytics: G-S5BWLRNJSY
     mathjax: true
     noindex: false
 
@@ -63,12 +62,6 @@ reference:
 authors:
   Daniel Vartanian:
     href: https://github.com/danielvartan
-  Mario Pedrazzoli:
-    href: https://github.com/pedrazzo
-  Interdisciplinary Sleep Research Group (GIPSO):
-    href: http://each.usp.br/gipso
-  University of Sao Paulo (USP):
-    href: http://usp.br
 
 development:
   mode: auto

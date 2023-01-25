@@ -4,22 +4,13 @@ Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Daniel",
              family = "Vartanian",
-             role = c("aut", "cph", "cre"),
+             role = c("aut", "cre", "ccp", "cph"),
              email = "danvartan@gmail.com",
-             comment = c(ORCID = "0000-0001-7782-759X")),
-      person(given = "Mario",
-             family = "Pedrazzoli",
-             email = "pedrazzo@usp.br",
-             role = c("aut", "sad"),
-             comment = c(ORCID = "0000-0002-5257-591X")),
-      person(given = "Interdisciplinary Sleep Research Group (GIPSO)",
-             role = c("fnd", "cph")),
-      person(given = "University of Sao Paulo (USP)",
-             role = c("fnd")))
+             comment = c(ORCID = "0000-0001-7782-759X")))
 Description: A complete system for Systematic Quantitative Literature Reviews.
 License: MIT + file LICENSE
-URL: https://gipso.github.io/sqlr/, https://github.com/gipso/sqlr/
-BugReports: https://github.com/gipso/sqlr/issues/
+URL: https://giperbio.github.io/sqlr/, https://github.com/giperbio/sqlr/
+BugReports: https://github.com/giperbio/sqlr/issues/
 Depends:
     R (>= 4.0)
 Imports:
@@ -41,8 +32,8 @@ Suggests:
     testthat (>= 3.0.0),
     utils (>= 4.0.0)
 Remotes: 
-    github::gipso/gutils,
-    github::gipso/refstudio
+    github::giperbio/gutils,
+    github::giperbio/refstudio
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
