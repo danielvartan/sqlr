@@ -1,36 +1,39 @@
 Package: sqlr
 Title: A System for Systematic Quantitative Literature Reviews
 Version: 0.0.0.9000
-Authors@R: 
-    c(person(given = "Daniel",
-             family = "Vartanian",
-             role = c("aut", "cre", "ccp", "cph"),
-             email = "danvartan@gmail.com",
-             comment = c(ORCID = "0000-0001-7782-759X")))
-Description: A complete system for Systematic Quantitative Literature Reviews.
+Authors@R: c(
+        person(
+            given = "Daniel",
+            family = "Vartanian",
+            role = c("aut", "cre", "ccp", "cph"),
+            email = "danvartan@gmail.com",
+            comment = c(ORCID = "0000-0001-7782-759X")
+            )
+        )
+Description: A system for systematic quantitative literature reviews.
 License: MIT + file LICENSE
 URL: https://giperbio.github.io/sqlr/, https://github.com/giperbio/sqlr/
 BugReports: https://github.com/giperbio/sqlr/issues/
 Depends:
-    R (>= 4.0)
+    R (>= 4.1)
 Imports:
-    checkmate (>= 2.0.0),
-    cli (>= 3.1.0),
-    dplyr (>= 1.0.7),
-    googlesheets4 (>= 1.0.0),
+    checkmate (>= 2.1.0),
+    cli (>= 3.6.0),
+    dplyr (>= 1.1.0),
+    googlesheets4 (>= 1.0.1),
     gutils,
-    lifecycle (>= 1.0.1),
+    lifecycle (>= 1.0.3),
     refstudio,
-    rlang (>= 0.4.11),
-    stringr (>= 1.4.0)
+    rlang (>= 1.0.6),
+    stringr (>= 1.5.0)
 Suggests:
-    covr (>= 3.5.1),
-    knitr (>= 1.36),
-    mockr (>= 0.1),
-    rmarkdown (>= 2.11),
+    covr (>= 3.6.1),
+    knitr (>= 1.42),
+    mockr (>= 0.2.1),
+    rmarkdown (>= 2.20),
     spelling (>= 2.2),
-    testthat (>= 3.0.0),
-    utils (>= 4.0.0)
+    testthat (>= 3.1.6),
+    utils (>= 4.1.0)
 Remotes: 
     github::giperbio/gutils,
     github::giperbio/refstudio
@@ -42,4 +45,4 @@ Language: en-US
 LazyData: true
 LazyDataCompression: bzip2
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3

@@ -5,7 +5,7 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
 #' `write_query()` create queries for each row of the `search` dataset and
 #' write them in the `query` column.
@@ -28,8 +28,10 @@ write_query <- function(range = NULL, package = gutils:::get_package_name()) {
     gutils:::require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
+    # nolint start: object_usage_linter.
     sheets <- provider <- language <- domain_set <- NULL
     constraint_set <- query <- approval <- constraint <- constraint_id <- NULL
+    # nolint end
 
     googlesheets4::gs4_auth()
 

@@ -5,7 +5,7 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
 #' `selection_stats()` prints statistics about a trial or the selection process
 #' as a whole.
@@ -135,7 +135,7 @@ stats_builder <- function(x, match = NULL, last = TRUE, print = TRUE) {
 
     if (isTRUE(last)) {
         last_index <- max(which(!is.na(x)))
-        last_percentage <- ((last_index / n_total) * 100)
+        last_percentage <- ((last_index / n_total) * 100) # nolint
 
         cli::cli_alert_info(paste0(
             "{.strong {cli::col_red(pretty_num(last_index))}}", " / ",
@@ -183,10 +183,10 @@ stats_builder <- function(x, match = NULL, last = TRUE, print = TRUE) {
     }
 
     na_total <- length(which(is.na(x)))
-    na_percentage <- ((na_total / n_total) * 100)
+    na_percentage <- ((na_total / n_total) * 100) # nolint
 
     not_na_total <- n_total - na_total
-    not_na_percentage <- ((not_na_total / n_total) * 100)
+    not_na_percentage <- ((not_na_total / n_total) * 100) # nolint
 
     for (i in list(list("not_na_total", "not_na_percentage", 2),
                    list("na_total", "na_percentage", 3))) {
@@ -219,7 +219,10 @@ pretty_num <- function(x, big_mark = ",", decimal_mark = ".") {
 }
 
 pretty_per <- function(x, big_mark = ",", decimal_mark = ".") {
-    x %>% round(digits = 2) %>%
-        format(big.mark = big_mark, decimal.mark = decimal_mark,
-               scientific = FALSE, n.small = 2)
+    x %>%
+        round(digits = 2) %>%
+        format(
+            big.mark = big_mark, decimal.mark = decimal_mark,
+            scientific = FALSE, n.small = 2
+            )
 }

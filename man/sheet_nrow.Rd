@@ -22,7 +22,7 @@ when the sheets have one line as header (default: \code{TRUE}).}
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \strong{CAUTION}: This function must be used only with packages that follow the
-SQLR system.
+\code{sqlr} system.
 
 \code{sheet_nrow()} returns the number of rows of a review table hosted on Google
 Sheets.

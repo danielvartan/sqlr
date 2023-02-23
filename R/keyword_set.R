@@ -5,7 +5,7 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
 #' `keyword_set()` returns a keyword set from the `keyword` dataset.
 #'

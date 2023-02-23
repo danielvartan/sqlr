@@ -27,7 +27,7 @@ copy a Markdown version of the statistics to the clipboard. (default:
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \strong{CAUTION}: This function must be used only with packages that follow the
-SQLR system.
+\code{sqlr} system.
 
 \code{selection_stats()} prints statistics about a trial or the selection process
 as a whole.

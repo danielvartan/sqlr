@@ -17,10 +17,10 @@ project directory (requires the \code{rstudioapi} package).}
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \strong{CAUTION}: This function must be used only with packages that follow the
-SQLR system.
+\code{sqlr} system.
 
-\code{write_trial()} writes a \verb{trial_*} table of the Systematic Quantitative
-Literature Review (SQLR) system to a Google Spreadsheets.
+\code{write_trial()} writes a \verb{trial_*} table of the systematic quantitative
+literature review (\code{sqlr}) system to a Google Spreadsheets.
 
 You must have a \code{sheets} data object with the sheets metadata and an updated
 \code{reference} table before running this function. See \code{\link[=write_metadata]{write_metadata()}} and

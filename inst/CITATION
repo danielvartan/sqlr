@@ -1,22 +1,32 @@
-citHeader("To cite {sqlr} in publications use:")
-
-citEntry(
-  entry       = "Unpublished",
-  title       = paste0("{sqlr}:", " ",
-                       "An R package for systematic quantitative", " ",
-                       "literature reviews"),
-  author      = personList(as.person("Daniel Vartanian"),
-                           as.person("Mario Pedrazzoli")),
-  year        = "2022",
-  url         = paste0("https://gipso.github.io/",
-                       "sqlr/"),
-  textVersion = paste0("Vartanian, D.", ", & ",
-                       "Pedrazzoli, M.", " ",
-                       "(2022)",  ". ",
-                       "{sqlr}:", " ",
-                       "An R package for systematic quantitative", " ",
-                       "literature reviews", ". ",
-                       "https://gipso.github.io/",
-                       "sqlr/"),
-  note        = "Lifecycle: experimental"
-)
+utils::bibentry(
+    header = "To cite {sqlr} in publications use:",
+    bibtype  = "Unpublished",
+    title = paste0(
+        "{sqlr}:", " ",
+        "a system for systematic quantitative literature reviews"
+        ),
+    author = c(
+        utils::person(
+            given = "Daniel",
+            family = "Vartanian",
+            role = c("aut", "cre", "ccp", "cph"),
+            email = "danvartan@gmail.com",
+            comment = c(ORCID = "0000-0001-7782-759X")
+            )
+        ),
+    year = "2023",
+    url = paste0(
+        "https://giperbio.github.io/",
+        "sqlr/"
+        ),
+    note = "R package version 0.0.0.9000",
+    textVersion = paste0(
+        "Vartanian, D.", " ",
+        "(2023)",  ". ",
+        "{sqlr}:", " ",
+        "a system for systematic quantitative literature reviews", ". ",
+        "R package version 0.0.0.9000", ". ",
+        "https://giperbio.github.io/",
+        "sqlr/"
+        )
+    )

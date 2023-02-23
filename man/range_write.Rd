@@ -25,7 +25,7 @@ each batch. Example: a limit of \code{200000} will write a \code{data.frame} wit
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \strong{CAUTION}: This function must be used only with packages that follow the
-SQLR system.
+\code{sqlr} system.
 
 \code{range_write()} writes a \code{data.frame} object to a specific range of a review
 table hosted on Google Sheets.

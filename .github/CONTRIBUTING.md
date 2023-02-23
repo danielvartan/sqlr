@@ -6,14 +6,14 @@ First of all, thanks for considering contributing to `sqlr`! 👍 It's people li
 
 `sqlr` is an open source project, maintained by people who care. We are not directly funded to do so.
 
-[repo]: https://github.com/gipso/sqlr
-[develop_branch]: https://github.com/gipso/sqlr/tree/develop
-[issues]: https://github.com/gipso/sqlr/issues
-[discussions]: https://github.com/gipso/sqlr/discussions
-[new_issue]: https://github.com/gipso/sqlr/issues/new
-[new_discussion]: https://github.com/gipso/sqlr/discussions/new
-[website]: https://gipso.github.io/sqlr
-[citation]: https://gipso.github.io/sqlr/authors.html
+[repo]: https://github.com/giperbio/sqlr
+[develop_branch]: https://github.com/giperbio/sqlr/tree/develop
+[issues]: https://github.com/giperbio/sqlr/issues
+[discussions]: https://github.com/giperbio/sqlr/discussions
+[new_issue]: https://github.com/giperbio/sqlr/issues/new
+[new_discussion]: https://github.com/giperbio/sqlr/discussions/new
+[website]: https://giperbio.github.io/sqlr
+[citation]: https://giperbio.github.io/sqlr/authors.html
 [email]: mailto:danvartan@gmail.com
 
 ## Code of conduct

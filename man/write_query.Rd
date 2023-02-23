@@ -19,7 +19,7 @@ project directory (requires the \code{rstudioapi} package).}
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \strong{CAUTION}: This function must be used only with packages that follow the
-SQLR system.
+\code{sqlr} system.
 
 \code{write_query()} create queries for each row of the \code{search} dataset and
 write them in the \code{query} column.

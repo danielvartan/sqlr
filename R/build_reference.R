@@ -155,7 +155,8 @@ tidy_reference <- function(x) {
               "book_title", "work_type", "publication_status", "language",
               "database", "provider", "file", "length")
 
-    x <- x %>% dplyr::rowwise() %>%
+    x <- x %>%
+        dplyr::rowwise() %>%
         dplyr::select(dplyr::all_of(cols[which(cols %in% names(x))])) %>%
         dplyr::mutate(
             length = dplyr::n_distinct(dplyr::c_across(), na.rm = TRUE)) %>%
@@ -203,9 +204,11 @@ assign_ref_ids <- function(x, package = gutils:::get_package_name()) {
     gutils:::assert_namespace(package)
 
     # R CMD Check variable bindings fix
+    # nolint start: object_usage_linter.
     sheets <- source <- search <- provider <- year <- title <- NULL
     reference_id <- criteria_id <- trial_id <- source_id <- search_id <- NULL
     pdf <- NULL
+    # nolint end
 
     gutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
@@ -244,9 +247,11 @@ assign_ref_ids <- function(x, package = gutils:::get_package_name()) {
         out
     }
 
+    # nolint start: object_usage_linter.
     source_lookup <- lookup_builder(source$provider, source$source_id)
     search_lookup <- lookup_builder(search$provider, search$search_id,
                                     search$approval)
+    # nolint end
 
     for (i in c("source", "search")) {
         var <- paste0(i, "_id")
@@ -275,7 +280,8 @@ assign_ref_ids <- function(x, package = gutils:::get_package_name()) {
         dplyr::arrange(dplyr::desc(year), title) %>%
         dplyr::mutate(pdf = as.character(NA))
 
-    x <- x %>% dplyr::mutate(reference_id = seq(1, nrow(x))) %>%
+    x <- x %>%
+        dplyr::mutate(reference_id = seq(1, nrow(x))) %>%
         dplyr::relocate(reference_id, criteria_id, trial_id, source_id,
                         search_id, pdf)
 

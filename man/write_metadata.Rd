@@ -21,13 +21,10 @@ metadata of the review tables hosted on the platform.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \strong{CAUTION}: This function must be used only with packages that follow the
-SQLR system.
+\code{sqlr} system.
 
 \code{write_metadata()} creates and returns a \code{list} object containing lists with
 the Google Sheets metadata of the review tables hosted on the platform.
-
-This must be set for all R packages from GIPSO for systematic quantitative
-literature reviews.
 
 You can see a example of a metadata sheets in: \url{https://bit.ly/2PFWhev}.
 }

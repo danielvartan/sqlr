@@ -18,7 +18,7 @@ project directory (requires the \code{rstudioapi} package).}
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \strong{CAUTION}: This function must be used only with packages that follow the
-SQLR system.
+\code{sqlr} system.
 
 \code{write_sheet()} reads and write the review tables hosted on Google Sheets in
 the data directory of an R package.

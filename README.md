@@ -10,35 +10,34 @@ has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/gipso/sqlr/workflows/R-CMD-check/badge.svg)](https://github.com/gipso/sqlr/actions)
+[![R-CMD-check](https://github.com/giperbio/sqlr/workflows/R-CMD-check/badge.svg)](https://github.com/giperbio/sqlr/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/gipso/sqlr/branch/main/graph/badge.svg)](https://codecov.io/gh/gipso/sqlr?branch=main)
+coverage](https://codecov.io/gh/giperbio/sqlr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/giperbio/sqlr?branch=main)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-green)](https://choosealicense.com/licenses/mit/)
 [![Contributor
-Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://gipso.github.io/sqlr/CODE_OF_CONDUCT.html)
+Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://giperbio.github.io/sqlr/CODE_OF_CONDUCT.html)
 <!-- badges: end -->
 
 ## Overview
 
-`sqlr` is an R package that provides a complete and consistent toolkit
-to process Systematic Quantitative Literature Reviews (SQLR), a method
-of systematic reviews presented by Catherine Pickering and Jason Byrne
-in [2014](https://doi.org/10.1080/07294360.2013.841651). The aim of
-`sqlr` is to facilitate the work of PhD candidates and other
-early-career researchers with evidence synthesis and help with research
-reproducibility.
+`sqlr` is an R package that provides a system to produce systematic
+quantitative literature reviews, a systematic review method presented by
+Catherine Pickering and Jason Byrne in
+[2014](https://doi.org/10.1080/07294360.2013.841651). Its aim is to
+facilitate the work of PhD candidates and other early-career researchers
+with evidence synthesis and to improve reproducibility in research.
 
-Learn more about Systematic Quantitative Literature Reviews (SQLR)
+Learn more about systematic quantitative literature reviews
 [here](https://www.griffith.edu.au/griffith-sciences/school-environment-science/research/systematic-quantitative-literature-review).
 
 ## Installation
 
-You can install the development version from GitHub with:
+You can install `sqlr` with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("gipso/sqlr")
+remotes::install_github("giperbio/sqlr")
 ```
 
 ## Citation
@@ -52,27 +51,31 @@ citation("sqlr")
 #> 
 #> To cite {sqlr} in publications use:
 #> 
-#>   Vartanian, D., & Pedrazzoli, M. (2022). {sqlr}: An R package for
-#>   systematic quantitative literature reviews.
-#>   https://gipso.github.io/sqlr/
+#>   Vartanian, D. (2023). {sqlr}: a system for systematic quantitative
+#>   literature reviews. R package version 0.0.0.9000.
+#>   https://giperbio.github.io/sqlr/
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Unpublished{,
-#>     title = {{sqlr}: An R package for systematic quantitative literature reviews},
-#>     author = {Daniel Vartanian and Mario Pedrazzoli},
-#>     year = {2022},
-#>     url = {https://gipso.github.io/sqlr/},
-#>     note = {Lifecycle: experimental},
+#>     title = {{sqlr}: a system for systematic quantitative literature reviews},
+#>     author = {Daniel Vartanian},
+#>     year = {2023},
+#>     url = {https://giperbio.github.io/sqlr/},
+#>     note = {R package version 0.0.0.9000},
 #>   }
 ```
 
 ## Contributing
 
-We welcome contributions, including bug reports. Take a moment to review
-our [Guidelines for
-Contributing](https://gipso.github.io/sqlr/CONTRIBUTING.html).
+We welcome contributions, including bug reports.
 
-Please note that `sqlr` is released with a [Contributor Code of
-Conduct](https://gipso.github.io/sqlr/CODE_OF_CONDUCT.html). By
-contributing to this project, you agree to abide by its terms.
+Take a moment to review our [Guidelines for
+Contributing](https://giperbio.github.io/sqlr/CONTRIBUTING.html).
+
+<br>
+
+Become an `sqlr` supporter!
+
+Click [here](https://github.com/sponsors/danielvartan) to make a
+donation. Please indicate the `sqlr` package in your donation message.

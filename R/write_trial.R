@@ -5,10 +5,10 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
-#' `write_trial()` writes a `trial_*` table of the Systematic Quantitative
-#' Literature Review (SQLR) system to a Google Spreadsheets.
+#' `write_trial()` writes a `trial_*` table of the systematic quantitative
+#' literature review (`sqlr`) system to a Google Spreadsheets.
 #'
 #' You must have a `sheets` data object with the sheets metadata and an updated
 #' `reference` table before running this function. See [write_metadata()] and
@@ -40,7 +40,9 @@ write_trial <- function(trial_id, package = gutils:::get_package_name()) {
     gutils:::assert_namespace(package)
 
     # R CMD Check variable bindings fix
+    # nolint start: object_usage_linter.
     sheets <- reference <- trial <- criteria_id <- where <- NULL
+    # nolint end
 
     googlesheets4::gs4_auth()
 
@@ -67,7 +69,7 @@ write_trial <- function(trial_id, package = gutils:::get_package_name()) {
     trial_index <- which(trial$trial_id == toupper(trial_id))
 
     if (!trial_index == 1 && isFALSE(trial$approval[trial_index - 1])) {
-        trial_x <- toupper(trial$trial_id[trial_index - 1])
+        trial_x <- toupper(trial$trial_id[trial_index - 1]) # nolint
 
         cli::cli_abort(paste0(
             "The {cli::col_red(trial_x)} trial_id, i.e., the trial_id ",
@@ -214,8 +216,8 @@ update_reference <- function(trial_id, package = gutils:::get_package_name(),
                 "{.strong {cli::col_blue(i)}} was ",
                 "{.strong {cli::col_red('not')}} updated."))
         } else {
-            changes <- length(gutils:::rm_na(out[[i]])) -
-                length(gutils:::rm_na(index))
+            changes <- # nolint
+                length(gutils:::rm_na(out[[i]])) - length(gutils:::rm_na(index))
 
             cli::cli_alert_success(paste0(
                 "{.strong {cli::col_blue(i)}} was updated. ",

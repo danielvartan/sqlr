@@ -17,7 +17,7 @@ project directory (requires the \code{rstudioapi} package).}
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \strong{CAUTION}: This function must be used only with packages that follow the
-SQLR system.
+\code{sqlr} system.
 
 \code{write_reference()} writes a \code{data.frame} to the reference data file of
 the package an to its Google Spreadsheets file.

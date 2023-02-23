@@ -5,13 +5,10 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
 #' `write_metadata()` creates and returns a `list` object containing lists with
 #' the Google Sheets metadata of the review tables hosted on the platform.
-#'
-#' This must be set for all R packages from GIPSO for systematic quantitative
-#' literature reviews.
 #'
 #' You can see a example of a metadata sheets in: <https://bit.ly/2PFWhev>.
 #'
@@ -61,7 +58,7 @@ write_metadata <- function(id, sheet = "Dataset") {
         "{.strong devtools::document() [Ctrl + Shift  + D]\n",
         "devtools::load_all() [Ctrl + Shift  + L]}"))
 
-    if(!(dir.exists("./data/"))) dir.create("./data/")
+    if (!(dir.exists("./data/"))) dir.create("./data/")
     file <- "./data/sheets.rda"
     save("sheets", file = file, envir = environment(), compress = "bzip2",
          version = 2)
@@ -76,7 +73,7 @@ write_metadata <- function(id, sheet = "Dataset") {
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
 #' `read_sheet()` reads and returns the review tables hosted on Google Sheets.
 #'
@@ -173,7 +170,7 @@ read_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
 #' `write_sheet()` reads and write the review tables hosted on Google Sheets in
 #' the data directory of an R package.
@@ -247,7 +244,7 @@ write_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
     envir <- environment()
 
     for (i in name) {
-        if(!(dir.exists("./data/"))) dir.create("./data/")
+        if (!(dir.exists("./data/"))) dir.create("./data/")
         file <- paste0("./data/", i, ".rda")
         save(list = i, file = file, envir = envir, compress = "bzip2",
              version = 2)
@@ -268,7 +265,7 @@ write_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
 #' `sheet_nrow()` returns the number of rows of a review table hosted on Google
 #' Sheets.
@@ -325,7 +322,7 @@ sheet_nrow <- function(name,
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
 #' `range_write()` writes a `data.frame` object to a specific range of a review
 #' table hosted on Google Sheets.
@@ -403,7 +400,7 @@ range_write <- function(x, name, package = gutils:::get_package_name(),
         batch <- limit / ncol(x)
 
         googlesheets4::range_write(ss = sheets[[name]]$id,
-                                   data = x[seq(batch),],
+                                   data = x[seq(batch), ],
                                    sheet = sheets[[name]]$sheet,
                                    range = "A1",
                                    col_names = TRUE,
@@ -421,7 +418,7 @@ range_write <- function(x, name, package = gutils:::get_package_name(),
             }
 
             googlesheets4::sheet_append(ss = sheets[[name]]$id,
-                                        data = x[seq(from, to),],
+                                        data = x[seq(from, to), ],
                                         sheet = sheets[[name]]$sheet)
 
             rows <- sheet_nrow(name, package, rm_header = TRUE)

@@ -6,30 +6,19 @@
 \alias{sqlr-package}
 \title{sqlr: A System for Systematic Quantitative Literature Reviews}
 \description{
-A complete system for Systematic Quantitative Literature Reviews.
+A system for systematic quantitative literature reviews.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://gipso.github.io/sqlr/}
-  \item \url{https://github.com/gipso/sqlr/}
-  \item Report bugs at \url{https://github.com/gipso/sqlr/issues/}
+  \item \url{https://giperbio.github.io/sqlr/}
+  \item \url{https://github.com/giperbio/sqlr/}
+  \item Report bugs at \url{https://github.com/giperbio/sqlr/issues/}
 }
 
 }
 \author{
-\strong{Maintainer}: Daniel Vartanian \email{danvartan@gmail.com} (\href{https://orcid.org/0000-0001-7782-759X}{ORCID}) [copyright holder]
-
-Authors:
-\itemize{
-  \item Mario Pedrazzoli \email{pedrazzo@usp.br} (\href{https://orcid.org/0000-0002-5257-591X}{ORCID}) [scientific advisor]
-}
-
-Other contributors:
-\itemize{
-  \item Interdisciplinary Sleep Research Group (GIPSO) [funder, copyright holder]
-  \item University of Sao Paulo (USP) [funder]
-}
+\strong{Maintainer}: Daniel Vartanian \email{danvartan@gmail.com} (\href{https://orcid.org/0000-0001-7782-759X}{ORCID}) [conceptor, copyright holder]
 
 }
 \keyword{internal}

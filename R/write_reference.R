@@ -5,7 +5,7 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' __CAUTION__: This function must be used only with packages that follow the
-#' SQLR system.
+#' `sqlr` system.
 #'
 #' `write_reference()` writes a `data.frame` to the reference data file of
 #' the package an to its Google Spreadsheets file.
@@ -33,7 +33,9 @@ write_reference <- function(data, package = gutils:::get_package_name()) {
     checkmate::assert_subset("reference", names(sheets))
 
     # R CMD Check variable bindings fix
+    # nolint start: object_usage_linter.
     sheets <- where <- doi <- pmid <- year <- NULL
+    # nolint end
 
     googlesheets4::gs4_auth()
 
