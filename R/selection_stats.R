@@ -28,23 +28,23 @@
 #' @examples
 #' \dontrun{
 #' selection_stats()}
-selection_stats <- function(package = gutils:::get_package_name(),
+selection_stats <- function(package = rutils:::get_package_name(),
                             trial_id = NULL,
                             clipboard = TRUE) {
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_string(trial_id, null.ok = TRUE)
     checkmate::assert_flag(clipboard)
-    gutils:::assert_interactive()
-    gutils:::assert_namespace(package)
+    rutils:::assert_interactive()
+    rutils:::assert_namespace(package)
 
     # R CMD Check variable bindings fix
     sheets <- reference <- criteria <- trial <- NULL
 
-    gutils:::assert_data("criteria", package)
+    rutils:::assert_data("criteria", package)
     utils::data("criteria", package = package, envir = environment())
 
     if (!is.null(trial_id)) {
-        gutils:::assert_data("sheets", package)
+        rutils:::assert_data("sheets", package)
         utils::data("sheets", package = package, envir = environment())
 
         choices <- names(sheets) %>%
@@ -61,16 +61,16 @@ selection_stats <- function(package = gutils:::get_package_name(),
         cli::cat_line()
 
         out <- paste0("## Statistics of the ",
-                      gutils:::backtick_(toupper(trial_id)),
+                      rutils:::backtick_(toupper(trial_id)),
                       " trial", "\n\n",
                       paste0(stats_builder(trial_data,
                                            match = criteria$criteria_id),
                              collapse = "\n"))
     } else {
-        gutils:::assert_data("reference", package)
+        rutils:::assert_data("reference", package)
         utils::data("reference", package = package, envir = environment())
 
-        gutils:::assert_data("trial", package)
+        rutils:::assert_data("trial", package)
         utils::data("trial", package = package, envir = environment())
 
         out <- character()
@@ -80,7 +80,7 @@ selection_stats <- function(package = gutils:::get_package_name(),
 
         total_md <- paste0(
             "* ",
-            gutils:::double_underline_(pretty_num(nrow(reference))), " ",
+            rutils:::double_underline_(pretty_num(nrow(reference))), " ",
             "references were extracted from the information sources",
             ".", "\n")
 
@@ -111,7 +111,7 @@ selection_stats <- function(package = gutils:::get_package_name(),
                    collapse = "\n")))
     }
 
-    if (isTRUE(clipboard)) gutils:::clipboard(out, space_above = TRUE)
+    if (isTRUE(clipboard)) rutils:::clipboard(out, space_above = TRUE)
 
     invisible(NULL)
 }
@@ -131,7 +131,7 @@ stats_builder <- function(x, match = NULL, last = TRUE, print = TRUE) {
 
     out <- character()
     n_total <- length(x)
-    unique <- gutils:::rm_na(unique(x))
+    unique <- rutils:::rm_na(unique(x))
 
     if (isTRUE(last)) {
         last_index <- max(which(!is.na(x)))
@@ -161,11 +161,11 @@ stats_builder <- function(x, match = NULL, last = TRUE, print = TRUE) {
 
         i_md <- paste0(
             "* ",
-            gutils:::double_underline_(pretty_num(i_total)), " / ",
+            rutils:::double_underline_(pretty_num(i_total)), " / ",
             pretty_num(n_total), " ",
             "(__", pretty_per(i_percentage), "%__)", " ",
             text[1], " ",
-            gutils:::backtick_(i),
+            rutils:::backtick_(i),
             ".")
 
         if (isTRUE(print)) {
@@ -192,7 +192,7 @@ stats_builder <- function(x, match = NULL, last = TRUE, print = TRUE) {
                    list("na_total", "na_percentage", 3))) {
         i_md <- paste0(
             "* ",
-            gutils:::double_underline_(pretty_num(get(i[[1]]))), " / ",
+            rutils:::double_underline_(pretty_num(get(i[[1]]))), " / ",
             pretty_num(n_total), " ",
             "(__", pretty_per(get(i[[2]])), "%__)", " ",
             text[i[[3]]],

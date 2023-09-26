@@ -22,13 +22,13 @@
 #' @examples
 #' \dontrun{
 #' write_reference(data.frame(a = 1, b = 1))}
-write_reference <- function(data, package = gutils:::get_package_name()) {
+write_reference <- function(data, package = rutils:::get_package_name()) {
     checkmate::assert_data_frame(data, min.rows = 1)
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::assert_namespace(package)
-    gutils:::assert_interactive()
+    rutils:::assert_namespace(package)
+    rutils:::assert_interactive()
 
-    gutils:::assert_data("sheets", package)
+    rutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
     checkmate::assert_subset("reference", names(sheets))
 

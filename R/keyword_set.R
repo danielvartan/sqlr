@@ -24,14 +24,14 @@
 #' \dontrun{
 #' keyword_set(1, "english")}
 keyword_set <- function(domain_id, language = NULL,
-                        package = gutils:::get_package_name()) {
+                        package = rutils:::get_package_name()) {
     checkmate::assert_integerish(domain_id)
     checkmate::assert_string(language, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::require_pkg("utils")
+    rutils:::require_pkg("utils")
 
-    gutils:::assert_namespace(package)
-    gutils:::assert_data("keyword", package)
+    rutils:::assert_namespace(package)
+    rutils:::assert_data("keyword", package)
 
     keyword <- approval <- NULL # R CMD Check variable bindings fix
 

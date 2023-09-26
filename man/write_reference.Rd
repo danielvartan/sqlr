@@ -4,7 +4,7 @@
 \alias{write_reference}
 \title{Write the \code{reference} table to the package and to Google Spreadsheets}
 \usage{
-write_reference(data, package = gutils:::get_package_name())
+write_reference(data, package = rutils:::get_package_name())
 }
 \arguments{
 \item{data}{The \code{data.frame} object to write.}

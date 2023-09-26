@@ -5,7 +5,7 @@
 \title{Print statistics about the selection process}
 \usage{
 selection_stats(
-  package = gutils:::get_package_name(),
+  package = rutils:::get_package_name(),
   trial_id = NULL,
   clipboard = TRUE
 )

@@ -4,7 +4,7 @@
 \alias{write_query}
 \title{Write queries in the \code{search} dataset}
 \usage{
-write_query(range = NULL, package = gutils:::get_package_name())
+write_query(range = NULL, package = rutils:::get_package_name())
 }
 \arguments{
 \item{range}{(optional) a string indicating the cell range or start of the

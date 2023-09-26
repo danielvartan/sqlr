@@ -4,7 +4,7 @@
 \alias{sheet_nrow}
 \title{Get the number of rows from a review table hosted on Google Sheets}
 \usage{
-sheet_nrow(name, package = gutils:::get_package_name(), rm_header = TRUE)
+sheet_nrow(name, package = rutils:::get_package_name(), rm_header = TRUE)
 }
 \arguments{
 \item{name}{A string indicating the name of the sheets that the

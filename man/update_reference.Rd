@@ -4,7 +4,7 @@
 \alias{update_reference}
 \title{Update the \code{reference} table using a trial table}
 \usage{
-update_reference(trial_id, package = gutils:::get_package_name(), write = TRUE)
+update_reference(trial_id, package = rutils:::get_package_name(), write = TRUE)
 }
 \arguments{
 \item{trial_id}{A string indicating the ID of the trial to be written.}

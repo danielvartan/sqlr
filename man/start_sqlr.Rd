@@ -4,7 +4,7 @@
 \alias{start_sqlr}
 \title{Start settings for SQLR R package templates}
 \usage{
-start_sqlr(id, sheet = "Dataset", package = gutils:::get_package_name())
+start_sqlr(id, sheet = "Dataset", package = rutils:::get_package_name())
 }
 \arguments{
 \item{id}{A string with the Google Sheets ID from the 'Sheets' table.}

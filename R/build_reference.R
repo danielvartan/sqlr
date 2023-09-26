@@ -21,24 +21,24 @@
 #' @examples
 #' \dontrun{
 #' build_reference()}
-build_reference <- function(package = gutils:::get_package_name(),
+build_reference <- function(package = rutils:::get_package_name(),
                             write = TRUE) {
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_flag(write)
-    gutils:::require_pkg("utils", "googlesheets4")
+    rutils:::require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
     sheets <- NULL
 
-    gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package)
+    rutils:::assert_namespace(package)
+    rutils:::assert_data("sheets", package)
 
     utils::data("sheets", package = package, envir = environment())
     choices <- c("source", "search")
     checkmate::assert_subset(choices, names(sheets))
 
     if (isTRUE(write)) {
-        gutils:::assert_interactive()
+        rutils:::assert_interactive()
         checkmate::assert_subset("reference", names(sheets))
 
         googlesheets4::gs4_auth()
@@ -60,12 +60,12 @@ build_reference <- function(package = gutils:::get_package_name(),
     invisible(out)
 }
 
-read_ref_extdata <- function(package = gutils:::get_package_name()) {
+read_ref_extdata <- function(package = rutils:::get_package_name()) {
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::assert_namespace(package)
+    rutils:::assert_namespace(package)
 
-    gutils::normalize_extdata(package)
-    files <- gutils::raw_data_2("reference", package = package)
+    rutils::normalize_extdata(package)
+    files <- rutils::raw_data_2("reference", package = package)
 
     if (length(files) == 0) {
         stop("The 'reference' folder is empty.", call. = FALSE)
@@ -80,8 +80,8 @@ read_ref_extdata <- function(package = gutils:::get_package_name()) {
         lookup <- stringr::str_extract(i, pattern)
         lookup <- stringr::str_replace(lookup, "^web-of-science$", "wos")
 
-        i <- gutils::raw_data_2("reference", i, package = package)
-        data <- gutils:::shush(refstudio::read_ref(i, lookup = lookup))
+        i <- rutils::raw_data_2("reference", i, package = package)
+        data <- rutils:::shush(refstudio::read_ref(i, lookup = lookup))
         out <- dplyr::bind_rows(out, data)
     }
 
@@ -198,10 +198,10 @@ identify_ref_duplicates <- function(x) {
     x
 }
 
-assign_ref_ids <- function(x, package = gutils:::get_package_name()) {
+assign_ref_ids <- function(x, package = rutils:::get_package_name()) {
     checkmate::assert_data_frame(x, min.rows = 1)
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::assert_namespace(package)
+    rutils:::assert_namespace(package)
 
     # R CMD Check variable bindings fix
     # nolint start: object_usage_linter.
@@ -210,24 +210,24 @@ assign_ref_ids <- function(x, package = gutils:::get_package_name()) {
     pdf <- NULL
     # nolint end
 
-    gutils:::assert_data("sheets", package)
+    rutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
 
-    gutils:::assert_data("source", package)
+    rutils:::assert_data("source", package)
     utils::data("source", package = package, envir = environment())
 
-    gutils:::assert_data("search", package)
+    rutils:::assert_data("search", package)
     utils::data("search", package = package, envir = environment())
 
     cli::cli_alert_info("Assigning IDs and finalizing the dataset.")
 
     lookup_builder <- function(provider, id, filter = NULL) {
         checkmate::assert_character(provider)
-        gutils:::assert_identical(provider, id, type = "length",
+        rutils:::assert_identical(provider, id, type = "length",
                                   any.missing = FALSE, null.ok = FALSE)
         checkmate::assert_logical(filter, min.len = 1, null.ok = TRUE)
 
-        id <- gutils:::shush(as.integer(id))
+        id <- rutils:::shush(as.integer(id))
 
         if (!is.null(filter)) {
             provider <- provider[filter]

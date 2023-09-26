@@ -30,14 +30,14 @@
 #'
 #' nrow(dplyr::filter(reference, !is.na(criteria_id)) +
 #' sheet_nrow("trial_nr1") == nrow(reference)}
-write_trial <- function(trial_id, package = gutils:::get_package_name()) {
+write_trial <- function(trial_id, package = rutils:::get_package_name()) {
     pattern <- "^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$"
 
     checkmate::assert_string(trial_id, pattern = pattern)
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::assert_interactive()
-    gutils:::require_pkg("utils", "googlesheets4")
-    gutils:::assert_namespace(package)
+    rutils:::assert_interactive()
+    rutils:::require_pkg("utils", "googlesheets4")
+    rutils:::assert_namespace(package)
 
     # R CMD Check variable bindings fix
     # nolint start: object_usage_linter.
@@ -46,10 +46,10 @@ write_trial <- function(trial_id, package = gutils:::get_package_name()) {
 
     googlesheets4::gs4_auth()
 
-    gutils:::assert_data("sheets", package)
+    rutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
 
-    gutils:::assert_data("trial", package)
+    rutils:::assert_data("trial", package)
     utils::data("trial", package = package, envir = environment())
 
     trial_name <- paste0("trial_", tolower(trial_id))
@@ -80,7 +80,7 @@ write_trial <- function(trial_id, package = gutils:::get_package_name()) {
             "before running {cli::col_blue('write_trial()')}."))
     }
 
-    gutils:::assert_data("reference", package)
+    rutils:::assert_data("reference", package)
     utils::data("reference", package = package, envir = environment())
 
     cols <- c("reference_id", "criteria_id", "trial_id", "pdf", "type",
@@ -139,30 +139,30 @@ write_trial <- function(trial_id, package = gutils:::get_package_name()) {
 #' @examples
 #' \dontrun{
 #' update_reference("NR1")}
-update_reference <- function(trial_id, package = gutils:::get_package_name(),
+update_reference <- function(trial_id, package = rutils:::get_package_name(),
                              write = TRUE) {
     pattern <- "^[a-zA-Z0-9]{3}$|^[a-zA-Z0-9]{3}-[a-zA-Z0-9]{3}$"
 
     checkmate::assert_string(trial_id, pattern = pattern)
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::require_pkg("utils", "googlesheets4")
-    gutils:::assert_namespace(package)
+    rutils:::require_pkg("utils", "googlesheets4")
+    rutils:::assert_namespace(package)
 
     # R CMD Check variable bindings fix
     sheets <- reference <- trial <- NULL
     reference_id <- criteria_id <- pdf <- NULL
 
-    gutils:::assert_data("sheets", package)
+    rutils:::assert_data("sheets", package)
     utils::data("sheets", package = package, envir = environment())
 
-    gutils:::assert_data("reference", package)
+    rutils:::assert_data("reference", package)
     utils::data("reference", package = package, envir = environment())
 
-    gutils:::assert_data("trial", package)
+    rutils:::assert_data("trial", package)
     utils::data("trial", package = package, envir = environment())
 
     if (isTRUE(write)) {
-        gutils:::assert_interactive()
+        rutils:::assert_interactive()
 
         googlesheets4::gs4_auth()
     }
@@ -217,7 +217,7 @@ update_reference <- function(trial_id, package = gutils:::get_package_name(),
                 "{.strong {cli::col_red('not')}} updated."))
         } else {
             changes <- # nolint
-                length(gutils:::rm_na(out[[i]])) - length(gutils:::rm_na(index))
+                length(rutils:::rm_na(out[[i]])) - length(rutils:::rm_na(index))
 
             cli::cli_alert_success(paste0(
                 "{.strong {cli::col_blue(i)}} was updated. ",

@@ -15,14 +15,14 @@
 #' @template param_a
 #' @export
 start_sqlr <- function(id, sheet = "Dataset",
-                       package = gutils:::get_package_name()) {
+                       package = rutils:::get_package_name()) {
     checkmate::assert_string(id)
     checkmate::assert_string(sheet)
     checkmate::assert_string(package)
 
-    gutils:::shush(gutils::normalize_extdata(package = package))
-    gutils:::shush(write_metadata(id, sheet))
-    gutils:::shush(write_sheet(package = package))
+    rutils:::shush(rutils::normalize_extdata(package = package))
+    rutils:::shush(write_metadata(id, sheet))
+    rutils:::shush(write_sheet(package = package))
 
     message("\n", "Run (in order):\n\n",
             "devtools::document()\n",

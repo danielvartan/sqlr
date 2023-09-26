@@ -4,7 +4,7 @@
 \alias{range_write}
 \title{Write a \code{data.frame} object to a review table hosted on Google Sheets}
 \usage{
-range_write(x, name, package = gutils:::get_package_name(), limit = 2e+05)
+range_write(x, name, package = rutils:::get_package_name(), limit = 2e+05)
 }
 \arguments{
 \item{x}{A \code{data.frame} object with at least 1 row.}

@@ -4,7 +4,7 @@
 \alias{build_reference}
 \title{Build and write the \code{reference} table to a SQLR package}
 \usage{
-build_reference(package = gutils:::get_package_name(), write = TRUE)
+build_reference(package = rutils:::get_package_name(), write = TRUE)
 }
 \arguments{
 \item{package}{(optional) a string indicating the package with the database

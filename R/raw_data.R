@@ -28,5 +28,5 @@
 #' raw_data()
 #' }
 raw_data <- function(type = NULL, file = NULL) {
-    gutils::raw_data_2(type, file, package = "sqlr")
+  rutils::raw_data_2(type, file, package = "sqlr")
 }

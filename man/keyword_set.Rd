@@ -4,7 +4,7 @@
 \alias{keyword_set}
 \title{Group keywords from the \code{keyword} dataset}
 \usage{
-keyword_set(domain_id, language = NULL, package = gutils:::get_package_name())
+keyword_set(domain_id, language = NULL, package = rutils:::get_package_name())
 }
 \arguments{
 \item{domain_id}{An \code{integer} or \code{numeric} value indicating the domain ID to

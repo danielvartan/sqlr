@@ -4,7 +4,7 @@
 \alias{read_sheet}
 \title{Read the review tables hosted on Google Sheets}
 \usage{
-read_sheet(name = NULL, package = gutils:::get_package_name())
+read_sheet(name = NULL, package = rutils:::get_package_name())
 }
 \arguments{
 \item{name}{(optional) A \code{character} object indicating the name or names of

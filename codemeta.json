@@ -14,7 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.2 (2022-10-31 ucrt)",
+  "runtimePlatform": "R version 4.3.1 (2023-06-16 ucrt)",
   "author": [
     {
       "@type": "Person",
@@ -125,7 +125,7 @@
       "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils",
-      "version": ">= 4.1.0"
+      "version": ">= 4.2.0"
     }
   ],
   "softwareRequirements": {
@@ -133,7 +133,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 4.1"
+      "version": ">= 4.2"
     },
     "2": {
       "@type": "SoftwareApplication",
@@ -189,12 +189,6 @@
     },
     "6": {
       "@type": "SoftwareApplication",
-      "identifier": "gutils",
-      "name": "gutils",
-      "sameAs": "https://github.com/giperbio/gutils"
-    },
-    "7": {
-      "@type": "SoftwareApplication",
       "identifier": "lifecycle",
       "name": "lifecycle",
       "version": ">= 1.0.3",
@@ -206,13 +200,13 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lifecycle"
     },
-    "8": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "refstudio",
       "name": "refstudio",
-      "sameAs": "https://github.com/giperbio/refstudio"
+      "sameAs": "https://github.com/danielvartan/refstudio"
     },
-    "9": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
@@ -225,7 +219,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "10": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
@@ -238,9 +232,15 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=stringr"
     },
+    "10": {
+      "@type": "SoftwareApplication",
+      "identifier": "rutils",
+      "name": "rutils",
+      "sameAs": "https://github.com/danielvartan/rutils"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "50586.393KB",
+  "fileSize": "50586.367KB",
   "citation": [
     {
       "@type": "CreativeWork",
@@ -260,7 +260,7 @@
     }
   ],
   "releaseNotes": "https://github.com/giperbio/sqlr/blob/master/NEWS.md",
-  "readme": "https://github.com/giperbio/sqlr/blob/main/README.md",
+  "readme": "https://github.com/danielvartan/sqlr/blob/main/README.md",
   "contIntegration": ["https://github.com/giperbio/sqlr/actions", "https://app.codecov.io/gh/giperbio/sqlr?branch=main"],
   "developmentStatus": ["https://www.repostatus.org/#wip", "https://lifecycle.r-lib.org/articles/stages.html#experimental"],
   "keywords": ["r-package", "systematic-review", "evidence-synthesis", "r", "rstats"]

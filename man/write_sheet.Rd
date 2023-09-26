@@ -4,7 +4,7 @@
 \alias{write_sheet}
 \title{Write the review tables hosted on Google Sheets to the package}
 \usage{
-write_sheet(name = NULL, package = gutils:::get_package_name())
+write_sheet(name = NULL, package = rutils:::get_package_name())
 }
 \arguments{
 \item{name}{(optional) A \code{character} object indicating the name or names of

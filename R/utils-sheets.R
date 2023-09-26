@@ -30,8 +30,8 @@
 write_metadata <- function(id, sheet = "Dataset") {
     checkmate::assert_string(id)
     checkmate::assert_string(sheet)
-    gutils:::assert_interactive()
-    gutils:::require_pkg("googlesheets4")
+    rutils:::assert_interactive()
+    rutils:::require_pkg("googlesheets4")
 
     name <- where <- NULL # R CMD Check variable bindings fix
 
@@ -111,14 +111,14 @@ write_metadata <- function(id, sheet = "Dataset") {
 #'
 #' read_sheet(names(sheets)[2])
 #' }
-read_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
+read_sheet <- function(name = NULL, package = rutils:::get_package_name()) {
     checkmate::assert_character(name, any.missing = FALSE,
                                 all.missing = FALSE, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::assert_interactive()
-    gutils:::require_pkg("utils", "googlesheets4")
-    gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package)
+    rutils:::assert_interactive()
+    rutils:::require_pkg("utils", "googlesheets4")
+    rutils:::assert_namespace(package)
+    rutils:::assert_data("sheets", package)
 
     sheets <- NULL # R CMD Check variable bindings fix
 
@@ -131,7 +131,7 @@ read_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
         filter <- function(x) {
             (tolower(x$type) == "entity" &&
                 !tolower(x$name) %in% c("reference", "document")) %>%
-                gutils:::rm_na()
+                rutils:::rm_na()
         }
 
         sheets <- sheets[vapply(sheets, filter, logical(1))]
@@ -197,14 +197,14 @@ read_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
 #' ## To write one or more specific sheets
 #'
 #' write_sheet(sheets$domain$name)}
-write_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
+write_sheet <- function(name = NULL, package = rutils:::get_package_name()) {
     checkmate::assert_character(name, any.missing = FALSE,
                                 all.missing = FALSE, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::assert_interactive()
-    gutils:::require_pkg("utils", "googlesheets4")
-    gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package)
+    rutils:::assert_interactive()
+    rutils:::require_pkg("utils", "googlesheets4")
+    rutils:::assert_namespace(package)
+    rutils:::assert_data("sheets", package)
 
     sheets <- NULL # R CMD Check variable bindings fix
 
@@ -213,7 +213,7 @@ write_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
     filter <- function(x) {
         (tolower(x$type) == "entity" &&
             !tolower(x$name) %in% c("reference", "document")) %>%
-            gutils:::rm_na()
+            rutils:::rm_na()
     }
 
     sheets <- sheets[vapply(sheets, filter, logical(1))]
@@ -287,14 +287,14 @@ write_sheet <- function(name = NULL, package = gutils:::get_package_name()) {
 #' \dontrun{
 #' sheet_nrow(sheets$domain$name)}
 sheet_nrow <- function(name,
-                       package = gutils:::get_package_name(),
+                       package = rutils:::get_package_name(),
                        rm_header = TRUE) {
     checkmate::assert_string(name)
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_flag(rm_header)
-    gutils:::require_pkg("utils", "googlesheets4")
-    gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package)
+    rutils:::require_pkg("utils", "googlesheets4")
+    rutils:::assert_namespace(package)
+    rutils:::assert_data("sheets", package)
 
     sheets <- NULL # R CMD Check variable bindings fix
 
@@ -351,19 +351,19 @@ sheet_nrow <- function(name,
 #' @examples
 #' \dontrun{
 #' range_write(reference, "reference")}
-range_write <- function(x, name, package = gutils:::get_package_name(),
+range_write <- function(x, name, package = rutils:::get_package_name(),
                         limit = 200000) {
     checkmate::assert_data_frame(x, min.rows = 1)
     checkmate::assert_string(name)
     checkmate::assert_string(package, null.ok = TRUE)
     checkmate::assert_number(limit, lower = 5000)
-    gutils:::require_pkg("utils", "googlesheets4")
+    rutils:::require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
     sheets <- where <- NULL
 
-    gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package)
+    rutils:::assert_namespace(package)
+    rutils:::assert_data("sheets", package)
 
     utils::data("sheets", package = package, envir = environment())
 

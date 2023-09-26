@@ -21,11 +21,11 @@
 #' @examples
 #' \dontrun{
 #' write_query()}
-write_query <- function(range = NULL, package = gutils:::get_package_name()) {
+write_query <- function(range = NULL, package = rutils:::get_package_name()) {
     checkmate::assert_string(range, null.ok = TRUE)
     checkmate::assert_string(package, null.ok = TRUE)
-    gutils:::assert_interactive()
-    gutils:::require_pkg("utils", "googlesheets4")
+    rutils:::assert_interactive()
+    rutils:::require_pkg("utils", "googlesheets4")
 
     # R CMD Check variable bindings fix
     # nolint start: object_usage_linter.
@@ -35,9 +35,9 @@ write_query <- function(range = NULL, package = gutils:::get_package_name()) {
 
     googlesheets4::gs4_auth()
 
-    gutils:::assert_namespace(package)
-    gutils:::assert_data("sheets", package)
-    gutils:::assert_data("search", package)
+    rutils:::assert_namespace(package)
+    rutils:::assert_data("sheets", package)
+    rutils:::assert_data("search", package)
 
     utils::data("sheets", package = package, envir = environment())
     utils::data("search", package = package, envir = environment())
@@ -149,7 +149,7 @@ domain_set <- function(x, language, package = NULL) {
     paste0(out, collapse = ",")
 }
 
-constraint_set <- function(x, package = gutils:::get_package_name()) {
+constraint_set <- function(x, package = rutils:::get_package_name()) {
     checkmate::assert_string(x)
     checkmate::assert_string(package, null.ok = TRUE)
 
@@ -172,8 +172,8 @@ constraint_set <- function(x, package = gutils:::get_package_name()) {
              call. = FALSE)
     }
 
-    gutils:::assert_namespace(package)
-    gutils:::assert_data("constraint", package)
+    rutils:::assert_namespace(package)
+    rutils:::assert_data("constraint", package)
 
     utils::data("constraint", package = package, envir = environment())
 

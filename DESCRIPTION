@@ -15,17 +15,17 @@ License: MIT + file LICENSE
 URL: https://giperbio.github.io/sqlr/, https://github.com/giperbio/sqlr/
 BugReports: https://github.com/giperbio/sqlr/issues/
 Depends:
-    R (>= 4.1)
+    R (>= 4.2)
 Imports:
     checkmate (>= 2.1.0),
     cli (>= 3.6.0),
     dplyr (>= 1.1.0),
     googlesheets4 (>= 1.0.1),
-    gutils,
     lifecycle (>= 1.0.3),
     refstudio,
     rlang (>= 1.0.6),
-    stringr (>= 1.5.0)
+    stringr (>= 1.5.0),
+    rutils
 Suggests:
     covr (>= 3.6.1),
     knitr (>= 1.42),
@@ -33,10 +33,10 @@ Suggests:
     rmarkdown (>= 2.20),
     spelling (>= 2.2),
     testthat (>= 3.1.6),
-    utils (>= 4.1.0)
+    utils (>= 4.2.0)
 Remotes: 
-    github::giperbio/gutils,
-    github::giperbio/refstudio
+    github::danielvartan/refstudio,
+    github::danielvartan/rutils
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3

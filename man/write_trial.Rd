@@ -4,7 +4,7 @@
 \alias{write_trial}
 \title{Write a trial table to a Google Spreadsheets}
 \usage{
-write_trial(trial_id, package = gutils:::get_package_name())
+write_trial(trial_id, package = rutils:::get_package_name())
 }
 \arguments{
 \item{trial_id}{A string indicating the ID of the trial to be written.}
